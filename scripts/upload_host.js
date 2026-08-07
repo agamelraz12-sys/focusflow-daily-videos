@@ -61,10 +61,23 @@ async function ensureRelease(owner, repo, tag, token) {
  * Upload and return a public direct URL. Re-uploading the same name replaces the
  * old asset, so a re-run of the same day is safe.
  */
+/*
+ * On a runner the token arrives in the environment. On the founder's machine it
+ * does not, and rather than have her paste a personal access token into a file
+ * we borrow the one the GitHub CLI is already holding.
+ */
+function localToken() {
+  try {
+    return require('child_process').execFileSync('gh', ['auth', 'token'], { encoding: 'utf8' }).trim();
+  } catch (e) {
+    return null;
+  }
+}
+
 async function publish(filePath, name) {
-  const token = process.env.GITHUB_TOKEN;
+  const token = process.env.GITHUB_TOKEN || localToken();
   const slug = process.env.VIDEO_HOST_REPO;
-  if (!token) throw new Error('GITHUB_TOKEN is missing. Put it in .env');
+  if (!token) throw new Error('No GitHub token. Either set GITHUB_TOKEN or run: gh auth login');
   if (!slug || !slug.includes('/')) throw new Error('VIDEO_HOST_REPO must look like "user/repo"');
   const [owner, repo] = slug.split('/');
 

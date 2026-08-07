@@ -1,6 +1,6 @@
 'use strict';
 /* Checks the rules that must never silently drift. No API keys needed. */
-const { CTA, countWords, lineIsLegal } = require('./lib/copy_rules.js');
+const { CTA, countWords, lineIsLegal, addressesOnePerson } = require('./lib/copy_rules.js');
 const { israelToUTC } = require('./main.js');
 
 let failed = 0;
@@ -24,6 +24,16 @@ console.log('\nrejects what it should');
 check('two lines rejected', lineIsLegal('שורה אחת\nשורה שתיים'), false);
 check('three words rejected', lineIsLegal('רק שלוש מילים'), false);
 check('seven words rejected', lineIsLegal('אחת שתיים שלוש ארבע חמש שש שבע'), false);
+
+console.log('\ngender neutrality (JS \\b does not work on Hebrew, so this is tokenised)');
+check('catches אתה', addressesOnePerson('אתה צריך להתחיל עכשיו מיד'), true);
+check('catches שלך', addressesOnePerson('הרשימה שלך מחכה כבר חודשים'), true);
+check('catches תתחילי', addressesOnePerson('תתחילי מחר בבוקר בשקט'), true);
+check('catches את as pronoun in first position', addressesOnePerson('את יכולה לעשות את זה'), true);
+// the accusative particle is ordinary Hebrew and must never be flagged
+check('allows accusative את mid sentence', addressesOnePerson('לפתוח את המחברת ולכתוב שורה'), false);
+check('allows accusative את after a verb', addressesOnePerson('תדמיינו את עצמכם בעוד שנה'), false);
+check('allows clean plural', addressesOnePerson('תתחילו היום בשתי דקות בלבד'), false);
 
 console.log('\nIsrael time to UTC');
 // August = IDT, UTC+3

@@ -104,11 +104,15 @@ function post(host, urlPath, headers, body) {
 
   // GitHub video host
   const slug = process.env.VIDEO_HOST_REPO;
-  if (!slug || !process.env.GITHUB_TOKEN) bad('Video host', 'VIDEO_HOST_REPO / GITHUB_TOKEN missing');
+  let ghToken = process.env.GITHUB_TOKEN;
+  if (!ghToken) {
+    try { ghToken = execFileSync('gh', ['auth', 'token'], { encoding: 'utf8' }).trim(); } catch (e) {}
+  }
+  if (!slug || !ghToken) bad('Video host', 'VIDEO_HOST_REPO missing, or no GitHub token (run: gh auth login)');
   else {
     const r = await get(`https://api.github.com/repos/${slug}`, {
       'User-Agent': 'focusflow-doctor',
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      Authorization: `Bearer ${ghToken}`,
       Accept: 'application/vnd.github+json',
     });
     let repo = null;

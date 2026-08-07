@@ -15,7 +15,7 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
-const { MOTIVATORS, CTA, CTA_QUERIES, countWords, lineIsLegal, stripEmoji } = require('./lib/copy_rules.js');
+const { MOTIVATORS, CTA, CTA_QUERIES, countWords, lineIsLegal, addressesOnePerson } = require('./lib/copy_rules.js');
 
 const ROOT = path.join(__dirname, '..');
 const LEDGER_PATH = path.join(ROOT, 'content', 'ledger.json');
@@ -223,7 +223,7 @@ function validate(draft) {
     const n = countWords(cue.he);
     if (n < 4 || n > 6) problems.push(`${where}: "${cue.he}" has ${n} words, must be 4 to 6`);
     if (/[-‐-―]/.test(cue.he)) problems.push(`${where}: "${cue.he}" contains a dash, remove it`);
-    if (/\b(אתה|את|שלך|תתחיל|תתחילי|תעשה|תעשי)\b/.test(cue.he)) {
+    if (addressesOnePerson(cue.he)) {
       problems.push(`${where}: "${cue.he}" addresses one person, use plural or impersonal`);
     }
     if (!cue.en || countWords(cue.en) < 5) problems.push(`${where}: English narration too short`);
@@ -253,8 +253,40 @@ function validate(draft) {
  * back into the prompt, because a model that is told exactly which line is
  * seven words long fixes it far more reliably than one told to try again.
  */
+/*
+ * Scripts can also be queued by hand in content/queue.json. Anything sitting
+ * there is used first, oldest at the front, and is validated exactly like a
+ * generated one. This is what keeps the pipeline runnable before a Gemini key
+ * exists, and it is also the way to slot in a script written deliberately.
+ */
+const QUEUE_PATH = path.join(ROOT, 'content', 'queue.json');
+
+function takeFromQueue() {
+  let queue;
+  try { queue = JSON.parse(fs.readFileSync(QUEUE_PATH, 'utf8')); } catch (e) { return null; }
+  if (!Array.isArray(queue) || !queue.length) return null;
+
+  const draft = queue.shift();
+  const problems = validate(draft);
+  if (problems.length) {
+    console.warn(`  queued script "${draft.idea}" is invalid, dropping it:\n    ${problems.slice(0, 5).join('\n    ')}`);
+    fs.writeFileSync(QUEUE_PATH, JSON.stringify(queue, null, 2) + '\n', 'utf8');
+    return takeFromQueue();
+  }
+  fs.writeFileSync(QUEUE_PATH, JSON.stringify(queue, null, 2) + '\n', 'utf8');
+  console.log(`  using a queued script (${queue.length} left in the queue)`);
+  return draft;
+}
+
 async function writeScript({ ledger, attempts = 4 } = {}) {
   const led = ledger || loadLedger();
+
+  const queued = takeFromQueue();
+  if (queued) {
+    queued.motivator = queued.motivator || MOTIVATORS[led.motivatorCursor % MOTIVATORS.length].key;
+    return queued;
+  }
+
   const motivator = MOTIVATORS[led.motivatorCursor % MOTIVATORS.length];
   const avoid = avoidList(led);
 

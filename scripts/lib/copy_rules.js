@@ -30,6 +30,40 @@ function lineIsLegal(text) {
 }
 
 /*
+ * Gender-neutral check.
+ *
+ * Two traps here, both of which quietly break the naive version:
+ *
+ * 1. JavaScript's \b is defined against [A-Za-z0-9_], so a Hebrew letter is not
+ *    a word character and /\bאתה\b/ never matches anything. A blocklist built on
+ *    \b is dead code that always passes. So we tokenise instead.
+ * 2. "את" is both the feminine "you" AND the accusative particle that appears in
+ *    a huge share of ordinary Hebrew sentences. Blocking it outright rejects
+ *    perfectly good copy. As a pronoun it almost always opens the clause, so it
+ *    is flagged only in first position.
+ */
+const SINGULAR_ADDRESS = new Set([
+  'אתה', 'אותך', 'שלך', 'בשבילך', 'לך', 'איתך', 'ממך', 'עליך',
+  'תתחיל', 'תתחילי', 'תעשה', 'תעשי', 'תוכל', 'תוכלי', 'תזכור', 'תזכרי',
+  'קח', 'קחי', 'תכתוב', 'תכתבי', 'תנסה', 'תנסי',
+  // deliberately NOT here: צריך and כדאי read as impersonal in Hebrew
+  // ("צריך להתחיל" = one needs to start), so blocking them costs good copy.
+]);
+
+function tokens(text) {
+  return stripEmoji(text)
+    .replace(/[.,!?;:"'״׳()]/g, ' ')
+    .split(/\s+/)
+    .filter(Boolean);
+}
+
+function addressesOnePerson(text) {
+  const t = tokens(text);
+  if (t[0] === 'את') return true;               // pronoun in subject position
+  return t.some((w) => SINGULAR_ADDRESS.has(w));
+}
+
+/*
  * The 11 survival motivators. Each video is built on exactly one of them so the
  * emotional through-line stays sharp instead of muddling five feelings at once.
  * `angle` is what goes into the writing prompt.
@@ -133,4 +167,6 @@ module.exports = {
   stripEmoji,
   countWords,
   lineIsLegal,
+  addressesOnePerson,
+  tokens,
 };

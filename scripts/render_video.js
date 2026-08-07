@@ -272,11 +272,21 @@ async function render(C) {
     } catch (e) {
       console.warn(`  pixabay "${query}" failed: ${e.message}`);
     }
+    // Relevance first, then how well the clip has done with other people, then
+    // resolution. Sorting on tag match alone kept surfacing blurry extreme
+    // close-ups that technically matched a word but looked like nothing.
     const words = query.toLowerCase().split(/\s+/).filter((w) => w.length > 2);
-    hits.sort((a, b) => {
-      const score = (h) => words.reduce((acc, w) => acc + ((h.tags || '').toLowerCase().includes(w) ? 1 : 0), 0);
-      return score(b) - score(a);
-    });
+    const score = (h) => {
+      const tags = (h.tags || '').toLowerCase();
+      const matched = words.reduce((acc, w) => acc + (tags.includes(w) ? 1 : 0), 0);
+      const relevance = words.length ? matched / words.length : 0;
+      const popularity = Math.log10(1 + (h.downloads || 0)) / 6;      // ~0 to 1
+      const best = h.videos?.large || h.videos?.medium || h.videos?.small || {};
+      const vertical = (best.height || 0) >= (best.width || 1) ? 0.15 : 0;
+      const big = (best.width || 0) >= 1080 ? 0.1 : 0;
+      return relevance * 2 + popularity + vertical + big;
+    };
+    hits.sort((a, b) => score(b) - score(a));
     searchCache.set(query, hits);
     return hits;
   }
@@ -336,7 +346,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Cap,${font.family},72,&H00FFFFFF,&H000000FF,&H00000000,&H8C000000,-1,0,0,0,100,100,0,0,1,5,2,5,90,90,0,1
+Style: Cap,${font.family},72,&H00FFFFFF,&H000000FF,&H00000000,&H78000000,-1,0,0,0,100,100,0,0,1,7,4,5,90,90,0,1
 Style: Brand,${font.family},40,&H00FFFFFF,&H000000FF,&H00000000,&H00000000,-1,0,0,0,100,100,0,0,1,3,1,8,0,0,0,1
 
 [Events]
@@ -379,13 +389,30 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     // stereo, so the mix is resampled up before it leaves the graph.
     + '[v2][bg]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.95,'
     + 'aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=stereo[a]';
-  let videoFc = '[0:v]drawbox=x=0:y=0:w=iw:h=ih:color=black@0.22:t=fill,ass=subs.ass:fontsdir=.';
+  // A flat dim over the whole frame, plus a soft dark band behind the caption
+  // row. Without the band, white text on a bright clip is genuinely hard to read
+  // on a phone in daylight. The band is a sine-faded alpha gradient rather than
+  // a drawbox, because a hard rectangle edge reads as an amateur overlay.
+  const BAND_H = 420;
+  const bandPath = path.join(WORK, 'band.png');
+  ff(['-f', 'lavfi', '-i', `color=black:s=${W}x${BAND_H}`,
+    '-vf', `format=rgba,geq=r=0:g=0:b=0:a='150*sin(PI*Y/${BAND_H})'`,
+    '-frames:v', '1', bandPath], WORK);
+
+  // Input order from here is fixed: 3 = band, 4 = emoji if present.
+  inputs.push('-loop', '1', '-i', 'band.png');
+  const BAND_IDX = 3;
+
+  let videoFc = '[0:v]drawbox=x=0:y=0:w=iw:h=ih:color=black@0.28:t=fill[dim];'
+    + `[dim][${BAND_IDX}:v]overlay=0:${Math.round(H / 2 - BAND_H / 2)}[band];`
+    + '[band]ass=subs.ass:fontsdir=.';
   if (emojiPath) {
     inputs.push('-loop', '1', '-i', 'emoji.png');
+    const EMOJI_IDX = 4;
     const size = 92;
     const x = Math.round(W / 2 - size / 2);
     const y = 1055; // just under the caption block, which is centred on 960
-    videoFc += `[vs];[3:v]scale=${size}:${size}[em];[vs][em]overlay=${x}:${y}`
+    videoFc += `[vs];[${EMOJI_IDX}:v]scale=${size}:${size}[em];[vs][em]overlay=${x}:${y}`
       + `:enable='between(t,${ctaCue.speakStart.toFixed(2)},${TOTAL.toFixed(2)})'[v]`;
   } else {
     videoFc += '[v]';
