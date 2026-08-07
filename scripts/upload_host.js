@@ -1,0 +1,88 @@
+'use strict';
+/*
+ * upload_host.js — puts the finished MP4 somewhere Buffer can fetch it.
+ *
+ * The original skill used filebin.net and uguu.se. Both are throwaway pastebins
+ * with 2 to 6 day retention and no uptime promise, which is a bad place to park
+ * a video that Buffer will only download hours later. Instead we upload to a
+ * GitHub Release in a repo the founder owns: free, permanent, and fast.
+ *
+ * The host repo MUST be public — Buffer fetches the URL anonymously, so a
+ * private repo's download link would 404 for it.
+ */
+const fs = require('fs');
+const path = require('path');
+const https = require('https');
+
+const UA = 'focusflow-daily-videos';
+
+function api(method, host, urlPath, { token, body, contentType, raw } = {}) {
+  return new Promise((resolve, reject) => {
+    const payload = raw || (body ? Buffer.from(JSON.stringify(body)) : null);
+    const req = https.request({
+      hostname: host,
+      path: urlPath,
+      method,
+      headers: {
+        'User-Agent': UA,
+        Accept: 'application/vnd.github+json',
+        Authorization: `Bearer ${token}`,
+        ...(payload ? { 'Content-Type': contentType || 'application/json', 'Content-Length': payload.length } : {}),
+      },
+    }, (res) => {
+      let d = '';
+      res.on('data', (c) => (d += c));
+      res.on('end', () => {
+        let parsed = null;
+        try { parsed = JSON.parse(d); } catch (e) {}
+        resolve({ status: res.statusCode, body: parsed, text: d });
+      });
+    });
+    req.on('error', reject);
+    if (payload) req.write(payload);
+    req.end();
+  });
+}
+
+async function ensureRelease(owner, repo, tag, token) {
+  const found = await api('GET', 'api.github.com', `/repos/${owner}/${repo}/releases/tags/${tag}`, { token });
+  if (found.status === 200) return found.body;
+  if (found.status !== 404) throw new Error(`GitHub ${found.status} looking up release: ${found.text.slice(0, 200)}`);
+
+  const made = await api('POST', 'api.github.com', `/repos/${owner}/${repo}/releases`, {
+    token,
+    body: { tag_name: tag, name: tag, body: 'Rendered videos awaiting publication.', draft: false, prerelease: false },
+  });
+  if (made.status !== 201) throw new Error(`GitHub ${made.status} creating release: ${made.text.slice(0, 200)}`);
+  return made.body;
+}
+
+/*
+ * Upload and return a public direct URL. Re-uploading the same name replaces the
+ * old asset, so a re-run of the same day is safe.
+ */
+async function publish(filePath, name) {
+  const token = process.env.GITHUB_TOKEN;
+  const slug = process.env.VIDEO_HOST_REPO;
+  if (!token) throw new Error('GITHUB_TOKEN is missing. Put it in .env');
+  if (!slug || !slug.includes('/')) throw new Error('VIDEO_HOST_REPO must look like "user/repo"');
+  const [owner, repo] = slug.split('/');
+
+  const tag = 'videos-' + new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Jerusalem' });
+  const release = await ensureRelease(owner, repo, tag, token);
+
+  const existing = (release.assets || []).find((a) => a.name === name);
+  if (existing) {
+    await api('DELETE', 'api.github.com', `/repos/${owner}/${repo}/releases/assets/${existing.id}`, { token });
+  }
+
+  const data = fs.readFileSync(filePath);
+  const up = await api('POST', 'uploads.github.com',
+    `/repos/${owner}/${repo}/releases/${release.id}/assets?name=${encodeURIComponent(name)}`,
+    { token, raw: data, contentType: 'video/mp4' });
+  if (up.status !== 201) throw new Error(`GitHub ${up.status} uploading asset: ${up.text.slice(0, 200)}`);
+
+  return up.body.browser_download_url;
+}
+
+module.exports = { publish };

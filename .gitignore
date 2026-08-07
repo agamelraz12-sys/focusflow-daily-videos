@@ -1,0 +1,7 @@
+.env
+node_modules/
+out/
+.cache/
+assets/music/*.mp3
+assets/fonts/*.ttf
+tmp_content_*.json

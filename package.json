@@ -1,0 +1,20 @@
+{
+  "name": "focusflow-daily-videos",
+  "version": "2.0.0",
+  "type": "commonjs",
+  "private": true,
+  "scripts": {
+    "run": "node scripts/main.js",
+    "run:force": "cross-env FORCE_RUN=true node scripts/main.js",
+    "write": "node scripts/generate_content.js",
+    "render": "node scripts/render_video.js",
+    "doctor": "node scripts/doctor.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "msedge-tts": "^2.0.6"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

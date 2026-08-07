@@ -1,0 +1,96 @@
+name: Daily videos
+
+on:
+  schedule:
+    # 04:00 Israel is 01:00 UTC in summer and 02:00 UTC in winter.
+    # Firing at both is harmless: state.json makes the second run a no-op.
+    - cron: "0 1 * * *"
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Run even if this day was already scheduled"
+        type: boolean
+        default: false
+      target_date:
+        description: "Schedule for a specific day (YYYY-MM-DD, Israel time). Blank = automatic."
+        type: string
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-videos
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install ffmpeg and a Hebrew font
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-noto-hebrew
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Cache music beds
+        uses: actions/cache@v4
+        with:
+          path: assets/music
+          key: music-v1
+
+      - name: Preflight
+        env:
+          PIXABAY_KEY: ${{ secrets.PIXABAY_KEY }}
+          JAMENDO_CLIENT_ID: ${{ secrets.JAMENDO_CLIENT_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          BUFFER_ACCESS_TOKEN: ${{ secrets.BUFFER_ACCESS_TOKEN }}
+          BUFFER_CHANNEL_INSTAGRAM: ${{ secrets.BUFFER_CHANNEL_INSTAGRAM }}
+          BUFFER_CHANNEL_TIKTOK: ${{ secrets.BUFFER_CHANNEL_TIKTOK }}
+          BUFFER_CHANNEL_YOUTUBE: ${{ secrets.BUFFER_CHANNEL_YOUTUBE }}
+          # This repo hosts its own rendered videos as Release assets, so the
+          # token Actions already hands us is enough. No extra secret to create.
+          VIDEO_HOST_REPO: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/doctor.js
+
+      - name: Write, render and schedule
+        env:
+          PIXABAY_KEY: ${{ secrets.PIXABAY_KEY }}
+          JAMENDO_CLIENT_ID: ${{ secrets.JAMENDO_CLIENT_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          BUFFER_ACCESS_TOKEN: ${{ secrets.BUFFER_ACCESS_TOKEN }}
+          BUFFER_CHANNEL_INSTAGRAM: ${{ secrets.BUFFER_CHANNEL_INSTAGRAM }}
+          BUFFER_CHANNEL_TIKTOK: ${{ secrets.BUFFER_CHANNEL_TIKTOK }}
+          BUFFER_CHANNEL_YOUTUBE: ${{ secrets.BUFFER_CHANNEL_YOUTUBE }}
+          # This repo hosts its own rendered videos as Release assets, so the
+          # token Actions already hands us is enough. No extra secret to create.
+          VIDEO_HOST_REPO: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRAND_HANDLE: ${{ vars.BRAND_HANDLE }}
+          PROFILE_LINK: ${{ vars.PROFILE_LINK }}
+          FORCE_RUN: ${{ inputs.force }}
+          TARGET_DATE: ${{ inputs.target_date }}
+        run: node scripts/main.js
+
+      - name: Remember what was used
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add state.json content/ledger.json assets/music/CREDITS.md 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "Day scheduled $(TZ=Asia/Jerusalem date +%Y-%m-%d)"
+          git pull --rebase origin ${GITHUB_REF_NAME} || true
+          git push || true
