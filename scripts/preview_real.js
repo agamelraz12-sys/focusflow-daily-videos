@@ -12,6 +12,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
+require('./lib/net.js');
 require('dotenv').config({ path: path.join(ROOT, '.env') });
 
 const { toCues } = require('./generate_content.js');

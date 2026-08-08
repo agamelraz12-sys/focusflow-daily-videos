@@ -12,6 +12,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
+require('./lib/net.js');
 require('dotenv').config({ path: path.join(ROOT, '.env') });
 
 const { writeScript, toCues, loadLedger, saveLedger, remember } = require('./generate_content.js');
@@ -110,17 +111,26 @@ async function doSlot(i, dateStr, ledger, tracks) {
   for (const cut of cuts) {
     const dir = path.join(OUT_DIR, `slot${i}_${cut.key}`);
     fs.mkdirSync(dir, { recursive: true });
-    console.log(`  rendering ${cut.key} cut...`);
-    const file = await render({
-      outDir: dir,
-      cues: cut.cues,
-      musicFile: bed.path,
-      brand: BRAND || undefined,
-    });
 
-    const name = `${dateStr}_slot${i}_${cut.key}.mp4`;
-    console.log('  uploading...');
-    const url = await publish(file, name);
+    // One cut blowing up must not discard the cut that already succeeded. The
+    // first live run lost a scheduled Instagram post this way.
+    let file, url;
+    try {
+      console.log(`  rendering ${cut.key} cut...`);
+      file = await render({
+        outDir: dir,
+        cues: cut.cues,
+        musicFile: bed.path,
+        brand: BRAND || undefined,
+      });
+      console.log('  uploading...');
+      url = await publish(file, `${dateStr}_slot${i}_${cut.key}.mp4`);
+    } catch (e) {
+      console.error(`  ✗ ${cut.key} cut failed: ${e.message}`);
+      results.push({ platform: cut.platforms.join('+'), ok: false, error: e.message });
+      fs.rmSync(dir, { recursive: true, force: true });
+      continue;
+    }
 
     for (const platform of cut.platforms) {
       const channelId = process.env[`BUFFER_CHANNEL_${platform.toUpperCase()}`];
@@ -132,7 +142,8 @@ async function doSlot(i, dateStr, ledger, tracks) {
           videoUrl: url,
           caption: captionFor(platform, draft, bed.track),
           title: draft.title,
-          firstComment: platform === 'instagram' ? draft.caption.slice(0, 200) : undefined,
+          // No first comment: it was echoing the caption back verbatim, which
+          // reads as a bot. Hashtags could live here later if wanted.
           dueAt,
         });
         console.log(`  ✓ ${platform} scheduled (post ${post.id})`);
@@ -146,7 +157,11 @@ async function doSlot(i, dateStr, ledger, tracks) {
     fs.rmSync(dir, { recursive: true, force: true });
   }
 
-  remember(ledger, draft);
+  // Only burn the script if something actually got scheduled. A run that fails
+  // outright must leave the queue exactly as it found it, or the work is gone.
+  if (results.some((r) => r.ok)) remember(ledger, draft);
+  else console.warn('  nothing scheduled for this slot, keeping the script in the queue');
+
   return results;
 }
 
@@ -170,10 +185,20 @@ async function main() {
 
   const ledger = loadLedger();
   const summary = [];
-  for (let i = 0; i < SLOTS.length; i++) {
+
+  // Without a Gemini key the only content is whatever sits in the queue, so
+  // schedule what exists and stop cleanly rather than failing six times over.
+  const limit = Math.min(SLOTS.length, Number(process.env.SLOT_LIMIT) || SLOTS.length);
+  if (limit < SLOTS.length) console.log(`(limited to the first ${limit} slot(s))`);
+
+  for (let i = 0; i < limit; i++) {
     try {
       summary.push(...await doSlot(i, dateStr, ledger, tracks));
     } catch (e) {
+      if (/GEMINI_API_KEY is missing/.test(e.message)) {
+        console.log(`\nOut of scripts after ${i} slot(s): the queue is empty and there is no Gemini key.`);
+        break;
+      }
       console.error(`[${i + 1}] slot failed: ${e.message}`);
       summary.push({ platform: 'slot' + i, ok: false, error: e.message });
     }

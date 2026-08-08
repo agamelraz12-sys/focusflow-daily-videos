@@ -25,9 +25,20 @@ const LEDGER_PATH = path.join(ROOT, 'content', 'ledger.json');
 const model = () => process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 const apiKey = () => process.env.GEMINI_API_KEY;
 
-// How many value cues sit between the hook and the fear block. Each cue is one
-// subtitle line and one clip, so this is also roughly the pace of the video.
-const VALUE_CUES = 18;
+/*
+ * How many value cues sit between the hook and the fear block. Each cue is one
+ * subtitle line and one clip, so this number sets the length of the video.
+ *
+ * 12 lands around 60 seconds. Eighteen was the first try and it produced an
+ * 87 second reel, which is long enough that a real share of viewers leave
+ * before the call to action ever appears — and comments are the whole point.
+ *
+ * The validator accepts a range rather than an exact count, so a script written
+ * by hand does not have to hit the number on the nose.
+ */
+const VALUE_CUES = 12;
+const VALUE_MIN = 10;
+const VALUE_MAX = 20;
 const FEAR_CUES = 4;
 
 // ---------------------------------------------------------------- ledger ----
@@ -231,8 +242,8 @@ function validate(draft) {
   };
 
   check(draft.hook, 'hook');
-  if (!Array.isArray(draft.value) || draft.value.length !== VALUE_CUES) {
-    problems.push(`value: got ${draft.value?.length} lines, need exactly ${VALUE_CUES}`);
+  if (!Array.isArray(draft.value) || draft.value.length < VALUE_MIN || draft.value.length > VALUE_MAX) {
+    problems.push(`value: got ${draft.value?.length} lines, need between ${VALUE_MIN} and ${VALUE_MAX}`);
   }
   (draft.value || []).forEach((c, i) => check(c, `value[${i}]`));
   if (!Array.isArray(draft.fear) || draft.fear.length !== FEAR_CUES) {
@@ -261,21 +272,36 @@ function validate(draft) {
  */
 const QUEUE_PATH = path.join(ROOT, 'content', 'queue.json');
 
+/*
+ * Peek at the front of the queue without removing it. The entry is only dropped
+ * once the video has actually been scheduled (see `remember`). The first live
+ * run consumed a script, then died on a network error, and the script was gone
+ * for good — a queue that empties on read loses work every time a run fails.
+ */
 function takeFromQueue() {
   let queue;
   try { queue = JSON.parse(fs.readFileSync(QUEUE_PATH, 'utf8')); } catch (e) { return null; }
   if (!Array.isArray(queue) || !queue.length) return null;
 
-  const draft = queue.shift();
+  const draft = queue[0];
   const problems = validate(draft);
   if (problems.length) {
     console.warn(`  queued script "${draft.idea}" is invalid, dropping it:\n    ${problems.slice(0, 5).join('\n    ')}`);
+    queue.shift();
     fs.writeFileSync(QUEUE_PATH, JSON.stringify(queue, null, 2) + '\n', 'utf8');
     return takeFromQueue();
   }
-  fs.writeFileSync(QUEUE_PATH, JSON.stringify(queue, null, 2) + '\n', 'utf8');
-  console.log(`  using a queued script (${queue.length} left in the queue)`);
+  console.log(`  using a queued script (${queue.length - 1} more behind it)`);
+  draft._fromQueue = true;
   return draft;
+}
+
+function dropFromQueue() {
+  let queue;
+  try { queue = JSON.parse(fs.readFileSync(QUEUE_PATH, 'utf8')); } catch (e) { return; }
+  if (!Array.isArray(queue) || !queue.length) return;
+  queue.shift();
+  fs.writeFileSync(QUEUE_PATH, JSON.stringify(queue, null, 2) + '\n', 'utf8');
 }
 
 async function writeScript({ ledger, attempts = 4 } = {}) {
@@ -327,6 +353,8 @@ function toCues(draft, platform) {
 }
 
 function remember(ledger, draft) {
+  // Now that the work is genuinely done, the queued entry can go.
+  if (draft._fromQueue) dropFromQueue();
   ledger.used.push({
     at: new Date().toISOString(),
     idea: draft.idea,

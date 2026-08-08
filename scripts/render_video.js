@@ -69,19 +69,65 @@ function findBin(name) {
 
 // ----------------------------------------------------------------- http ----
 
-function getBuf(url, redirects = 0) {
+function fetchOnce(url, redirects = 0) {
   return new Promise((resolve, reject) => {
     if (redirects > 5) return reject(new Error('too many redirects'));
-    https.get(url, (res) => {
+    const req = https.get(url, { timeout: 60000 }, (res) => {
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-        return getBuf(res.headers.location, redirects + 1).then(resolve, reject);
+        res.resume();
+        return fetchOnce(res.headers.location, redirects + 1).then(resolve, reject);
       }
-      if (res.statusCode !== 200) return reject(new Error(`HTTP ${res.statusCode}`));
+      if (res.statusCode !== 200) {
+        res.resume();
+        const err = new Error(`HTTP ${res.statusCode}`);
+        // Pixabay allows 100 requests per 60 seconds and says when the window
+        // resets. Backing off a couple of seconds against a 60 second window
+        // just burns the remaining retries, so carry the real number through.
+        const reset = Number(res.headers['x-ratelimit-reset'] || res.headers['retry-after']);
+        if (Number.isFinite(reset) && reset > 0) err.retryAfterMs = Math.min(reset, 120) * 1000;
+        return reject(err);
+      }
       const chunks = [];
       res.on('data', (c) => chunks.push(c));
       res.on('end', () => resolve(Buffer.concat(chunks)));
-    }).on('error', reject);
+    });
+    req.on('timeout', () => req.destroy(new Error('timed out')));
+    req.on('error', reject);
   });
+}
+
+/*
+ * A single DNS blip took down a whole run once, in the middle of the second of
+ * two renders, after the first had already been scheduled. Network calls in a
+ * job this long have to assume the network will hiccup.
+ */
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// Some socket and spawn failures arrive with an empty .message, which turns a
+// log line into "failed: " and tells you nothing. Always say something.
+function describe(e) {
+  if (!e) return 'unknown error';
+  return e.message || e.code || e.errno || String(e) || 'unknown error';
+}
+
+async function getBuf(url, attempts = 4) {
+  let last;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await fetchOnce(url);
+    } catch (e) {
+      last = e;
+      const transient = /ENOTFOUND|ECONNRESET|ETIMEDOUT|EAI_AGAIN|EPIPE|socket hang up|timed out|HTTP 5\d\d|HTTP 429/.test(describe(e));
+      if (!transient || i === attempts - 1) break;
+      // Honour the server's own reset window when it gives one, otherwise back
+      // off exponentially. A 429 with no header still waits out a full minute,
+      // because that is the length of Pixabay's window.
+      const wait = e.retryAfterMs || (/HTTP 429/.test(describe(e)) ? 65000 : 1500 * Math.pow(2, i));
+      console.warn(`  ${describe(e)}, waiting ${Math.round(wait / 1000)}s before retry ${i + 2}/${attempts}`);
+      await sleep(wait);
+    }
+  }
+  throw last;
 }
 
 // ------------------------------------------------------------------ font ---
@@ -207,7 +253,21 @@ async function render(C) {
 
   const FFMPEG = findBin('ffmpeg');
   const FFPROBE = findBin('ffprobe');
-  const ff = (args, cwd) => execFileSync(FFMPEG, ['-y', '-hide_banner', '-loglevel', 'error', ...args], { cwd, stdio: 'inherit' });
+
+  /*
+   * Capture stderr rather than inheriting it. With stdio 'inherit' a failing
+   * ffmpeg throws an Error with an EMPTY message, which is how a real failure
+   * once surfaced as the useless line "cut failed: " with nothing after it.
+   */
+  const ff = (args, cwd) => {
+    try {
+      return execFileSync(FFMPEG, ['-y', '-hide_banner', '-loglevel', 'error', ...args],
+        { cwd, stdio: ['ignore', 'ignore', 'pipe'], maxBuffer: 32 * 1024 * 1024 });
+    } catch (e) {
+      const detail = (e.stderr && e.stderr.toString().trim()) || e.message || String(e.code || e);
+      throw new Error(`ffmpeg failed (exit ${e.status}): ${detail.split('\n').slice(-4).join(' | ')}`);
+    }
+  };
   const probeDur = (f) => parseFloat(execFileSync(FFPROBE, ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).toString().trim());
 
   const WORK = path.join(OUT_DIR, '.work');
@@ -260,17 +320,38 @@ async function render(C) {
 
   console.log(`  voice ${voiceDur.toFixed(1)}s · video ${TOTAL.toFixed(1)}s · ${cues.length} cues`);
 
-  // 4) stock footage — one Pixabay search per distinct query, reused across the
-  //    cues that share it so we stay well inside the rate limit.
+  // 4) stock footage.
+  //
+  // Pixabay allows 100 API calls a minute, and a single slot renders two cuts
+  // that share all but the last two lines. Without a cache that is double the
+  // searches and double the downloads for identical footage, which is exactly
+  // how the first live runs walked into HTTP 429. Searches and clip files are
+  // therefore cached on disk and survive across cuts, slots and reruns.
+  const CACHE = path.join(ROOT, '.cache');
+  const SEARCH_DIR = path.join(CACHE, 'search');
+  const CLIP_DIR = path.join(CACHE, 'clips');
+  fs.mkdirSync(SEARCH_DIR, { recursive: true });
+  fs.mkdirSync(CLIP_DIR, { recursive: true });
+  const SEARCH_TTL = 7 * 24 * 3600 * 1000;
+
   const searchCache = new Map();
   async function clipsFor(query) {
     if (searchCache.has(query)) return searchCache.get(query);
+
+    const diskPath = path.join(SEARCH_DIR, crypto.createHash('md5').update(query).digest('hex') + '.json');
+    if (fs.existsSync(diskPath) && Date.now() - fs.statSync(diskPath).mtimeMs < SEARCH_TTL) {
+      try {
+        const cached = JSON.parse(fs.readFileSync(diskPath, 'utf8'));
+        if (cached.length) { searchCache.set(query, cached); return cached; }
+      } catch (e) { /* fall through and refetch */ }
+    }
+
     const api = `https://pixabay.com/api/videos/?key=${PIXABAY_KEY}&q=${encodeURIComponent(query)}&per_page=40&safesearch=true`;
     let hits = [];
     try {
       hits = JSON.parse((await getBuf(api)).toString()).hits || [];
     } catch (e) {
-      console.warn(`  pixabay "${query}" failed: ${e.message}`);
+      console.warn(`  pixabay "${query}" failed: ${describe(e)}`);
     }
     // Relevance first, then how well the clip has done with other people, then
     // resolution. Sorting on tag match alone kept surfacing blurry extreme
@@ -287,7 +368,12 @@ async function render(C) {
       return relevance * 2 + popularity + vertical + big;
     };
     hits.sort((a, b) => score(b) - score(a));
-    searchCache.set(query, hits);
+    // Never cache an empty result: that would turn one failed lookup into a
+    // permanent hole for every later cue that shares the query.
+    if (hits.length) {
+      searchCache.set(query, hits);
+      try { fs.writeFileSync(diskPath, JSON.stringify(hits)); } catch (e) { /* cache is optional */ }
+    }
     return hits;
   }
 
@@ -315,7 +401,12 @@ async function render(C) {
       const hit = hits.find((h) => !usedVideoIds.has(h.id)) || hits[i % hits.length];
       usedVideoIds.add(hit.id);
       const v = hit.videos.large || hit.videos.medium || hit.videos.small;
-      fs.writeFileSync(raw, await getBuf(v.url));
+
+      const cached = path.join(CLIP_DIR, `${hit.id}.mp4`);
+      if (!fs.existsSync(cached) || fs.statSync(cached).size === 0) {
+        fs.writeFileSync(cached, await getBuf(v.url));
+      }
+      fs.copyFileSync(cached, raw);
     }
 
     const bigW = Math.round(W * 1.25), bigH = Math.round(H * 1.25);

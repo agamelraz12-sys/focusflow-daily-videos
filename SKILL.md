@@ -35,8 +35,14 @@ These are enforced in code, not left to the model's good intentions.
 | Nothing ever repeats | `content/ledger.json` records every idea, belief and hook, and is fed back into the prompt |
 
 Structure of every script: **hook** (one line, built to stop the scroll) →
-**18 value lines** (concrete and usable today) → **4 fear lines** (a vivid picture of
+**12 value lines** (concrete and usable today) → **4 fear lines** (a vivid picture of
 their life in a year if they do nothing) → **the call to action**.
+
+That lands at roughly **65 seconds**. The first build used 18 value lines and produced
+an 87 second reel — long enough that a real share of viewers leave before the call to
+action appears, which defeats the whole point when comments are the goal. Change
+`VALUE_CUES` in `generate_content.js` to move it; the validator accepts 10 to 20 so a
+hand written script does not have to hit the number exactly.
 
 One of the 11 survival motivators drives each video, rotating in order:
 fear, status, money, ease, saving, opportunity, security, control, anger, freedom, belonging.

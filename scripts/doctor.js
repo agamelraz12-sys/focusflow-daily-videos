@@ -9,11 +9,15 @@ const https = require('https');
 const { execFileSync } = require('child_process');
 
 const ROOT = path.join(__dirname, '..');
+require('./lib/net.js');
 require('dotenv').config({ path: path.join(ROOT, '.env') });
 
 const results = [];
 const ok = (name, detail) => results.push({ name, ok: true, detail });
 const bad = (name, detail) => results.push({ name, ok: false, detail });
+// Something that degrades the result but must not stop a run. The workflow
+// calls this as a gate, so a missing nice-to-have cannot be allowed to fail it.
+const warn = (name, detail) => results.push({ name, warn: true, detail });
 
 function get(url, headers) {
   return new Promise((resolve) => {
@@ -63,7 +67,7 @@ function post(host, urlPath, headers, body) {
   }
 
   // Jamendo
-  if (!process.env.JAMENDO_CLIENT_ID) bad('Jamendo', 'JAMENDO_CLIENT_ID missing — free at devportal.jamendo.com');
+  if (!process.env.JAMENDO_CLIENT_ID) warn('Jamendo', 'no key — falling back to locally synthesised music beds');
   else {
     const r = await get(`https://api.jamendo.com/v3.0/tracks/?client_id=${process.env.JAMENDO_CLIENT_ID}`
       + '&format=json&limit=5&fuzzytags=ambient+calm&vocalinstrumental=instrumental');
@@ -75,9 +79,15 @@ function post(host, urlPath, headers, body) {
     } else bad('Jamendo', `HTTP ${r.status} — ${r.body.slice(0, 100)}`);
   }
 
-  // Gemini
-  if (!process.env.GEMINI_API_KEY) bad('Gemini', 'GEMINI_API_KEY missing — aistudio.google.com/apikey');
-  else {
+  // Gemini. Only actually required when the hand written queue has run dry —
+  // a full queue is perfectly valid content for a run.
+  let queued = 0;
+  try { queued = JSON.parse(fs.readFileSync(path.join(ROOT, 'content', 'queue.json'), 'utf8')).length; } catch (e) {}
+  if (!process.env.GEMINI_API_KEY && queued > 0) {
+    warn('Gemini', `no key, but ${queued} script(s) are queued — enough for ${queued} more slot(s)`);
+  } else if (!process.env.GEMINI_API_KEY) {
+    bad('Gemini', 'GEMINI_API_KEY missing and the script queue is empty — aistudio.google.com/apikey');
+  } else {
     const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
     const r = await post('generativelanguage.googleapis.com', `/v1beta/models/${model}:generateContent`,
       { 'x-goog-api-key': process.env.GEMINI_API_KEY },
@@ -126,13 +136,17 @@ function post(host, urlPath, headers, body) {
 
   console.log('');
   for (const r of results) {
-    console.log(`${r.ok ? '✓' : '✗'} ${r.name.padEnd(22)} ${r.detail}`);
+    const mark = r.ok ? '✓' : r.warn ? '!' : '✗';
+    console.log(`${mark} ${r.name.padEnd(22)} ${r.detail}`);
   }
-  const failed = results.filter((r) => !r.ok);
+  const failed = results.filter((r) => !r.ok && !r.warn);
+  const warned = results.filter((r) => r.warn);
   console.log('');
   if (failed.length) {
-    console.log(`${failed.length} thing(s) still to fix before the first real run.`);
+    console.log(`${failed.length} thing(s) must be fixed before a run can work.`);
     process.exitCode = 1;
+  } else if (warned.length) {
+    console.log(`Ready to run, with ${warned.length} thing(s) running on a fallback.`);
   } else {
     console.log('Everything checks out. Ready to run.');
   }

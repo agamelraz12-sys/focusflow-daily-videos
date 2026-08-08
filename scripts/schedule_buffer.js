@@ -84,6 +84,10 @@ function metadataFor(platform, { title, firstComment }) {
     return {
       youtube: {
         title: title.slice(0, 90),
+        // Buffer rejects a YouTube post outright without this: "Invalid post:
+        // YouTube posts require a category." 22 is People & Blogs, the usual
+        // home for creator talking-point content. 27 is Education, 26 Howto.
+        categoryId: process.env.YOUTUBE_CATEGORY_ID || '22',
         privacy: 'public',
         madeForKids: false,
         notifySubscribers: true,
