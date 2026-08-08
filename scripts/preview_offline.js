@@ -32,7 +32,7 @@ const CUES = [
   { he: 'הסביבה מנצחת את המוטיבציה תמיד', en: 'The room you sit in beats motivation every single time.', query: 'tidy bright room' },
   { he: 'תשימו את הטלפון בחדר אחר', en: 'Put the phone in a different room before you start.', query: 'phone face down table' },
   { he: 'בעוד שנה שום דבר ישתנה', en: 'One year from now nothing will have changed at all.', query: 'calendar pages turning' },
-  ...CTA.instagram.map((c, i) => ({ he: c.he, en: c.en, query: i === 0 ? 'sunrise mountain top' : 'open road horizon' })),
+  ...CTA.instagram.map((c, i) => ({ he: c.he, en: c.en, card: c.card, query: i === 0 ? 'sunrise mountain top' : 'open road horizon' })),
 ];
 
 const COLOURS = ['0x1b2a41', '0x2e4057', '0x48606f', '0x6b4f4f', '0x3d3550', '0x24455c', '0x4a3f5e'];

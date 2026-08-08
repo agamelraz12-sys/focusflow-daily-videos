@@ -15,9 +15,23 @@ check('plain 5 words', countWords('הדרך היא לא כוח רצון'), 5);
 check('emoji does not count', countWords('וקבלו 7 ימי ניסיון בחינם באפליקציה 👇'), 6);
 check('quotes do not split', countWords('תגיבו "אני" אם הגעתם עד לכאן'), 6);
 
-console.log('\nevery CTA line obeys the 4 to 6 word rule');
+console.log('\nCTA lines');
 for (const [platform, lines] of Object.entries(CTA)) {
-  lines.forEach((l, i) => check(`${platform}[${i}] "${l.he}"`, lineIsLegal(l.he), true));
+  lines.forEach((l, i) => {
+    if (l.card) {
+      // End cards were specified line by line and break by break. They are
+      // exempt from the word rule on purpose, so assert their exact shape
+      // instead — that is the thing that must not drift.
+      const rows = l.he.split('\n');
+      const expected = platform === 'instagram'
+        ? ['תגיבו "אני" אם הגעתם עד לכאן,', 'וקבלו 7 ימי ניסיון באפליקציה', 'בחינם 👇']
+        : ['רוצים לקבל 7 ימי ניסיון', 'באפליקציה בחינם?', '', 'כנסו לקישור בפרופיל שלנו.'];
+      check(`${platform}[${i}] card row count`, rows.length, expected.length);
+      expected.forEach((want, n) => check(`${platform}[${i}] row ${n + 1}`, rows[n], want));
+    } else {
+      check(`${platform}[${i}] "${l.he}" obeys 4 to 6 words`, lineIsLegal(l.he), true);
+    }
+  });
 }
 
 console.log('\nrejects what it should');
@@ -34,6 +48,15 @@ check('catches את as pronoun in first position', addressesOnePerson('את יכ
 check('allows accusative את mid sentence', addressesOnePerson('לפתוח את המחברת ולכתוב שורה'), false);
 check('allows accusative את after a verb', addressesOnePerson('תדמיינו את עצמכם בעוד שנה'), false);
 check('allows clean plural', addressesOnePerson('תתחילו היום בשתי דקות בלבד'), false);
+
+console.log('\nline breaks survive the trip to ASS');
+// stripEmoji collapses whitespace, so a card handed over whole came out as one
+// long line. The card must arrive as separate \N rows.
+const { rtlForTest } = require('./render_video.js');
+const card = 'שורה אחת\nשורה שתיים\n\nשורה שלוש';
+check('three visible rows plus a blank one', (rtlForTest(card).match(/\\N/g) || []).length, 3);
+check('first row kept intact', /שורה אחת/.test(rtlForTest(card)), true);
+check('last row kept intact', /שורה שלוש/.test(rtlForTest(card)), true);
 
 console.log('\nIsrael time to UTC');
 // August = IDT, UTC+3

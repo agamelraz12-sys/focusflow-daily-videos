@@ -247,9 +247,20 @@ function tc(sec) {
   return `${h}:${String(m).padStart(2, '0')}:${s.toFixed(2).padStart(5, '0')}`;
 }
 
-// Wrap in RTL marks so libass puts commas and periods on the correct side.
+/*
+ * Wrap each line in RTL marks so libass puts commas and periods on the correct
+ * side, and turn real newlines into ASS line breaks.
+ *
+ * The line-by-line split matters: stripEmoji collapses all whitespace, so
+ * handing it a multi-line card whole would flatten the card into one long
+ * line. The end card is the only place with deliberate line breaks, and it
+ * silently lost them.
+ */
 function rtl(text) {
-  return '\u202b' + stripEmoji(text) + '\u202c';
+  return String(text || '')
+    .split('\n')
+    .map((line) => '\u202b' + stripEmoji(line) + '\u202c')
+    .join('\\N');
 }
 
 // --------------------------------------------------------------- renderer --
@@ -260,9 +271,11 @@ async function render(C) {
   const cues = C.cues;
   if (!Array.isArray(cues) || !cues.length) throw new Error('content needs a non empty "cues" array');
 
-  // Rule 2, enforced at the last possible moment.
+  // Rule 2, enforced at the last possible moment. Cues flagged `card` are the
+  // closing call to action, which the founder specified line by line and which
+  // ends on a deliberate one word line.
   const illegal = cues
-    .map((c, i) => ({ i, he: c.he, n: countWords(c.he), ok: lineIsLegal(c.he) }))
+    .map((c, i) => ({ i, he: c.he, n: countWords(c.he), ok: c.card || lineIsLegal(c.he) }))
     .filter((x) => !x.ok);
   if (illegal.length) {
     throw new Error('subtitle rule broken:\n' + illegal.map((x) => `  cue ${x.i}: "${x.he}" (${x.n} words)`).join('\n'));
@@ -518,8 +531,19 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     inputs.push('-loop', '1', '-i', 'emoji.png');
     const EMOJI_IDX = 4;
     const size = 92;
-    const x = Math.round(W / 2 - size / 2);
-    const y = 1055; // just under the caption block, which is centred on 960
+    // Sit the hand at the end of the LAST line rather than under the block.
+    // With a three line card, "under the block" lands on top of the third line.
+    // Hebrew runs right to left, so the end of the line is its left edge.
+    const LINE_H = 88;
+    const AVG_CHAR = 34; // rough advance width for the caption size
+    // Split BEFORE stripping: stripEmoji collapses whitespace, so stripping
+    // first flattens the card to one row and the hand lands beside line one.
+    const lines = String(ctaCue.he).split('\n').map((l) => stripEmoji(l));
+    const lastLine = [...lines].reverse().find((l) => l.length) || '';
+    const lastWidth = lastLine.length * AVG_CHAR;
+    const lastCentreY = 960 + Math.round(((lines.length - 1) / 2) * LINE_H);
+    const x = Math.max(20, Math.round(W / 2 - lastWidth / 2) - 12 - size);
+    const y = lastCentreY - Math.round(size / 2);
     videoFc += `[vs];[${EMOJI_IDX}:v]scale=${size}:${size}[em];[vs][em]overlay=${x}:${y}`
       + `:enable='between(t,${ctaCue.speakStart.toFixed(2)},${TOTAL.toFixed(2)})'[v]`;
   } else {
@@ -539,7 +563,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
   return outFile;
 }
 
-module.exports = { render };
+module.exports = { render, rtlForTest: rtl };
 
 if (require.main === module) {
   require('dotenv').config({ path: path.join(ROOT, '.env') });

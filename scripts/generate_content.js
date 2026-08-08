@@ -363,7 +363,12 @@ function toCues(draft, platform) {
     draft.hook,
     ...draft.value,
     ...draft.fear,
-    ...cta.map((c, i) => ({ he: c.he, en: c.en, query: i === 0 ? ctaQuery : CTA_QUERIES[(CTA_QUERIES.indexOf(ctaQuery) + 2) % CTA_QUERIES.length] })),
+    ...cta.map((c, i) => ({
+      he: c.he,
+      en: c.en,
+      card: c.card,
+      query: i === 0 ? ctaQuery : CTA_QUERIES[(CTA_QUERIES.indexOf(ctaQuery) + 2) % CTA_QUERIES.length],
+    })),
   ];
 }
 

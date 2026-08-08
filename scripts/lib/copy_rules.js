@@ -135,17 +135,32 @@ const MOTIVATORS = [
  * so they send people to the profile link instead.
  */
 const CTA = {
+  // Instagram's close is a three line end card, word for word and break for
+  // break as the founder specified. `card: true` exempts it from the one line
+  // and 4 to 6 word rules — the last line is a single word on purpose. That
+  // exemption applies to the closing card only, never to a translation line.
   instagram: [
-    { he: 'תגיבו "אני" אם הגעתם עד לכאן', en: 'Comment the word me if you made it this far.' },
-    { he: 'וקבלו 7 ימי ניסיון בחינם באפליקציה 👇', en: 'And get seven free trial days inside the app.' },
+    {
+      he: 'תגיבו "אני" אם הגעתם עד לכאן,\nוקבלו 7 ימי ניסיון באפליקציה\nבחינם 👇',
+      en: 'Comment the word me if you made it this far, and get seven free trial days inside the app.',
+      card: true,
+    },
   ],
+  // TikTok and YouTube close on their own card: two lines, a blank line, then
+  // one line. Also specified word for word and break for break.
   tiktok: [
-    { he: 'רוצים את 7 ימי הניסיון?', en: 'Do you want the seven free days?' },
-    { he: 'הקישור בפרופיל, לחצו והורידו עכשיו 👇', en: 'The link is in my profile. Tap it and download now.' },
+    {
+      he: 'רוצים לקבל 7 ימי ניסיון\nבאפליקציה בחינם?\n\nכנסו לקישור בפרופיל שלנו.',
+      en: 'Do you want seven free trial days inside the app? Go to the link in our profile.',
+      card: true,
+    },
   ],
   youtube: [
-    { he: 'רוצים את 7 ימי הניסיון?', en: 'Do you want the seven free days?' },
-    { he: 'הקישור בפרופיל, לחצו והורידו עכשיו 👇', en: 'The link is in my profile. Tap it and download now.' },
+    {
+      he: 'רוצים לקבל 7 ימי ניסיון\nבאפליקציה בחינם?\n\nכנסו לקישור בפרופיל שלנו.',
+      en: 'Do you want seven free trial days inside the app? Go to the link in our profile.',
+      card: true,
+    },
   ],
 };
 
