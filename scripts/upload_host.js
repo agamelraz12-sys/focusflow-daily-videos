@@ -74,14 +74,24 @@ function localToken() {
   }
 }
 
-async function publish(filePath, name) {
+/*
+ * `forDate` is the day the videos are scheduled for, and it groups a whole run
+ * into one release.
+ *
+ * It used to derive the tag from "today in Israel" at the moment of each
+ * upload. A run that crossed midnight then split its videos across two
+ * releases, which made one of them look superseded and safe to delete. It was
+ * not: deleting it killed five live videos. The target date does not move
+ * mid-run, so it cannot do that.
+ */
+async function publish(filePath, name, forDate) {
   const token = process.env.GITHUB_TOKEN || localToken();
   const slug = process.env.VIDEO_HOST_REPO;
   if (!token) throw new Error('No GitHub token. Either set GITHUB_TOKEN or run: gh auth login');
   if (!slug || !slug.includes('/')) throw new Error('VIDEO_HOST_REPO must look like "user/repo"');
   const [owner, repo] = slug.split('/');
 
-  const tag = 'videos-' + new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Jerusalem' });
+  const tag = 'videos-' + (forDate || new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Jerusalem' }));
   const release = await ensureRelease(owner, repo, tag, token);
 
   const existing = (release.assets || []).find((a) => a.name === name);

@@ -124,7 +124,9 @@ async function doSlot(i, dateStr, ledger, tracks) {
         brand: BRAND || undefined,
       });
       console.log('  uploading...');
-      url = await publish(file, `${dateStr}_slot${i}_${cut.key}.mp4`);
+      // Tag the release by the day being scheduled, not by the wall clock, so
+      // a run that crosses midnight still lands in a single release.
+      url = await publish(file, `${dateStr}_slot${i}_${cut.key}.mp4`, dateStr);
     } catch (e) {
       console.error(`  ✗ ${cut.key} cut failed: ${e.message}`);
       results.push({ platform: cut.platforms.join('+'), ok: false, error: e.message });

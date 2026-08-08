@@ -102,7 +102,32 @@ function metadataFor(platform, { title, firstComment }) {
 /*
  * Schedule one video on one channel. `dueAt` is an ISO string in UTC.
  */
-async function schedule({ platform, channelId, videoUrl, caption, title, firstComment, dueAt }) {
+/*
+ * Buffer intermittently answers "Video could not be read from its URL" for a
+ * file it can plainly read: in one run TikTok and YouTube were handed the very
+ * same URL, and YouTube took it while TikTok refused. The URL had already been
+ * verified as downloadable before either call. So it is a flake on their side,
+ * and the right response is to ask again rather than lose the post.
+ */
+const RETRYABLE = /could not be read from its URL|UnexpectedError|RestProxyError|timeout/i;
+
+async function schedule(opts) {
+  let last;
+  for (let i = 0; i < 3; i++) {
+    try {
+      return await scheduleOnce(opts);
+    } catch (e) {
+      last = e;
+      if (!RETRYABLE.test(e.message) || i === 2) break;
+      const wait = 8000 * (i + 1);
+      console.warn(`  ${opts.platform}: ${e.message} — retrying in ${wait / 1000}s`);
+      await new Promise((r) => setTimeout(r, wait));
+    }
+  }
+  throw last;
+}
+
+async function scheduleOnce({ platform, channelId, videoUrl, caption, title, firstComment, dueAt }) {
   const input = {
     channelId,
     text: caption,
