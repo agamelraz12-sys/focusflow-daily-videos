@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 2,
+  "motivatorCursor": 7,
   "used": [
     {
       "at": "2026-08-08T18:22:02.246Z",
@@ -14,6 +14,41 @@
       "limitingBelief": "צריך להרגיש מוטיבציה לפני שמתחילים",
       "hookHe": "חיכיתם למוטיבציה שלוש שנים שלמות",
       "motivator": "fear"
+    },
+    {
+      "at": "2026-08-08T19:03:07.767Z",
+      "idea": "Discipline reads to other people as reliability, and reliability is built from kept promises",
+      "limitingBelief": "אנשים ממושמעים פשוט נולדו ככה",
+      "hookHe": "מה אנשים אומרים עליכם מאחורי הגב",
+      "motivator": "status"
+    },
+    {
+      "at": "2026-08-08T19:14:00.528Z",
+      "idea": "Undisciplined hours have a measurable price, and reclaiming two a day is a raise",
+      "limitingBelief": "אין שום קשר בין משמעת לכסף",
+      "hookHe": "חוסר משמעת עולה לכם כסף אמיתי",
+      "motivator": "money"
+    },
+    {
+      "at": "2026-08-08T19:25:29.107Z",
+      "idea": "Discipline is friction removal, not effort. Make the right action the easy one.",
+      "limitingBelief": "משמעת דורשת מאמץ אדיר וסבל",
+      "hookHe": "משמעת אמיתית לא דורשת מאמץ",
+      "motivator": "ease"
+    },
+    {
+      "at": "2026-08-08T19:36:10.938Z",
+      "idea": "Decision fatigue is the hidden tax; deciding once in advance saves the whole day",
+      "limitingBelief": "צריך להחליט מחדש כל יום מה עושים",
+      "hookHe": "אתם מקבלים 35 אלף החלטות ביום",
+      "motivator": "saving"
+    },
+    {
+      "at": "2026-08-08T19:46:45.723Z",
+      "idea": "The compounding window is closing; starting now beats starting better later",
+      "limitingBelief": "יש עוד המון זמן להתחיל",
+      "hookHe": "השבוע הזה שווה יותר מחודש",
+      "motivator": "opportunity"
     }
   ]
 }

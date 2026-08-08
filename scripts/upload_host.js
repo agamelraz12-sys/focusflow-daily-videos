@@ -95,7 +95,42 @@ async function publish(filePath, name) {
     { token, raw: data, contentType: 'video/mp4' });
   if (up.status !== 201) throw new Error(`GitHub ${up.status} uploading asset: ${up.text.slice(0, 200)}`);
 
-  return up.body.browser_download_url;
+  const url = up.body.browser_download_url;
+  await waitUntilReadable(url);
+  return url;
+}
+
+/*
+ * A freshly uploaded release asset is not always downloadable the instant the
+ * upload call returns. Two Instagram posts were rejected with "Video could not
+ * be read from its URL" while the TikTok cut from the same slot went through,
+ * which is the signature of a race rather than a bad file. So do not hand
+ * Buffer a URL until it actually serves the bytes.
+ */
+function head(url, redirects = 0) {
+  return new Promise((resolve) => {
+    if (redirects > 5) return resolve(0);
+    const req = https.request(url, { method: 'GET', headers: { Range: 'bytes=0-1023', 'User-Agent': UA }, timeout: 30000 }, (res) => {
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        res.resume();
+        return head(res.headers.location, redirects + 1).then(resolve);
+      }
+      res.resume();
+      resolve(res.statusCode);
+    });
+    req.on('timeout', () => { req.destroy(); resolve(0); });
+    req.on('error', () => resolve(0));
+    req.end();
+  });
+}
+
+async function waitUntilReadable(url, attempts = 8) {
+  for (let i = 0; i < attempts; i++) {
+    const status = await head(url);
+    if (status === 200 || status === 206) return;
+    await new Promise((r) => setTimeout(r, 2000 * (i + 1)));
+  }
+  throw new Error(`uploaded video is still not downloadable: ${url}`);
 }
 
 module.exports = { publish };
