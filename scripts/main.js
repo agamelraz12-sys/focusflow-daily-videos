@@ -189,9 +189,12 @@ async function main() {
   // Without a Gemini key the only content is whatever sits in the queue, so
   // schedule what exists and stop cleanly rather than failing six times over.
   const limit = Math.min(SLOTS.length, Number(process.env.SLOT_LIMIT) || SLOTS.length);
-  if (limit < SLOTS.length) console.log(`(limited to the first ${limit} slot(s))`);
+  // SLOT_START lets a partially finished day be topped up without re-posting
+  // the slots that already went through.
+  const start = Math.max(0, Number(process.env.SLOT_START) || 0);
+  if (start > 0 || limit < SLOTS.length) console.log(`(slots ${start + 1} to ${limit})`);
 
-  for (let i = 0; i < limit; i++) {
+  for (let i = start; i < limit; i++) {
     try {
       summary.push(...await doSlot(i, dateStr, ledger, tracks));
     } catch (e) {

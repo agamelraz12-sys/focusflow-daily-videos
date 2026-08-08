@@ -180,6 +180,9 @@ STRUCTURE
    dread. A specific scene: what a year from now looks like, what they will be telling
    themselves, what will still be exactly the same. Make them feel the cost of standing
    still.
+   These lines DESCRIBE a future. They never instruct. "In a year the same list is
+   still there" is right. "Keep putting things off" is wrong — that is an order, and it
+   reads as though you are telling them to fail.
 
 HEBREW RULES — these are hard rules and the script is rejected if any is broken
 - Every "he" field is ONE line. Never two lines. Never a line break.
@@ -191,6 +194,13 @@ HEBREW RULES — these are hard rules and the script is rejected if any is broke
   impersonal forms (אפשר, כדאי, מי ש, הדרך היא, אנשים ש). This is not optional.
 - Zero dashes anywhere in the Hebrew. No hyphen, no en dash, no em dash.
 - Emoji are allowed only in the caption, never inside a "he" line.
+- Every line has to be something a real person would actually say out loud. Read it back
+  before you commit to it. If it is grammatical but means nothing, it is wrong — a line
+  like "תמיד תרגישו אחרי הכסף שלכם" fits the word count and is still nonsense.
+- Do not invent precise sounding figures and state them as fact. "One small delay costs
+  a thousand shekels" is a made up number pretending to be research. Either build the
+  arithmetic openly in front of the viewer, step by step, so they can follow where the
+  number comes from, or do not use a number at all.
 
 ENGLISH RULES
 - "en" is the spoken narration for that same line, read aloud by a text to speech voice.
@@ -234,6 +244,11 @@ function validate(draft) {
     const n = countWords(cue.he);
     if (n < 4 || n > 6) problems.push(`${where}: "${cue.he}" has ${n} words, must be 4 to 6`);
     if (/[-‐-―]/.test(cue.he)) problems.push(`${where}: "${cue.he}" contains a dash, remove it`);
+    // A replacement character or a lone surrogate means the text arrived
+    // mangled. It would render as a box burned into the video, so reject it.
+    if (/[�]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:^|[^\uD800-\uDBFF])[\uDC00-\uDFFF]/.test(cue.he)) {
+      problems.push(`${where}: "${cue.he}" contains a broken character, rewrite the line`);
+    }
     if (addressesOnePerson(cue.he)) {
       problems.push(`${where}: "${cue.he}" addresses one person, use plural or impersonal`);
     }
@@ -304,10 +319,10 @@ function dropFromQueue() {
   fs.writeFileSync(QUEUE_PATH, JSON.stringify(queue, null, 2) + '\n', 'utf8');
 }
 
-async function writeScript({ ledger, attempts = 4 } = {}) {
+async function writeScript({ ledger, attempts = 4, bypassQueue = false } = {}) {
   const led = ledger || loadLedger();
 
-  const queued = takeFromQueue();
+  const queued = bypassQueue ? null : takeFromQueue();
   if (queued) {
     queued.motivator = queued.motivator || MOTIVATORS[led.motivatorCursor % MOTIVATORS.length].key;
     return queued;
@@ -374,10 +389,12 @@ if (require.main === module) {
   require('dotenv').config({ path: path.join(ROOT, '.env') });
   const countArg = process.argv.indexOf('--count');
   const count = countArg > -1 ? Number(process.argv[countArg + 1]) : 1;
+  // --gemini skips the hand written queue, so the model itself can be tested
+  const bypassQueue = process.argv.includes('--gemini');
   (async () => {
     const ledger = loadLedger();
     for (let i = 0; i < count; i++) {
-      const draft = await writeScript({ ledger });
+      const draft = await writeScript({ ledger, bypassQueue });
       remember(ledger, draft);
       console.log(`\n=== ${i + 1}/${count} · ${draft.motivator} · ${draft.idea}`);
       console.log(`מנפץ: ${draft.limitingBelief}`);

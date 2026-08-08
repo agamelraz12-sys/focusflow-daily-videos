@@ -110,9 +110,26 @@ function describe(e) {
   return e.message || e.code || e.errno || String(e) || 'unknown error';
 }
 
+/*
+ * Pace requests to Pixabay instead of sprinting into its 100-per-minute wall.
+ * Waiting out a 429 costs ten seconds; spacing calls costs well under one, and
+ * a run that hit the limit on nearly every clip spent more time sleeping than
+ * rendering.
+ */
+let nextSlotAt = 0;
+async function pace(url) {
+  if (!/pixabay\.com/.test(url)) return;
+  const gap = 700;
+  const now = Date.now();
+  const wait = Math.max(0, nextSlotAt - now);
+  nextSlotAt = Math.max(now, nextSlotAt) + gap;
+  if (wait) await sleep(wait);
+}
+
 async function getBuf(url, attempts = 4) {
   let last;
   for (let i = 0; i < attempts; i++) {
+    await pace(url);
     try {
       return await fetchOnce(url);
     } catch (e) {
