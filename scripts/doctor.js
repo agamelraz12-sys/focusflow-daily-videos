@@ -145,9 +145,20 @@ function post(host, urlPath, headers, body) {
     let repo = null;
     try { repo = JSON.parse(r.body); } catch (e) {}
     if (r.status === 200 && repo) {
+      /*
+       * Public is the hard requirement: Buffer fetches the MP4 anonymously, so
+       * a private release URL 404s for it.
+       *
+       * Write access is NOT asserted from `permissions.push`. The token Actions
+       * hands the job is an installation token; it can create releases under
+       * `permissions: contents: write`, but the repo endpoint does not report
+       * `push: true` for it. Failing on that field blocked a run that would
+       * have worked perfectly. If writing really is impossible, the upload says
+       * so with a precise error a few seconds later.
+       */
       if (repo.private) bad('Video host', `${slug} is PRIVATE — Buffer cannot download from it, make it public`);
-      else if (!repo.permissions?.push) bad('Video host', `token cannot write to ${slug}`);
-      else ok('Video host', `${slug} public and writable`);
+      else if (repo.permissions?.push) ok('Video host', `${slug} public and writable`);
+      else ok('Video host', `${slug} public (write proven at upload, not here)`);
     } else bad('Video host', `HTTP ${r.status} for ${slug}`);
   }
 
