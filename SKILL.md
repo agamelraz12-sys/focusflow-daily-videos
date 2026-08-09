@@ -31,6 +31,7 @@ These are enforced in code, not left to the model's good intentions.
 | **4 to 6 words** per Hebrew line, no exceptions | `copy_rules.countWords`, checked in the generator *and* again at render time |
 | The clip **cuts exactly when the subtitle changes** | clip boundaries are set from the same `speakStart` values |
 | There is **always** background music | `render_video.js` throws if no bed is supplied |
+| The **profile grid tile shows a caption**, never a silent frame | `render_video.js` picks a frame from inside a caption window and writes it to `video.cover.json`; `schedule_buffer.js` passes it as `thumbnailOffset` |
 | Gender neutral, third grade Hebrew, no dashes | prompt rules plus a validator that rejects `אתה` / `את` / `שלך` and dash characters |
 | Nothing ever repeats | `content/ledger.json` records every idea, belief and hook, and is fed back into the prompt |
 
@@ -132,6 +133,18 @@ If that ever stops being wanted, buy a stock music subscription and drop the fil
 
 **Buffer queue limits.** On the free plan each channel holds a limited number of queued
 posts. Six a day per channel is fine as long as the daily run keeps happening.
+
+**A custom thumbnail IMAGE is rejected.** Buffer's schema says so in as many words:
+the networks do not accept one, and setting `assets[].video.thumbnailUrl` fails the
+whole post. The only lever is `assets[].video.metadata.thumbnailOffset`, a frame offset
+in **milliseconds**, and only Instagram, TikTok and Pinterest honour it. YouTube gets
+whatever it picks, which is why the hook caption is also burned onto frame 0.
+
+**Leave the offset out and Instagram chooses for you**, and it habitually chooses a
+frame from a silent gap — so the tile that sits on the profile forever shows stock
+footage with no words on it. That is what happened to the first batch of reels. Their
+covers cannot be repaired after the fact: Instagram will not let a published Reel change
+its cover, so those tiles stay wrong unless the post is deleted and put up again.
 
 **Instagram direct publishing** needs the account connected to Buffer as a Business or
 Creator account. If posts land as "notification" reminders instead of publishing by
