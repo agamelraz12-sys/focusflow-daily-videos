@@ -96,6 +96,23 @@ function post(host, urlPath, headers, body) {
     else bad('Gemini', `HTTP ${r.status} on ${model} — ${r.body.slice(0, 140)}`);
   }
 
+  // ElevenLabs — the narration, and the only paid piece in the chain
+  if (!process.env.ELEVENLABS_API_KEY) bad('ElevenLabs', 'ELEVENLABS_API_KEY missing — narration cannot run');
+  else {
+    const r = await get('https://api.elevenlabs.io/v1/models', { 'xi-api-key': process.env.ELEVENLABS_API_KEY });
+    let models = [];
+    try { models = JSON.parse(r.body); } catch (e) {}
+    const v3 = Array.isArray(models) && models.find((m) => m.model_id === 'eleven_v3');
+    const hebrew = v3 && (v3.languages || []).some((l) => /^(he|iw)$/i.test(l.language_id));
+    if (hebrew) ok('ElevenLabs', `eleven_v3 available, Hebrew supported`);
+    else if (r.status !== 200) bad('ElevenLabs', `HTTP ${r.status} — ${r.body.slice(0, 120)}`);
+    else bad('ElevenLabs', 'eleven_v3 not available on this key — it is the only model that speaks Hebrew');
+
+    const cache = path.join(ROOT, 'assets', 'voice-cache');
+    const n = fs.existsSync(cache) ? fs.readdirSync(cache).filter((f) => f.endsWith('.mp3')).length : 0;
+    ok('  voice cache', `${n} lines already paid for`);
+  }
+
   // Buffer + channels
   if (!process.env.BUFFER_ACCESS_TOKEN) bad('Buffer', 'BUFFER_ACCESS_TOKEN missing');
   else {

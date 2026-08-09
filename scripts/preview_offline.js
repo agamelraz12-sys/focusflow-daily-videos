@@ -19,7 +19,7 @@ const { execFileSync } = require('child_process');
 const ROOT = path.join(__dirname, '..');
 require('dotenv').config({ path: path.join(ROOT, '.env') });
 
-const { render } = require('./render_video.js');
+const { render, coverOffsetMs } = require('./render_video.js');
 const { CTA } = require('./lib/copy_rules.js');
 
 const OUT = path.join(ROOT, 'out', 'preview');
@@ -85,6 +85,16 @@ function ff(args) {
 
   const gap = CUES[0].speakStart;
   console.log(`\nfirst word is spoken at ${gap.toFixed(2)}s, and the first caption starts at exactly that moment.`);
+
+  // The frame the Instagram grid will freeze on. Pull it out as a PNG cropped
+  // the way the grid crops it, so the tile can be judged before anything ships.
+  const ms = coverOffsetMs(file);
+  if (ms !== null) {
+    const tile = path.join(OUT, 'grid_tile.png');
+    ff(['-ss', (ms / 1000).toFixed(3), '-i', file, '-frames:v', '1',
+      '-vf', 'crop=1080:1350:0:285', tile]);
+    console.log(`grid tile is frame ${(ms / 1000).toFixed(2)}s -> ${tile}`);
+  }
   console.log(`preview: ${file}`);
   fs.rmSync(STUB, { recursive: true, force: true });
 })().catch((e) => { console.error('ERROR', e.message); process.exit(1); });

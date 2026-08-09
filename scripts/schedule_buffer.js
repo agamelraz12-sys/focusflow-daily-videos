@@ -127,7 +127,27 @@ async function schedule(opts) {
   throw last;
 }
 
-async function scheduleOnce({ platform, channelId, videoUrl, caption, title, firstComment, dueAt }) {
+/*
+ * Which platforms let us choose the frame the thumbnail is cut from.
+ *
+ * Buffer's own schema note on `thumbnailUrl`: "social networks do not accept
+ * custom video thumbnail images, and the API rejects video assets that set this
+ * field. To choose the video thumbnail, set metadata.thumbnailOffset to select
+ * a frame from the video (supported for Instagram, TikTok, and Pinterest
+ * only)." So an offset is the only lever there is, and YouTube does not get one.
+ */
+const TAKES_THUMBNAIL_OFFSET = new Set(['instagram', 'tiktok', 'pinterest']);
+
+async function scheduleOnce({ platform, channelId, videoUrl, caption, title, firstComment, dueAt, thumbnailOffsetMs }) {
+  // Left unset, Instagram picks the grid frame itself and habitually lands in a
+  // silent gap, which is how six reels ended up on the profile with no caption
+  // visible on any of them. The renderer writes the offset of a frame where the
+  // caption is fully up; pass it through.
+  const video = { url: videoUrl };
+  if (Number.isFinite(thumbnailOffsetMs) && TAKES_THUMBNAIL_OFFSET.has(platform)) {
+    video.metadata = { thumbnailOffset: Math.max(0, Math.round(thumbnailOffsetMs)) };
+  }
+
   const input = {
     channelId,
     text: caption,
@@ -138,7 +158,7 @@ async function scheduleOnce({ platform, channelId, videoUrl, caption, title, fir
     aiAssisted: true,
     source: 'focusflow-daily-videos',
     metadata: metadataFor(platform, { title, firstComment }),
-    assets: [{ video: { url: videoUrl } }],
+    assets: [{ video }],
   };
 
   const data = await gql(CREATE_POST, { input });

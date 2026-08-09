@@ -24,9 +24,9 @@ const path = require('path');
 const https = require('https');
 const crypto = require('crypto');
 const { execFileSync } = require('child_process');
-const { MsEdgeTTS, OUTPUT_FORMAT } = require('msedge-tts');
 
 const { lineIsLegal, countWords, stripEmoji } = require('./lib/copy_rules.js');
+const { speak } = require('./tts.js');
 
 const ROOT = path.join(__dirname, '..');
 const W = 1080, H = 1920, FPS = 30;
@@ -211,33 +211,7 @@ async function ensureEmoji() {
   return dest;
 }
 
-// ------------------------------------------------------------------- TTS ---
-
-function edgeTTS(text, voice, outPath) {
-  return new Promise((resolve, reject) => {
-    (async () => {
-      const tts = new MsEdgeTTS();
-      await tts.setMetadata(voice, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3, {
-        wordBoundaryEnabled: true,
-        sentenceBoundaryEnabled: false,
-      });
-      const { audioStream, metadataStream } = tts.toStream(text);
-      const out = fs.createWriteStream(outPath);
-      const words = [];
-      audioStream.on('data', (c) => out.write(c));
-      metadataStream.on('data', (chunk) => {
-        try {
-          const m = JSON.parse(chunk.toString());
-          for (const b of (m.Metadata || [])) {
-            if (b.Type === 'WordBoundary') words.push({ t: b.Data.Offset / 1e7, d: b.Data.Duration / 1e7 });
-          }
-        } catch (e) {}
-      });
-      audioStream.on('end', () => { out.end(); out.on('finish', () => resolve(words)); });
-      audioStream.on('error', reject);
-    })().catch(reject);
-  });
-}
+// Narration now lives in tts.js — Hebrew, per line, through ElevenLabs.
 
 // ------------------------------------------------------------------ util ---
 
@@ -303,42 +277,52 @@ async function render(C) {
   const WORK = path.join(OUT_DIR, '.work');
   fs.mkdirSync(WORK, { recursive: true });
 
-  const VOICE = C.voice || 'en-US-ChristopherNeural';
   const PIXABAY_KEY = process.env.PIXABAY_KEY;
   const needsStock = cues.some((c) => !c.clipFile);
   if (needsStock && !PIXABAY_KEY) throw new Error('PIXABAY_KEY is missing. Put it in .env');
 
-  // 1) one TTS pass over the whole script, so the delivery flows naturally and
-  //    the word boundaries are consistent across cue borders.
-  const fullText = cues.map((c) => c.en.trim()).join(' ');
-  const hash = crypto.createHash('md5').update(fullText + '|' + VOICE).digest('hex');
-  const voicePath = path.join(WORK, 'voice.mp3');
-  const timingPath = path.join(WORK, 'timing.json');
-  let words;
-  const cachedTiming = fs.existsSync(voicePath) && fs.existsSync(timingPath)
-    ? JSON.parse(fs.readFileSync(timingPath, 'utf8')) : null;
-  if (cachedTiming && cachedTiming.hash === hash) {
-    words = cachedTiming.words;
-    console.log('  reusing cached voiceover');
-  } else {
-    console.log('  generating voiceover...');
-    words = await edgeTTS(fullText, VOICE, voicePath);
-    fs.writeFileSync(timingPath, JSON.stringify({ hash, words }));
+  /*
+   * 1) Narrate. Hebrew, one line at a time, through ElevenLabs.
+   *
+   * Speaking each line separately is what makes the first rule exact rather
+   * than approximate: a line's audio IS its subtitle window, so a caption
+   * physically cannot appear before the narrator reaches it. It is also what
+   * makes the bill small, because every line is cached by its text and the
+   * closing card is therefore paid for once in its life.
+   */
+  const GAP = 0.3; // a breath between lines
+  console.log('  narrating...');
+  let clock = 0;
+  let spent = 0;
+  let reused = 0;
+  const pieces = [];
+  for (const c of cues) {
+    // strip the emoji so the narrator does not try to pronounce it
+    const spoken = stripEmoji(c.he);
+    const r = await speak(spoken, { ffprobe: FFPROBE });
+    c.speakStart = clock;
+    c.speakEnd = clock + r.duration;
+    clock = c.speakEnd + GAP;
+    pieces.push(r.file);
+    spent += r.characters;
+    if (r.cached) reused++;
   }
-  if (!words.length) throw new Error('TTS returned no word timings');
+  const voiceDur = clock - GAP;
+  console.log(`  ${cues.length} lines · ${reused} reused from cache · ${spent} characters billed`);
 
-  // 2) map each cue onto its span of spoken words
-  let wi = 0;
-  cues.forEach((c) => {
-    const n = c.en.trim().split(/\s+/).filter(Boolean).length;
-    const first = words[Math.min(wi, words.length - 1)];
-    const last = words[Math.min(wi + n - 1, words.length - 1)];
-    c.speakStart = first.t;
-    c.speakEnd = last.t + last.d;
-    wi += n;
+  // stitch the lines into one track, with the gap between them
+  const silence = path.join(WORK, 'gap.wav');
+  ff(['-f', 'lavfi', '-i', `anullsrc=r=44100:cl=mono`, '-t', String(GAP), silence]);
+  const listLines2 = [];
+  pieces.forEach((p, i) => {
+    const wav = path.join(WORK, `v${String(i).padStart(3, '0')}.wav`);
+    ff(['-i', p, '-ar', '44100', '-ac', '1', wav]);
+    listLines2.push(`file '${path.basename(wav)}'`);
+    if (i < pieces.length - 1) listLines2.push(`file '${path.basename(silence)}'`);
   });
+  fs.writeFileSync(path.join(WORK, 'vlist.txt'), listLines2.join('\n'));
+  ff(['-f', 'concat', '-safe', '0', '-i', 'vlist.txt', '-c', 'copy', 'voice.wav'], WORK);
 
-  const voiceDur = probeDur(voicePath);
   const TOTAL = C.totalSeconds || Math.round((voiceDur + 1.6) * 100) / 100;
 
   // 3) Rule 3 — the picture cuts where the caption cuts. Clips are contiguous
@@ -474,14 +458,34 @@ Style: Brand,${font.family},40,&H00FFFFFF,&H000000FF,&H00000000,&H00000000,-1,0,
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 `;
 
-  const lead = '{\\an5\\pos(540,960)\\fad(110,90)}';
+  // Dead centre of the frame is not a style choice. Instagram crops the profile
+  // grid tile to 4:5 out of this 9:16 frame, so only the middle survives; a
+  // caption parked near the bottom would be cropped clean off the grid.
+  const place = '{\\an5\\pos(540,960)';
+  const capWindows = [];
   const events = cues.map((c, i) => {
     const start = c.speakStart;
+    const isLast = i === cues.length - 1;
     // hold briefly, but never bleed into the next line
-    const nextStart = i < cues.length - 1 ? cues[i + 1].speakStart : TOTAL;
-    const end = Math.min(c.speakEnd + CAPTION_TAIL, nextStart - 0.02, TOTAL);
+    const nextStart = isLast ? TOTAL : cues[i + 1].speakStart;
+    /*
+     * The closing card is the one caption that must NOT vanish when the
+     * narrator stops. The video runs on for a moment after the last word so
+     * there is time to read it and tap, and for that moment the card has to
+     * still be there — with the pointing hand, which was already held to the
+     * end. Leaving the text on the speech rule meant the words disappeared and
+     * the emoji sat there on its own.
+     */
+    const end = c.card
+      ? TOTAL
+      : Math.min(c.speakEnd + CAPTION_TAIL, nextStart - 0.02, TOTAL);
     if (end <= start) return null;
-    return `Dialogue: 0,${tc(start)},${tc(end)},Cap,,0,0,0,,${lead}${rtl(c.he)}`;
+    capWindows.push({ start, end });
+    // The hook does not fade in. Frame 0 is the fallback thumbnail everywhere
+    // that will not take an offset (YouTube), and a 110 ms fade means that very
+    // frame carries no text at all.
+    const fade = i === 0 ? '\\fad(0,90)}' : '\\fad(110,90)}';
+    return `Dialogue: 0,${tc(start)},${tc(end)},Cap,,0,0,0,,${place}${fade}${rtl(c.he)}`;
   }).filter(Boolean);
 
   if (C.brand) events.unshift(`Dialogue: 0,${tc(0)},${tc(TOTAL)},Brand,,0,0,0,,{\\an8\\pos(540,120)}${C.brand}`);
@@ -501,7 +505,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
   const emojiPath = wantsEmoji ? await ensureEmoji() : null;
   if (emojiPath) fs.copyFileSync(emojiPath, path.join(WORK, 'emoji.png'));
 
-  const inputs = ['-i', 'novoice.mp4', '-i', 'voice.mp3', '-stream_loop', '-1', '-i', 'bg.mp3'];
+  const inputs = ['-i', 'novoice.mp4', '-i', 'voice.wav', '-stream_loop', '-1', '-i', 'bg.mp3'];
   const audioFc =
     '[1:a]apad,asplit=2[v1][v2];'
     + `[2:a]loudnorm=I=-26:TP=-2,afade=t=in:st=0:d=1.5,afade=t=out:st=${Math.max(0, TOTAL - 2.5).toFixed(2)}:d=2.5[bg0];`
@@ -559,11 +563,88 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
   const outFile = path.join(OUT_DIR, 'video.mp4');
   fs.copyFileSync(path.join(WORK, 'final.mp4'), outFile);
   fs.rmSync(WORK, { recursive: true, force: true });
-  console.log(`  done -> ${outFile} (${probeDur(outFile).toFixed(1)}s)`);
+
+  /*
+   * 7) the grid tile.
+   *
+   * Instagram and TikTok build the thumbnail from ONE frame of the video, and
+   * left to themselves they pick it. In practice they land in a silent gap, so
+   * the tile that sits on the profile forever shows stock footage with no
+   * caption on it and nothing to read. Buffer lets us name the frame
+   * (assets[].video.metadata.thumbnailOffset, in ms), so name one where a
+   * caption is fully up. That number is written beside the video and read back
+   * at scheduling time.
+   */
+  const coverMs = pickCoverMs(outFile, capWindows, TOTAL, { FFMPEG });
+  fs.writeFileSync(coverPathFor(outFile),
+    JSON.stringify({ thumbnailOffsetMs: coverMs }, null, 2) + '\n');
+
+  console.log(`  done -> ${outFile} (${probeDur(outFile).toFixed(1)}s, cover at ${(coverMs / 1000).toFixed(2)}s)`);
   return outFile;
 }
 
-module.exports = { render, rtlForTest: rtl };
+// ------------------------------------------------------------ grid cover ----
+
+const coverPathFor = (videoFile) => videoFile.replace(/\.mp4$/i, '') + '.cover.json';
+
+/*
+ * Read back the thumbnail offset a render chose. Returns null when there is no
+ * sidecar, which is what an older render or a hand-made file looks like — the
+ * caller then simply schedules without one, exactly as before.
+ */
+function coverOffsetMs(videoFile) {
+  try {
+    const v = JSON.parse(fs.readFileSync(coverPathFor(videoFile), 'utf8')).thumbnailOffsetMs;
+    return Number.isFinite(v) ? v : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+/*
+ * Pick the frame the grid should show.
+ *
+ * Candidates are the middle of each of the first few caption windows, which is
+ * the only place a caption is guaranteed to be at full opacity. Between them,
+ * skip anything whose grid crop comes back nearly black: stock clips very often
+ * open on a fade up from black, and a black tile with white text on it is still
+ * a black tile.
+ */
+function pickCoverMs(videoFile, capWindows, total, { FFMPEG }) {
+  const CROP_H = Math.round(W * 5 / 4);          // the 4:5 tile Instagram shows
+  const CROP_Y = Math.round((H - CROP_H) / 2);
+  const DARK = 28;                               // mean luma, 0 to 255
+
+  const candidates = capWindows.slice(0, 3)
+    .map((w) => {
+      const mid = w.start + (w.end - w.start) / 2;
+      return Math.min(Math.max(mid, w.start + 0.25), w.end - 0.08);
+    })
+    .filter((t) => t > 0 && t < total);
+  if (!candidates.length) return 0;
+
+  // Scaling the crop to a single pixel IS the average: one byte back per frame.
+  const lumaAt = (t) => {
+    try {
+      const out = execFileSync(FFMPEG, ['-hide_banner', '-loglevel', 'error',
+        '-ss', t.toFixed(3), '-i', videoFile, '-frames:v', '1',
+        '-vf', `crop=${W}:${CROP_H}:0:${CROP_Y},scale=1:1`,
+        '-f', 'rawvideo', '-pix_fmt', 'gray', '-'],
+      { stdio: ['ignore', 'pipe', 'pipe'], maxBuffer: 4096 });
+      return out.length ? out[0] : 0;
+    } catch (e) {
+      return 0; // a probe failure must never cost us the render
+    }
+  };
+
+  const scored = candidates.map((t) => ({ t, y: lumaAt(t) }));
+  // First bright enough wins, so the hook keeps priority whenever it is usable.
+  const chosen = scored.find((s) => s.y >= DARK)
+    || scored.slice().sort((a, b) => b.y - a.y)[0];
+  return Math.max(0, Math.round(chosen.t * 1000));
+}
+
+module.exports = { render, rtlForTest: rtl, coverOffsetMs };
 
 if (require.main === module) {
   require('dotenv').config({ path: path.join(ROOT, '.env') });

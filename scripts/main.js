@@ -16,7 +16,7 @@ require('./lib/net.js');
 require('dotenv').config({ path: path.join(ROOT, '.env') });
 
 const { writeScript, toCues, loadLedger, saveLedger, remember } = require('./generate_content.js');
-const { render } = require('./render_video.js');
+const { render, coverOffsetMs } = require('./render_video.js');
 const music = require('./music.js');
 const { publish } = require('./upload_host.js');
 const { schedule } = require('./schedule_buffer.js');
@@ -114,7 +114,7 @@ async function doSlot(i, dateStr, ledger, tracks) {
 
     // One cut blowing up must not discard the cut that already succeeded. The
     // first live run lost a scheduled Instagram post this way.
-    let file, url;
+    let file, url, coverMs;
     try {
       console.log(`  rendering ${cut.key} cut...`);
       file = await render({
@@ -123,6 +123,9 @@ async function doSlot(i, dateStr, ledger, tracks) {
         musicFile: bed.path,
         brand: BRAND || undefined,
       });
+      // Which frame the profile grid should show. Read it now: `dir` is deleted
+      // at the end of the cut, and the sidecar goes with it.
+      coverMs = coverOffsetMs(file);
       console.log('  uploading...');
       // Tag the release by the day being scheduled, not by the wall clock, so
       // a run that crosses midnight still lands in a single release.
@@ -142,6 +145,7 @@ async function doSlot(i, dateStr, ledger, tracks) {
           platform,
           channelId,
           videoUrl: url,
+          thumbnailOffsetMs: coverMs,
           caption: captionFor(platform, draft, bed.track),
           title: draft.title,
           // No first comment: it was echoing the caption back verbatim, which
