@@ -99,11 +99,38 @@ async function publish(filePath, name, forDate) {
     await api('DELETE', 'api.github.com', `/repos/${owner}/${repo}/releases/assets/${existing.id}`, { token });
   }
 
+  /*
+   * Retry the upload itself, not just the readability poll afterwards.
+   *
+   * These files run 25 to 40 MB and the second one in a slot goes up moments
+   * after the first. On the first live nightly run three of the six TikTok and
+   * YouTube cuts died on `write EPIPE` — GitHub closing the socket mid body,
+   * which kills the whole cut even though nothing is wrong with the video.
+   */
   const data = fs.readFileSync(filePath);
-  const up = await api('POST', 'uploads.github.com',
-    `/repos/${owner}/${repo}/releases/${release.id}/assets?name=${encodeURIComponent(name)}`,
-    { token, raw: data, contentType: 'video/mp4' });
-  if (up.status !== 201) throw new Error(`GitHub ${up.status} uploading asset: ${up.text.slice(0, 200)}`);
+  let up;
+  for (let attempt = 0; attempt < 4; attempt++) {
+    try {
+      up = await api('POST', 'uploads.github.com',
+        `/repos/${owner}/${repo}/releases/${release.id}/assets?name=${encodeURIComponent(name)}`,
+        { token, raw: data, contentType: 'video/mp4' });
+    } catch (e) {
+      if (attempt === 3) throw new Error(`upload of ${name} kept failing: ${e.message}`);
+      console.warn(`  upload dropped (${e.code || e.message}), retrying in ${6 * (attempt + 1)}s`);
+      await new Promise((r) => setTimeout(r, 6000 * (attempt + 1)));
+      // a half finished asset would collide with the retry
+      const fresh = await api('GET', 'api.github.com', `/repos/${owner}/${repo}/releases/${release.id}`, { token });
+      const stale = (fresh.body?.assets || []).find((a) => a.name === name);
+      if (stale) await api('DELETE', 'api.github.com', `/repos/${owner}/${repo}/releases/assets/${stale.id}`, { token });
+      continue;
+    }
+    if (up.status === 201) break;
+    if (attempt === 3 || (up.status < 500 && up.status !== 429)) {
+      throw new Error(`GitHub ${up.status} uploading asset: ${up.text.slice(0, 200)}`);
+    }
+    await new Promise((r) => setTimeout(r, 6000 * (attempt + 1)));
+  }
+  if (!up || up.status !== 201) throw new Error(`upload of ${name} did not complete`);
 
   const url = up.body.browser_download_url;
   await waitUntilReadable(url);

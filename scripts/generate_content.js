@@ -64,7 +64,28 @@ function avoidList(ledger, limit = 120) {
 
 // ------------------------------------------------------------------ gemini --
 
-function callGemini(prompt, schema, temperature) {
+/*
+ * Gemini answers 503 "model is overloaded" often enough that a single attempt
+ * is not a real dependency. One nightly run died at 03:03 that way, before it
+ * had written a single word. Ride it out.
+ */
+async function callGemini(prompt, schema, temperature) {
+  let last;
+  for (let attempt = 0; attempt < 4; attempt++) {
+    try {
+      return await callGeminiOnce(prompt, schema, temperature);
+    } catch (e) {
+      last = e;
+      if (!/\b(429|500|502|503|504)\b|ECONNRESET|ETIMEDOUT|EPIPE/.test(e.message) || attempt === 3) throw e;
+      const wait = 10000 * (attempt + 1);
+      console.warn(`  Gemini busy (${e.message.slice(0, 60)}), retrying in ${wait / 1000}s`);
+      await new Promise((r) => setTimeout(r, wait));
+    }
+  }
+  throw last;
+}
+
+function callGeminiOnce(prompt, schema, temperature) {
   const key = apiKey();
   if (!key) throw new Error('GEMINI_API_KEY is missing. Put it in .env');
   const body = JSON.stringify({

@@ -89,10 +89,19 @@ function post(host, urlPath, headers, body) {
     bad('Gemini', 'GEMINI_API_KEY missing and the script queue is empty — aistudio.google.com/apikey');
   } else {
     const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
-    const r = await post('generativelanguage.googleapis.com', `/v1beta/models/${model}:generateContent`,
-      { 'x-goog-api-key': process.env.GEMINI_API_KEY },
-      { contents: [{ role: 'user', parts: [{ text: 'Reply with the single word: ok' }] }] });
+    // A 503 here means "overloaded right now", not "broken". Failing the
+    // preflight on it threw away a whole night's run, so try a few times and
+    // then downgrade to a warning rather than blocking: the writer retries too.
+    let r;
+    for (let i = 0; i < 3; i++) {
+      r = await post('generativelanguage.googleapis.com', `/v1beta/models/${model}:generateContent`,
+        { 'x-goog-api-key': process.env.GEMINI_API_KEY },
+        { contents: [{ role: 'user', parts: [{ text: 'Reply with the single word: ok' }] }] });
+      if (r.status === 200 || r.status < 500) break;
+      await new Promise((res) => setTimeout(res, 5000 * (i + 1)));
+    }
     if (r.status === 200) ok('Gemini', `${model} responding`);
+    else if (r.status >= 500) warn('Gemini', `${model} overloaded (HTTP ${r.status}) — the writer will retry`);
     else bad('Gemini', `HTTP ${r.status} on ${model} — ${r.body.slice(0, 140)}`);
   }
 
