@@ -1,6 +1,6 @@
-'use strict';
+﻿'use strict';
 /*
- * render_video.js — turns a cue list into a finished 1080x1920 video.
+ * render_video.js ג€” turns a cue list into a finished 1080x1920 video.
  *
  * The three rules that shape everything here:
  *   1. A subtitle is on screen ONLY while the narrator is actually saying that
@@ -26,7 +26,8 @@ const crypto = require('crypto');
 const { execFileSync } = require('child_process');
 
 const { lineIsLegal, countWords, stripEmoji } = require('./lib/copy_rules.js');
-const { speak } = require('./tts.js');
+const { speak, narrationTextOf } = require('./tts.js');
+const { ensureLockup } = require('./make_logo.js');
 
 const ROOT = path.join(__dirname, '..');
 const W = 1080, H = 1920, FPS = 30;
@@ -204,14 +205,14 @@ async function ensureEmoji() {
     try {
       fs.writeFileSync(dest, await getBuf(EMOJI_URL));
     } catch (e) {
-      console.warn(`  could not fetch the pointing emoji (${e.message}) — rendering without it`);
+      console.warn(`  could not fetch the pointing emoji (${e.message}) ג€” rendering without it`);
       return null;
     }
   }
   return dest;
 }
 
-// Narration now lives in tts.js — Hebrew, per line, through ElevenLabs.
+// Narration now lives in tts.js ג€” Hebrew, per line, through ElevenLabs.
 
 // ------------------------------------------------------------------ util ---
 
@@ -290,15 +291,17 @@ async function render(C) {
    * makes the bill small, because every line is cached by its text and the
    * closing card is therefore paid for once in its life.
    */
-  const GAP = 0.3; // a breath between lines
+  const GAP = 0.16; // a breath between lines, now that the padding is trimmed
   console.log('  narrating...');
   let clock = 0;
   let spent = 0;
   let reused = 0;
   const pieces = [];
   for (const c of cues) {
-    // strip the emoji so the narrator does not try to pronounce it
-    const spoken = stripEmoji(c.he);
+    // The narrator reads whichever field the language setting points at, with
+    // the emoji stripped so it is not pronounced. Hebrew stays in the subtitle
+    // either way.
+    const spoken = stripEmoji(narrationTextOf(c) || c.en || c.he);
     const r = await speak(spoken, { ffprobe: FFPROBE });
     c.speakStart = clock;
     c.speakEnd = clock + r.duration;
@@ -308,7 +311,7 @@ async function render(C) {
     if (r.cached) reused++;
   }
   const voiceDur = clock - GAP;
-  console.log(`  ${cues.length} lines · ${reused} reused from cache · ${spent} characters billed`);
+  console.log(`  ${cues.length} lines ֲ· ${reused} reused from cache ֲ· ${spent} characters billed`);
 
   // stitch the lines into one track, with the gap between them
   const silence = path.join(WORK, 'gap.wav');
@@ -325,14 +328,14 @@ async function render(C) {
 
   const TOTAL = C.totalSeconds || Math.round((voiceDur + 1.6) * 100) / 100;
 
-  // 3) Rule 3 — the picture cuts where the caption cuts. Clips are contiguous
+  // 3) Rule 3 ג€” the picture cuts where the caption cuts. Clips are contiguous
   //    (there can be no hole in a video track) and start on the caption's word.
   cues.forEach((c, i) => {
     c.clipStart = i === 0 ? 0 : c.speakStart;
     c.clipEnd = i < cues.length - 1 ? cues[i + 1].speakStart : TOTAL;
   });
 
-  console.log(`  voice ${voiceDur.toFixed(1)}s · video ${TOTAL.toFixed(1)}s · ${cues.length} cues`);
+  console.log(`  voice ${voiceDur.toFixed(1)}s ֲ· video ${TOTAL.toFixed(1)}s ֲ· ${cues.length} cues`);
 
   // 4) stock footage.
   //
@@ -437,7 +440,7 @@ async function render(C) {
   fs.writeFileSync(path.join(WORK, 'list.txt'), listLines.join('\n'));
   ff(['-f', 'concat', '-safe', '0', '-i', 'list.txt', '-c', 'copy', 'novoice.mp4'], WORK);
 
-  // 5) subtitles — Rule 1 lives here. Start and end come from the SPEECH times,
+  // 5) subtitles ג€” Rule 1 lives here. Start and end come from the SPEECH times,
   //    not the clip times, so nothing is on screen before the narrator gets there.
   const font = await ensureFont();
   fs.copyFileSync(font.file, path.join(WORK, path.basename(font.file)));
@@ -472,7 +475,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
      * The closing card is the one caption that must NOT vanish when the
      * narrator stops. The video runs on for a moment after the last word so
      * there is time to read it and tap, and for that moment the card has to
-     * still be there — with the pointing hand, which was already held to the
+     * still be there ג€” with the pointing hand, which was already held to the
      * end. Leaving the text on the speech rule meant the words disappeared and
      * the emoji sat there on its own.
      */
@@ -495,7 +498,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
   //    sidechain compressor so the voice stays clearly on top.
   const musicSrc = C.musicFile;
   const hasMusic = musicSrc && fs.existsSync(musicSrc);
-  if (!hasMusic) throw new Error('no background music supplied — every video must have a bed');
+  if (!hasMusic) throw new Error('no background music supplied ג€” every video must have a bed');
   fs.copyFileSync(musicSrc, path.join(WORK, 'bg.mp3'));
 
   // The pointing hand rides under the last caption, on screen only while the
@@ -524,16 +527,38 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     '-vf', `format=rgba,geq=r=0:g=0:b=0:a='150*sin(PI*Y/${BAND_H})'`,
     '-frames:v', '1', bandPath], WORK);
 
-  // Input order from here is fixed: 3 = band, 4 = emoji if present.
   inputs.push('-loop', '1', '-i', 'band.png');
   const BAND_IDX = 3;
+  let nextInput = 4;
+
+  /*
+   * The brand strip, on screen for the whole video.
+   *
+   * y = 1500 is chosen, not decorative. Instagram's Reels interface covers
+   * roughly the bottom 350 pixels with the caption, the audio row and the
+   * action buttons, so a logo pinned to the true bottom edge would spend the
+   * whole video hidden behind them.
+   */
+  const LOGO_H = 104;
+  const LOGO_Y = 1500;
+  let logoIdx = null;
+  try {
+    const lockup = ensureLockup();
+    if (lockup && fs.existsSync(lockup)) {
+      fs.copyFileSync(lockup, path.join(WORK, 'logo.png'));
+      inputs.push('-loop', '1', '-i', 'logo.png');
+      logoIdx = nextInput++;
+    }
+  } catch (e) {
+    console.warn(`  no brand strip this time (${e.message})`);
+  }
 
   let videoFc = '[0:v]drawbox=x=0:y=0:w=iw:h=ih:color=black@0.28:t=fill[dim];'
     + `[dim][${BAND_IDX}:v]overlay=0:${Math.round(H / 2 - BAND_H / 2)}[band];`
     + '[band]ass=subs.ass:fontsdir=.';
   if (emojiPath) {
     inputs.push('-loop', '1', '-i', 'emoji.png');
-    const EMOJI_IDX = 4;
+    const EMOJI_IDX = nextInput++;
     const size = 92;
     // Sit the hand at the end of the LAST line rather than under the block.
     // With a three line card, "under the block" lands on top of the third line.
@@ -549,9 +574,16 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     const x = Math.max(20, Math.round(W / 2 - lastWidth / 2) - 12 - size);
     const y = lastCentreY - Math.round(size / 2);
     videoFc += `[vs];[${EMOJI_IDX}:v]scale=${size}:${size}[em];[vs][em]overlay=${x}:${y}`
-      + `:enable='between(t,${ctaCue.speakStart.toFixed(2)},${TOTAL.toFixed(2)})'[v]`;
+      + `:enable='between(t,${ctaCue.speakStart.toFixed(2)},${TOTAL.toFixed(2)})'[stage]`;
   } else {
-    videoFc += '[v]';
+    videoFc += '[stage]';
+  }
+
+  if (logoIdx !== null) {
+    videoFc += `;[${logoIdx}:v]scale=-1:${LOGO_H}:flags=lanczos[lg];`
+      + `[stage][lg]overlay=(W-w)/2:${LOGO_Y}[v]`;
+  } else {
+    videoFc += ';[stage]null[v]';
   }
 
   console.log('  muxing...');
@@ -589,7 +621,7 @@ const coverPathFor = (videoFile) => videoFile.replace(/\.mp4$/i, '') + '.cover.j
 
 /*
  * Read back the thumbnail offset a render chose. Returns null when there is no
- * sidecar, which is what an older render or a hand-made file looks like — the
+ * sidecar, which is what an older render or a hand-made file looks like ג€” the
  * caller then simply schedules without one, exactly as before.
  */
 function coverOffsetMs(videoFile) {

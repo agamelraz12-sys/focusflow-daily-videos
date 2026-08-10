@@ -6,3 +6,4 @@ assets/music/*.mp3
 assets/fonts/*.ttf
 assets/voice-cache/
 tmp_content_*.json
+assets/brand/*.png

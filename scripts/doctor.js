@@ -105,21 +105,31 @@ function post(host, urlPath, headers, body) {
     else bad('Gemini', `HTTP ${r.status} on ${model} — ${r.body.slice(0, 140)}`);
   }
 
-  // ElevenLabs — the narration, and the only paid piece in the chain
-  if (!process.env.ELEVENLABS_API_KEY) bad('ElevenLabs', 'ELEVENLABS_API_KEY missing — narration cannot run');
-  else {
-    const r = await get('https://api.elevenlabs.io/v1/models', { 'xi-api-key': process.env.ELEVENLABS_API_KEY });
-    let models = [];
-    try { models = JSON.parse(r.body); } catch (e) {}
-    const v3 = Array.isArray(models) && models.find((m) => m.model_id === 'eleven_v3');
-    const hebrew = v3 && (v3.languages || []).some((l) => /^(he|iw)$/i.test(l.language_id));
-    if (hebrew) ok('ElevenLabs', `eleven_v3 available, Hebrew supported`);
-    else if (r.status !== 200) bad('ElevenLabs', `HTTP ${r.status} — ${r.body.slice(0, 120)}`);
-    else bad('ElevenLabs', 'eleven_v3 not available on this key — it is the only model that speaks Hebrew');
-
+  // Narration. Microsoft's he-IL voices are native Hebrew and free; ElevenLabs
+  // has no Hebrew voice at all, only English ones bending towards it.
+  const { provider, edgeVoice } = require('./tts.js');
+  if (provider() === 'edge') {
+    ok('Narration', `Microsoft ${edgeVoice()} (native Hebrew, free)`);
+  } else if (!process.env.ELEVENLABS_API_KEY) {
+    bad('Narration', 'TTS_PROVIDER is elevenlabs but ELEVENLABS_API_KEY is missing');
+  } else {
+    warn('Narration', 'ElevenLabs has no Hebrew voice — it reads Hebrew with an English accent');
+  }
+  {
     const cache = path.join(ROOT, 'assets', 'voice-cache');
     const n = fs.existsSync(cache) ? fs.readdirSync(cache).filter((f) => f.endsWith('.mp3')).length : 0;
-    ok('  voice cache', `${n} lines already paid for`);
+    ok('  voice cache', `${n} lines ready`);
+  }
+
+  // ElevenLabs is still needed — it composes the background music.
+  if (!process.env.ELEVENLABS_API_KEY) bad('Music', 'ELEVENLABS_API_KEY missing — beds cannot be composed');
+  else {
+    const dir = path.join(ROOT, 'assets', 'music');
+    const beds = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith('.mp3')).length : 0;
+    const r = await get('https://api.elevenlabs.io/v1/models', { 'xi-api-key': process.env.ELEVENLABS_API_KEY });
+    if (r.status === 200) ok('Music', `ElevenLabs reachable · ${beds} bed(s) cached`);
+    else if (beds) warn('Music', `ElevenLabs HTTP ${r.status}, but ${beds} bed(s) are already cached`);
+    else bad('Music', `ElevenLabs HTTP ${r.status} and no cached beds — ${r.body.slice(0, 100)}`);
   }
 
   // Buffer + channels

@@ -225,7 +225,8 @@ HEBREW RULES — these are hard rules and the script is rejected if any is broke
 
 ENGLISH RULES
 - "en" is the spoken narration for that same line, read aloud by a text to speech voice.
-- One short natural spoken sentence. Roughly 8 to 14 words so it lasts about 2 to 3 seconds.
+- One short natural spoken sentence. 7 to 11 words, no more. Every extra word is
+  another second of reel, and viewers leave long before a slow video reaches its point.
 - It must carry the same meaning as the Hebrew line, but it does not have to be a literal
   translation. It has to sound good out loud.
 - Plain words a narrator can say cleanly. No abbreviations, no symbols, no numerals.

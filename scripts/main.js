@@ -76,10 +76,12 @@ function targetDate() {
 
 // ------------------------------------------------------------- captions ----
 
-function captionFor(platform, draft, musicTrack) {
-  // Only a real licensed track needs crediting. A locally synthesised bed has
-  // nobody to credit, and the line would just look strange in the caption.
-  const credit = musicTrack.synth ? '' : `\n\n🎵 ${musicTrack.name} · ${musicTrack.artist}`;
+function captionFor(platform, draft) {
+  // No music credit line any more. It existed for Jamendo's CC BY tracks, which
+  // legally required naming the artist in every caption. The beds are composed
+  // now, so there is nobody to credit and the line was only taking up the space
+  // where the call to action should be.
+  const credit = '';
   if (platform === 'instagram') {
     return `${draft.caption}\n\nתגיבו "אני" וקבלו 7 ימי ניסיון בחינם באפליקציה 👇${credit}`;
   }
@@ -146,7 +148,7 @@ async function doSlot(i, dateStr, ledger, tracks) {
           channelId,
           videoUrl: url,
           thumbnailOffsetMs: coverMs,
-          caption: captionFor(platform, draft, bed.track),
+          caption: captionFor(platform, draft),
           title: draft.title,
           // No first comment: it was echoing the caption back verbatim, which
           // reads as a bot. Hashtags could live here later if wanted.

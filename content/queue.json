@@ -1,1 +1,99 @@
-[]
+[
+  {
+    "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+    "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+    "empoweringBelief": "חובה לתפוס הזדמנויות ברגע הנכון",
+    "caption": "יש דברים שקורים פעם בחיים. הם לא מחכים. מי שפועל בזמן, זוכה. מי שלא, מפספס. איך אתם מנצלים את הרגעים האלה?",
+    "title": "הזדמנויות לא חוזרות פעמיים",
+    "hook": {
+      "he": "הרגע הזה לא יחזור לעולם",
+      "en": "The specific moment you are experiencing right now will never come again.",
+      "query": "ticking clock face"
+    },
+    "value": [
+      {
+        "he": "חלונות נפתחים לרגע קצר",
+        "en": "Certain opportunities present themselves only for a brief and precious window.",
+        "query": "light opening blinds"
+      },
+      {
+        "he": "חובה לפעול במהירות ובזמן",
+        "en": "It is absolutely crucial to take action with both speed and perfect timing.",
+        "query": "runner starting race"
+      },
+      {
+        "he": "זאת לא תחרות נגד אחרים",
+        "en": "Remember, you are not competing against anybody else, only against yourself.",
+        "query": "person running alone"
+      },
+      {
+        "he": "רק נגד איבוד הזדמנות נדירה",
+        "en": "The true competition is against the risk of letting a unique opportunity slip away.",
+        "query": "closed door sign"
+      },
+      {
+        "he": "משמעת בונה הרגלי פעולה חכמים",
+        "en": "Self-discipline helps you build consistent and intelligent habits for taking action.",
+        "query": "person organizing desk"
+      },
+      {
+        "he": "תחלקו משימות לחלקים קטנים",
+        "en": "Take larger tasks and strategically break them down into much smaller, manageable parts.",
+        "query": "puzzle pieces fitting"
+      },
+      {
+        "he": "תקבעו זמן קבוע לביצוע",
+        "en": "Designate a specific and non-negotiable time slot for completing each part.",
+        "query": "calendar date marked"
+      },
+      {
+        "he": "תתחילו עם הדבר הכי קל",
+        "en": "Always begin your work with the single easiest and most approachable task first.",
+        "query": "person making first step"
+      },
+      {
+        "he": "זה ייתן לכם מומנטום מעולה",
+        "en": "This initial easy step will provide you with excellent forward momentum and confidence.",
+        "query": "dominoes falling fast"
+      },
+      {
+        "he": "כדאי לזכור, הזמן אוזל",
+        "en": "It's always wise to keep in mind that your available time is continually diminishing.",
+        "query": "hourglass sand flowing"
+      },
+      {
+        "he": "הזדמנויות לא מחכות לאף אחד",
+        "en": "Once-in-a-lifetime opportunities simply do not pause or wait for anybody to catch up.",
+        "query": "train departing station"
+      },
+      {
+        "he": "תפעלו עכשיו, לפני שיאחר",
+        "en": "Take decisive action immediately, before the crucial moment passes you by forever.",
+        "query": "person reaching out"
+      }
+    ],
+    "fear": [
+      {
+        "he": "בעוד שנה אותו חלון",
+        "en": "Picture yourself one year from now, looking at the exact same open window.",
+        "query": "empty window sill"
+      },
+      {
+        "he": "תגידו אולי כבר מאוחר מדי",
+        "en": "You will likely be telling yourselves that perhaps it has already become too late.",
+        "query": "person regretting choice"
+      },
+      {
+        "he": "העולם ימשיך להתקדם קדימה",
+        "en": "Meanwhile, the rest of the world will continue to steadily progress further and further.",
+        "query": "crowd walking away"
+      },
+      {
+        "he": "אתם תשארו באותו המקום",
+        "en": "And sadly, you will find yourselves remaining stuck in exactly the same spot.",
+        "query": "still person street"
+      }
+    ],
+    "motivator": "opportunity"
+  }
+]
