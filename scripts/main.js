@@ -19,7 +19,7 @@ const { writeScript, toCues, loadLedger, saveLedger, remember } = require('./gen
 const { render, coverOffsetMs } = require('./render_video.js');
 const music = require('./music.js');
 const { publish } = require('./upload_host.js');
-const { schedule } = require('./schedule_buffer.js');
+const { schedule, gql } = require('./schedule_buffer.js');
 
 const STATE_PATH = path.join(ROOT, 'state.json');
 const OUT_DIR = path.join(ROOT, 'out');
@@ -74,6 +74,71 @@ function targetDate() {
   return Date.now() < firstSlot - 20 * 60 * 1000 ? today : addDays(today, 1);
 }
 
+// ------------------------------------------------------ already booked? ----
+
+/*
+ * Ask Buffer what is already on the calendar for this day.
+ *
+ * This is the guard that actually holds. The old one trusted state.json, which
+ * the workflow committed back to the repo — except the commit step ran
+ * `git add` over a file that no longer existed, so it staged nothing, silently,
+ * every night. state.json sat frozen on one date for eight days, the "already
+ * scheduled" check never fired, both nightly crons did a full run, and every
+ * slot went out twice. Buffer is the only source of truth about what Buffer
+ * holds, so ask Buffer.
+ */
+async function alreadyBooked(dateStr) {
+  const organizationId = process.env.BUFFER_ORG_ID;
+  if (!organizationId) return new Set();
+
+  const taken = new Set();
+  /*
+   * Paginate. Buffer returns TEN posts by default, and a guard that sees ten of
+   * a hundred posts is not a guard — it would wave through most of the day as
+   * unbooked and duplicate it all over again. This trap has now bitten twice.
+   */
+  const QUERY = `query Booked($input: PostsInput!, $first: Int!, $after: String) {
+    posts(input: $input, first: $first, after: $after) {
+      pageInfo { hasNextPage endCursor }
+      edges { node { dueAt channelService } }
+    }
+  }`;
+
+  let after = null;
+  for (let page = 0; page < 20; page++) {
+    let conn;
+    let lastErr;
+    // A dropped connection here must not be shrugged off. An empty set reads as
+    // "nothing is booked", which is the exact input that duplicates a whole day.
+    for (let attempt = 0; attempt < 4; attempt++) {
+      try {
+        const data = await gql(QUERY, {
+          input: { organizationId, filter: { status: ['scheduled', 'sent'] } },
+          first: 100,
+          after,
+        });
+        conn = data.posts;
+        break;
+      } catch (e) {
+        lastErr = e;
+        await new Promise((r) => setTimeout(r, 4000 * (attempt + 1)));
+      }
+    }
+    if (!conn) {
+      throw new Error(`could not read the existing calendar: ${lastErr && lastErr.message}`);
+    }
+    for (const edge of conn.edges || []) {
+      const n = edge.node;
+      if (!n?.dueAt) continue;
+      // Compare on the exact instant a slot maps to, so only a true repeat matches.
+      taken.add(`${new Date(n.dueAt).toISOString()}|${n.channelService}`);
+    }
+    if (!conn.pageInfo?.hasNextPage) break;
+    after = conn.pageInfo.endCursor;
+  }
+  return taken;
+}
+
 // ------------------------------------------------------------- captions ----
 
 function captionFor(platform, draft) {
@@ -91,9 +156,20 @@ function captionFor(platform, draft) {
 
 // ------------------------------------------------------------------ run ----
 
-async function doSlot(i, dateStr, ledger, tracks) {
+async function doSlot(i, dateStr, ledger, tracks, booked) {
   const slot = SLOTS[i];
   const dueAt = israelToUTC(dateStr, slot);
+  const stamp = new Date(dueAt).toISOString();
+
+  // Nothing to do if all three channels already hold this slot. Checked before
+  // a single frame is rendered, because rendering it and then discovering the
+  // duplicate is fifty minutes wasted.
+  const wanted = ['instagram', 'tiktok', 'youtube'].filter((p) => process.env[`BUFFER_CHANNEL_${p.toUpperCase()}`]);
+  if (wanted.every((p) => booked.has(`${stamp}|${p}`))) {
+    console.log(`\n[${i + 1}/${SLOTS.length}] slot ${slot} already booked on every channel, skipping`);
+    return [];
+  }
+
   console.log(`\n[${i + 1}/${SLOTS.length}] slot ${slot} Israel (${dueAt})`);
 
   console.log('  writing a new script...');
@@ -142,6 +218,10 @@ async function doSlot(i, dateStr, ledger, tracks) {
     for (const platform of cut.platforms) {
       const channelId = process.env[`BUFFER_CHANNEL_${platform.toUpperCase()}`];
       if (!channelId) { console.warn(`  no channel id for ${platform}, skipping`); continue; }
+      if (booked.has(`${stamp}|${platform}`)) {
+        console.log(`  - ${platform} already has this slot, not posting twice`);
+        continue;
+      }
       try {
         const post = await schedule({
           platform,
@@ -188,6 +268,27 @@ async function main() {
   fs.mkdirSync(OUT_DIR, { recursive: true });
   console.log(`=== scheduling ${SLOTS.length} videos for ${dateStr} ===`);
 
+  /*
+   * If the calendar cannot be read, stop. Missing a day is recoverable with one
+   * manual run; posting a day twice to a real audience is not.
+   */
+  let booked;
+  try {
+    booked = await alreadyBooked(dateStr);
+  } catch (e) {
+    console.error(`Refusing to schedule blind: ${e.message}`);
+    process.exitCode = 1;
+    return;
+  }
+  const slotStamps = SLOTS.map((s) => new Date(israelToUTC(dateStr, s)).toISOString());
+  const channels = ['instagram', 'tiktok', 'youtube'].filter((p) => process.env[`BUFFER_CHANNEL_${p.toUpperCase()}`]);
+  const missing = slotStamps.reduce((n, st) => n + channels.filter((p) => !booked.has(`${st}|${p}`)).length, 0);
+  if (missing === 0) {
+    console.log(`${dateStr} is already fully booked on every channel. Nothing to do.`);
+    return;
+  }
+  if (booked.size) console.log(`${missing} post(s) still missing for ${dateStr}`);
+
   console.log('stocking music...');
   const tracks = await music.stock(12);
 
@@ -204,7 +305,7 @@ async function main() {
 
   for (let i = start; i < limit; i++) {
     try {
-      summary.push(...await doSlot(i, dateStr, ledger, tracks));
+      summary.push(...await doSlot(i, dateStr, ledger, tracks, booked));
     } catch (e) {
       if (/GEMINI_API_KEY is missing/.test(e.message)) {
         console.log(`\nOut of scripts after ${i} slot(s): the queue is empty and there is no Gemini key.`);
@@ -228,4 +329,4 @@ if (require.main === module) {
   main().catch((e) => { console.error('Fatal:', e.message); process.exit(1); });
 }
 
-module.exports = { israelToUTC, targetDate, SLOTS };
+module.exports = { israelToUTC, targetDate, SLOTS, alreadyBooked };

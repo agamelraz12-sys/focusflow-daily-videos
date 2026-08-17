@@ -2,10 +2,13 @@
 
 on:
   schedule:
-    # 04:00 Israel is 01:00 UTC in summer and 02:00 UTC in winter.
-    # Firing at both is harmless: state.json makes the second run a no-op.
+    # ONE run a night. There used to be two, at 01:00 and 02:00 UTC, on the
+    # theory that the second would find the day already scheduled and stop.
+    # It never did, and every slot went out twice for eight days. One cron
+    # cannot double-post, whatever else breaks.
+    # 01:00 UTC is 04:00 Israel in summer and 03:00 in winter — comfortably
+    # before the 07:45 slot either way.
     - cron: "0 1 * * *"
-    - cron: "0 2 * * *"
   workflow_dispatch:
     inputs:
       force:
@@ -76,6 +79,7 @@ jobs:
           BUFFER_CHANNEL_INSTAGRAM: ${{ secrets.BUFFER_CHANNEL_INSTAGRAM }}
           BUFFER_CHANNEL_TIKTOK: ${{ secrets.BUFFER_CHANNEL_TIKTOK }}
           BUFFER_CHANNEL_YOUTUBE: ${{ secrets.BUFFER_CHANNEL_YOUTUBE }}
+          BUFFER_ORG_ID: ${{ secrets.BUFFER_ORG_ID }}
           # This repo hosts its own rendered videos as Release assets, so the
           # token Actions already hands us is enough. No extra secret to create.
           VIDEO_HOST_REPO: ${{ github.repository }}
@@ -94,6 +98,7 @@ jobs:
           BUFFER_CHANNEL_INSTAGRAM: ${{ secrets.BUFFER_CHANNEL_INSTAGRAM }}
           BUFFER_CHANNEL_TIKTOK: ${{ secrets.BUFFER_CHANNEL_TIKTOK }}
           BUFFER_CHANNEL_YOUTUBE: ${{ secrets.BUFFER_CHANNEL_YOUTUBE }}
+          BUFFER_ORG_ID: ${{ secrets.BUFFER_ORG_ID }}
           # This repo hosts its own rendered videos as Release assets, so the
           # token Actions already hands us is enough. No extra secret to create.
           VIDEO_HOST_REPO: ${{ github.repository }}
@@ -109,8 +114,16 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add state.json content/ledger.json assets/music/CREDITS.md 2>/dev/null || true
+          # Add each path on its own. `git add a b c` fails on the WHOLE list if
+          # any one path is missing, staging nothing — and with `|| true` after
+          # it, silently. assets/music/CREDITS.md stopped existing when the
+          # music source changed, so state.json went unsaved for eight days and
+          # the duplicate guard never had anything to read.
+          for f in state.json content/ledger.json assets/music/index.json; do
+            [ -e "$f" ] && git add "$f" || true
+          done
           git diff --staged --quiet || git commit -m "Day scheduled $(TZ=Asia/Jerusalem date +%Y-%m-%d)"
           git pull --rebase origin ${GITHUB_REF_NAME} || true
           git push || true
+
 
