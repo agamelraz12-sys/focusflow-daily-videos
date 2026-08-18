@@ -99,6 +99,91 @@ function compose(prompt) {
   });
 }
 
+
+// --------------------------------------------------------------- jamendo ---
+
+/*
+ * Real songs, by real artists, with vocals — which is what "songs" means when
+ * she asks for them, and what a composed instrumental bed never quite is.
+ *
+ * Licensing is the whole game here. Jamendo's free catalogue is mostly
+ * NonCommercial, which does NOT cover marketing a paid product, so only CC BY
+ * and CC BY-SA are kept. Those allow commercial use provided the artist is
+ * named, so every track used is written to assets/music/CREDITS.md and the
+ * credit line goes back into the post caption.
+ */
+const SONG_MOODS = [
+  'uplifting+pop',
+  'energetic+electronic',
+  'motivational+cinematic',
+  'happy+indie',
+  'powerful+rock',
+  'chill+hiphop',
+];
+
+function commercialSafe(track) {
+  const lic = String(track.license_ccurl || '');
+  if (!lic) return false;
+  if (/-nc/.test(lic) || /\/nc/.test(lic)) return false;   // NonCommercial: unusable here
+  if (/-nd/.test(lic)) return false;                       // NoDerivatives: we mix under speech
+  return /\/(by|by-sa)\//.test(lic);
+}
+
+function httpGet(url) {
+  return new Promise((resolve, reject) => {
+    https.get(url, (res) => {
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        return httpGet(res.headers.location).then(resolve, reject);
+      }
+      if (res.statusCode !== 200) return reject(new Error('HTTP ' + res.statusCode));
+      const chunks = [];
+      res.on('data', (c) => chunks.push(c));
+      res.on('end', () => resolve(Buffer.concat(chunks)));
+    }).on('error', reject);
+  });
+}
+
+function credit(track) {
+  const line = '- "' + track.name + '" by ' + track.artist_name + ' — ' + track.license_ccurl + ' — ' + track.shareurl + '\n';
+  const p = path.join(MUSIC_DIR, 'CREDITS.md');
+  const existing = fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '# Music credits\n\n';
+  if (!existing.includes(track.shareurl)) fs.writeFileSync(p, existing + line, 'utf8');
+}
+
+async function fetchSongs(clientId, want, have, haveKeys) {
+  for (const mood of SONG_MOODS) {
+    if (have.length >= want) break;
+    const api = 'https://api.jamendo.com/v3.0/tracks/?client_id=' + clientId
+      + '&format=json&limit=40&fuzzytags=' + mood
+      + '&audioformat=mp32&order=popularity_total&durationbetween=60_420&include=licenses';
+    let hits;
+    try {
+      hits = JSON.parse((await httpGet(api)).toString()).results || [];
+    } catch (e) {
+      console.warn('  jamendo "' + mood + '" search failed (' + e.message + ')');
+      continue;
+    }
+    for (const t of hits) {
+      if (have.length >= want) break;
+      const key = 'jam-' + t.id;
+      if (haveKeys.has(key) || !commercialSafe(t)) continue;
+      const src = t.audiodownload_allowed && t.audiodownload ? t.audiodownload : t.audio;
+      if (!src) continue;
+      const file = 'song_' + t.id + '.mp3';
+      try {
+        fs.writeFileSync(path.join(MUSIC_DIR, file), await httpGet(src));
+      } catch (e) {
+        console.warn('  could not fetch "' + t.name + '" (' + e.message + ')');
+        continue;
+      }
+      credit(t);
+      haveKeys.add(key);
+      have.push({ key, file, name: t.name, artist: t.artist_name, synth: false, song: true });
+      console.log('  song: "' + t.name + '" by ' + t.artist_name);
+    }
+  }
+}
+
 // ------------------------------------------------------------- fallback ----
 
 /*
@@ -141,6 +226,18 @@ async function stock(want = BRIEFS.length) {
   const idx = loadIndex();
   const have = idx.tracks.filter((t) => fs.existsSync(path.join(MUSIC_DIR, t.file)));
   const haveKeys = new Set(have.map((t) => t.key));
+
+  // Real songs first when a Jamendo id exists. Composed beds are the fallback,
+  // and they are also what runs when ElevenLabs credits are exhausted.
+  const jamendoId = process.env.JAMENDO_CLIENT_ID;
+  if (jamendoId) {
+    await fetchSongs(jamendoId, want, have, haveKeys);
+    if (have.length) {
+      idx.tracks = have;
+      saveIndex(idx);
+      return have;
+    }
+  }
 
   for (const brief of BRIEFS.slice(0, want)) {
     if (haveKeys.has(brief.key)) continue;

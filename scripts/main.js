@@ -141,12 +141,20 @@ async function alreadyBooked(dateStr) {
 
 // ------------------------------------------------------------- captions ----
 
-function captionFor(platform, draft) {
-  // No music credit line any more. It existed for Jamendo's CC BY tracks, which
-  // legally required naming the artist in every caption. The beds are composed
-  // now, so there is nobody to credit and the line was only taking up the space
-  // where the call to action should be.
-  const credit = '';
+function captionFor(platform, draft, musicTrack) {
+  /*
+   * Credit the artist only when there is one to credit.
+   *
+   * A composed bed has no author and a locally synthesised pad has none either,
+   * so the line is dead weight in the caption. A real song pulled from Jamendo
+   * under CC BY is a different matter: naming the artist is the condition of
+   * using it commercially at all.
+   */
+  const credit = musicTrack && musicTrack.song && musicTrack.artist
+    ? `
+
+🎵 ${musicTrack.name} · ${musicTrack.artist}`
+    : '';
   if (platform === 'instagram') {
     return `${draft.caption}\n\nתגיבו "אני" וקבלו 7 ימי ניסיון בחינם באפליקציה 👇${credit}`;
   }
@@ -228,7 +236,7 @@ async function doSlot(i, dateStr, ledger, tracks, booked) {
           channelId,
           videoUrl: url,
           thumbnailOffsetMs: coverMs,
-          caption: captionFor(platform, draft),
+          caption: captionFor(platform, draft, bed.track),
           title: draft.title,
           // No first comment: it was echoing the caption back verbatim, which
           // reads as a bot. Hashtags could live here later if wanted.
