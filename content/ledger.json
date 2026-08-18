@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 5,
+  "motivatorCursor": 10,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -35,6 +35,41 @@
       "limitingBelief": "צריך להחליט מחדש כל יום מה עושים",
       "hookHe": "אתם מקבלים 35 אלף החלטות ביום",
       "motivator": "saving"
+    },
+    {
+      "at": "2026-08-18T02:18:41.963Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-08-18T02:27:04.979Z",
+      "idea": "This video argues that self-discipline is a reliable system, not a fragile state, ensuring consistent progress even after setbacks.",
+      "limitingBelief": "צריך להתחיל מאפס אחרי כל נפילה",
+      "hookHe": "כישלון קטן לא הורס את הכל",
+      "motivator": "security"
+    },
+    {
+      "at": "2026-08-18T02:34:49.933Z",
+      "idea": "How to control your environment to build self-discipline.",
+      "limitingBelief": "אני תלוי בסביבה שלי.",
+      "hookHe": "הסביבה לא שולטת בכם באמת.",
+      "motivator": "control"
+    },
+    {
+      "at": "2026-08-18T02:43:13.909Z",
+      "idea": "This video exposes the myth of infinite willpower, arguing that systems, not brute force, build sustainable discipline.",
+      "limitingBelief": "אני פשוט חלש אופי, אין לי מספיק כוח רצון.",
+      "hookHe": "אומרים לכם \"תתאמצו יותר\" ומשקרים.",
+      "motivator": "anger"
+    },
+    {
+      "at": "2026-08-18T02:52:27.054Z",
+      "idea": "This video argues that self-discipline is the path to true freedom, not a restriction.",
+      "limitingBelief": "משמעת עצמית מגבילה את החיים.",
+      "hookHe": "חופש אמיתי דורש משמעת עמוקה.",
+      "motivator": "freedom"
     }
   ]
 }
