@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 10,
+  "motivatorCursor": 5,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -70,6 +70,48 @@
       "limitingBelief": "משמעת עצמית מגבילה את החיים.",
       "hookHe": "חופש אמיתי דורש משמעת עמוקה.",
       "motivator": "freedom"
+    },
+    {
+      "at": "2026-08-20T02:18:19.971Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-08-20T02:25:55.873Z",
+      "idea": "This video argues that discipline starts with small daily actions, not big changes, to avoid future regret.",
+      "limitingBelief": "משמעת היא רק לדברים גדולים וקשים.",
+      "hookHe": "הסוד למשמעת לא יאמן.",
+      "motivator": "fear"
+    },
+    {
+      "at": "2026-08-20T02:34:32.708Z",
+      "idea": "This video explains how to build discipline even when life feels hard and chaotic, improving social standing.",
+      "limitingBelief": "החיים קשים מכדי להיות ממושמעים.",
+      "hookHe": "אנשים ישאלו \"איך עשיתם את זה?\"",
+      "motivator": "status"
+    },
+    {
+      "at": "2026-08-20T02:42:23.997Z",
+      "idea": "Discipline as an investment that yields significant financial returns.",
+      "limitingBelief": "משמעת דורשת השקעה גדולה בזמן.",
+      "hookHe": "אלף שקלים בשעה, בלי עבודה קשה.",
+      "motivator": "money"
+    },
+    {
+      "at": "2026-08-20T02:50:29.917Z",
+      "idea": "This video explains how discipline starts with tiny, effortless steps, not complex planning.",
+      "limitingBelief": "משמעת דורשת תכנון מורכב ומחשבה רבה.",
+      "hookHe": "לא צריך לתכנן כלום כדי להצליח.",
+      "motivator": "ease"
+    },
+    {
+      "at": "2026-08-20T02:58:57.116Z",
+      "idea": "This video is about how self-discipline saves mental effort and willpower by automating decisions.",
+      "limitingBelief": "משמעת דורשת כוח רצון תמידי.",
+      "hookHe": "משמעת לא לוקחת כוח רצון.",
+      "motivator": "saving"
     }
   ]
 }
