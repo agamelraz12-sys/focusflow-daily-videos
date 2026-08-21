@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 5,
+  "motivatorCursor": 0,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -112,6 +112,48 @@
       "limitingBelief": "משמעת דורשת כוח רצון תמידי.",
       "hookHe": "משמעת לא לוקחת כוח רצון.",
       "motivator": "saving"
+    },
+    {
+      "at": "2026-08-21T02:25:02.359Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-08-21T02:34:21.787Z",
+      "idea": "Creating a robust self-discipline system that is resilient to challenges and ensures consistent progress.",
+      "limitingBelief": "משמעת טובה תמיד עלולה להישבר.",
+      "hookHe": "תכנית נכשלת כי היא טובה מדי.",
+      "motivator": "security"
+    },
+    {
+      "at": "2026-08-21T02:43:18.074Z",
+      "idea": "How to regain control over your actions by proactive planning instead of reacting to circumstances.",
+      "limitingBelief": "אני מגיב רק למה שקורה עכשיו.",
+      "hookHe": "אתם לא צריכים להגיב לחיים.",
+      "motivator": "control"
+    },
+    {
+      "at": "2026-08-21T02:51:17.307Z",
+      "idea": "Discipline isn't about perfection, it's about consistency despite imperfections.",
+      "limitingBelief": "צריך להיות מושלם כדי להצליח במשמעת.",
+      "hookHe": "נמאס לכם מלהיות מושלמים?",
+      "motivator": "anger"
+    },
+    {
+      "at": "2026-08-21T03:00:42.981Z",
+      "idea": "This video argues that true freedom comes from self-imposed structure, not from a lack of boundaries.",
+      "limitingBelief": "חופש אמיתי הוא בלי גבולות בכלל.",
+      "hookHe": "רוב האנשים לא מבינים חופש.",
+      "motivator": "freedom"
+    },
+    {
+      "at": "2026-08-21T03:08:45.022Z",
+      "idea": "This video is about overcoming the feeling that discipline is a lonely journey by embracing community support.",
+      "limitingBelief": "אני לבד במאבק הזה.",
+      "hookHe": "משמעת עצמית? זה לא לבד.",
+      "motivator": "belonging"
     }
   ]
 }
