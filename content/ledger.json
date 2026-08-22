@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 0,
+  "motivatorCursor": 6,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -154,6 +154,48 @@
       "limitingBelief": "אני לבד במאבק הזה.",
       "hookHe": "משמעת עצמית? זה לא לבד.",
       "motivator": "belonging"
+    },
+    {
+      "at": "2026-08-22T02:17:01.180Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-08-22T02:26:09.650Z",
+      "idea": "This video shows how self-discipline enhances social status and earns respect from others.",
+      "limitingBelief": "משמעת היא בשביל עצמכם בלבד.",
+      "hookHe": "אנשים לא רואים אתכם באמת.",
+      "motivator": "status"
+    },
+    {
+      "at": "2026-08-22T02:34:15.513Z",
+      "idea": "This video explains how small acts of self-discipline save significant money over time, contrasting with the unseen costs of undisciplined behavior.",
+      "limitingBelief": "אין לי כסף לבנות הרגלים חדשים.",
+      "hookHe": "עשרת אלפים שקלים מתאדים לכם.",
+      "motivator": "money"
+    },
+    {
+      "at": "2026-08-22T02:42:37.023Z",
+      "idea": "This video argues that discipline can be effortless and automatic, rather than a constant mental struggle.",
+      "limitingBelief": "משמעת דורשת מאמץ מחשבתי תמידי.",
+      "hookHe": "משמעת אמיתית לא דורשת מחשבה.",
+      "motivator": "ease"
+    },
+    {
+      "at": "2026-08-22T02:50:58.488Z",
+      "idea": "Eliminating distractions through discipline saves immense time and focus.",
+      "limitingBelief": "אי אפשר להימנע מהפרעות ביום.",
+      "hookHe": "הפרעות גונבות את הזמן.",
+      "motivator": "saving"
+    },
+    {
+      "at": "2026-08-22T02:59:23.595Z",
+      "idea": "Encouraging immediate action by highlighting a closing window of opportunity.",
+      "limitingBelief": "אני כבר באיחור, אין לי סיכוי.",
+      "hookHe": "רוב הסיכויים כבר נעלמו.",
+      "motivator": "opportunity"
     }
   ]
 }
