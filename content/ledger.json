@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 6,
+  "motivatorCursor": 1,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -196,6 +196,48 @@
       "limitingBelief": "אני כבר באיחור, אין לי סיכוי.",
       "hookHe": "רוב הסיכויים כבר נעלמו.",
       "motivator": "opportunity"
+    },
+    {
+      "at": "2026-08-23T02:26:15.830Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-08-23T02:35:03.082Z",
+      "idea": "This video explains how to regain control over your actions by removing the need for external validation.",
+      "limitingBelief": "אני זקוק לאישור של אחרים כדי לפעול.",
+      "hookHe": "רוב האנשים תלויים באחרים.",
+      "motivator": "control"
+    },
+    {
+      "at": "2026-08-23T02:43:06.223Z",
+      "idea": "Self-discipline is not a constant internal struggle, but rather about building smart systems.",
+      "limitingBelief": "משמעת עצמית היא מלחמה תמידית עם עצמכם.",
+      "hookHe": "אומרים לכם לשלוט בעצמכם ומשקרים.",
+      "motivator": "anger"
+    },
+    {
+      "at": "2026-08-23T02:52:04.943Z",
+      "idea": "How self-discipline brings true freedom and time for what truly matters, by managing tasks effectively without constant effort.",
+      "limitingBelief": "משמעת אומרת לוותר על מה שאוהבים.",
+      "hookHe": "חופש אמיתי מתחיל במשמעת.",
+      "motivator": "freedom"
+    },
+    {
+      "at": "2026-08-23T03:00:02.111Z",
+      "idea": "Self-discipline is often mistakenly seen as an isolating, individual pursuit, but it's more powerful and sustainable when built and maintained within a supportive community.",
+      "limitingBelief": "משמעת מרחיקה אנשים קרובים.",
+      "hookHe": "משמעת לא קשורה אליכם בלבד.",
+      "motivator": "belonging"
+    },
+    {
+      "at": "2026-08-23T03:07:45.791Z",
+      "idea": "Fear of missing out on fleeting opportunities due to lack of discipline.",
+      "limitingBelief": "אפשר לחכות להזדמנות הנכונה.",
+      "hookHe": "הזדמנויות לא חוזרות לעולם.",
+      "motivator": "fear"
     }
   ]
 }
