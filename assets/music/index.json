@@ -3,44 +3,44 @@
     {
       "key": "lift",
       "file": "bed_lift.mp3",
-      "name": "פסקול רגוע",
-      "artist": "נוצר מקומית",
-      "synth": true
+      "name": "lift",
+      "artist": "ElevenLabs",
+      "synth": false
     },
     {
       "key": "pulse",
       "file": "bed_pulse.mp3",
-      "name": "פסקול רגוע",
-      "artist": "נוצר מקומית",
-      "synth": true
+      "name": "pulse",
+      "artist": "ElevenLabs",
+      "synth": false
     },
     {
       "key": "dawn",
       "file": "bed_dawn.mp3",
-      "name": "פסקול רגוע",
-      "artist": "נוצר מקומית",
-      "synth": true
+      "name": "dawn",
+      "artist": "ElevenLabs",
+      "synth": false
     },
     {
       "key": "resolve",
       "file": "bed_resolve.mp3",
-      "name": "פסקול רגוע",
-      "artist": "נוצר מקומית",
-      "synth": true
+      "name": "resolve",
+      "artist": "ElevenLabs",
+      "synth": false
     },
     {
       "key": "glow",
       "file": "bed_glow.mp3",
-      "name": "פסקול רגוע",
-      "artist": "נוצר מקומית",
-      "synth": true
+      "name": "glow",
+      "artist": "ElevenLabs",
+      "synth": false
     },
     {
       "key": "steady",
       "file": "bed_steady.mp3",
-      "name": "פסקול רגוע",
-      "artist": "נוצר מקומית",
-      "synth": true
+      "name": "steady",
+      "artist": "ElevenLabs",
+      "synth": false
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 1,
+  "motivatorCursor": 7,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -238,6 +238,48 @@
       "limitingBelief": "אפשר לחכות להזדמנות הנכונה.",
       "hookHe": "הזדמנויות לא חוזרות לעולם.",
       "motivator": "fear"
+    },
+    {
+      "at": "2026-08-24T02:25:01.052Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-08-24T02:34:17.390Z",
+      "idea": "Small disciplined actions accumulate into significant financial gains, debunking the belief that small efforts don't matter financially.",
+      "limitingBelief": "פעולות קטנות לא באמת חוסכות.",
+      "hookHe": "הפסדתם מאה שקלים אתמול?",
+      "motivator": "money"
+    },
+    {
+      "at": "2026-08-24T02:42:31.878Z",
+      "idea": "This video argues that self discipline does not require complex tools or systems, but rather simple, consistent actions.",
+      "limitingBelief": "צריך עזרים מסובכים למשמעת.",
+      "hookHe": "כלי אחד משנה את הכל.",
+      "motivator": "ease"
+    },
+    {
+      "at": "2026-08-24T02:51:13.084Z",
+      "idea": "How self-discipline actually saves you time and effort instead of adding more tasks.",
+      "limitingBelief": "משמעת אומרת להוסיף עוד משימות.",
+      "hookHe": "הרגלים טובים חוסכים המון שעות.",
+      "motivator": "saving"
+    },
+    {
+      "at": "2026-08-24T02:59:29.191Z",
+      "idea": "This video emphasizes that unique opportunities have a limited window and procrastination can lead to their permanent loss.",
+      "limitingBelief": "אפשר להמשיך לדחות, ההזדמנות תמיד תחכה.",
+      "hookHe": "אתם מפספסים הזדמנות נדירה.",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-08-24T03:08:05.346Z",
+      "idea": "This video is about building a reliable system for self-discipline that provides stability and a consistent way back on track.",
+      "limitingBelief": "אי אפשר לסמוך על עצמכם לעשות את זה לאורך זמן.",
+      "hookHe": "אתם תמיד נופלים מהדרך?",
+      "motivator": "security"
     }
   ]
 }
