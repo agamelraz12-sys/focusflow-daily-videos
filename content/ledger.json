@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 7,
+  "motivatorCursor": 2,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -280,6 +280,48 @@
       "limitingBelief": "אי אפשר לסמוך על עצמכם לעשות את זה לאורך זמן.",
       "hookHe": "אתם תמיד נופלים מהדרך?",
       "motivator": "security"
+    },
+    {
+      "at": "2026-08-25T02:21:23.126Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-08-25T02:31:22.469Z",
+      "idea": "How to build flexible self-discipline that adapts to life's changes.",
+      "limitingBelief": "החיים תמיד משתנים, אי אפשר לתכנן.",
+      "hookHe": "נמאס לכם מתכניות שנשברות?",
+      "motivator": "anger"
+    },
+    {
+      "at": "2026-08-25T02:38:47.258Z",
+      "idea": "How a clear plan creates genuine freedom and peace of mind.",
+      "limitingBelief": "תכנון מראש תמיד סוגר אפשרויות.",
+      "hookHe": "חופש אמיתי לא מגיע לבד.",
+      "motivator": "freedom"
+    },
+    {
+      "at": "2026-08-25T02:47:08.353Z",
+      "idea": "This video is about finding support and community in building self-discipline.",
+      "limitingBelief": "אני לבד בדרך אל המשמעת.",
+      "hookHe": "רוב אנשים לא מצליחים לבד.",
+      "motivator": "belonging"
+    },
+    {
+      "at": "2026-08-25T02:56:06.185Z",
+      "idea": "Show how ignoring small tasks accumulates into significant regret and missed opportunities.",
+      "limitingBelief": "זה רק דבר קטן, לא נורא אם מדלגים.",
+      "hookHe": "שנייה אחת של איחור הרסה הכל.",
+      "motivator": "fear"
+    },
+    {
+      "at": "2026-08-25T03:04:24.722Z",
+      "idea": "How self-discipline quietly earns respect and social status.",
+      "limitingBelief": "אף אחד לא שם לב למשמעת שלי.",
+      "hookHe": "אנשים יתחילו פתאום לשים לב.",
+      "motivator": "status"
     }
   ]
 }
