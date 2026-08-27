@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 7,
+  "motivatorCursor": 2,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -357,6 +357,48 @@
       "limitingBelief": "שיטות למשמעת עובדות רק לזמן קצר.",
       "hookHe": "אתם תמיד מחפשים שיטה חדשה?",
       "motivator": "security"
+    },
+    {
+      "at": "2026-08-27T10:53:09.093Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-08-27T11:00:38.153Z",
+      "idea": "This video shows how discipline can thrive even in a chaotic environment, dispelling the myth of needing perfect order.",
+      "limitingBelief": "משמעת דורשת תמיד סדר מושלם.",
+      "hookHe": "שיקרו לכם על משמעת עצמית.",
+      "motivator": "anger"
+    },
+    {
+      "at": "2026-08-27T11:10:19.346Z",
+      "idea": "How self-discipline can create effortless freedom and mental peace.",
+      "limitingBelief": "משמעת דורשת להיות ערניים תמיד.",
+      "hookHe": "הדרך לחופש עוברת בשגרה.",
+      "motivator": "freedom"
+    },
+    {
+      "at": "2026-08-27T11:18:14.587Z",
+      "idea": "Building self-discipline through community and shared experience.",
+      "limitingBelief": "משמעת היא מסע בודד ומבודד.",
+      "hookHe": "אף אחד לא מצליח לבד באמת.",
+      "motivator": "belonging"
+    },
+    {
+      "at": "2026-08-27T11:26:39.194Z",
+      "idea": "Explaining how discipline leads to more spontaneity and joy, rather than less.",
+      "limitingBelief": "משמעת הורסת את כל הכיף בחיים.",
+      "hookHe": "חופש אמיתי דורש גבולות ברורים.",
+      "motivator": "fear"
+    },
+    {
+      "at": "2026-08-27T11:34:19.449Z",
+      "idea": "How small disciplined actions affect your social standing and reputation.",
+      "limitingBelief": "אף אחד לא באמת שם לב לשינויים קטנים שלי.",
+      "hookHe": "פתאום כולם מתחילים לשאול אתכם.",
+      "motivator": "status"
     }
   ]
 }
