@@ -24,9 +24,9 @@
     {
       "key": "resolve",
       "file": "bed_resolve.mp3",
-      "name": "פסקול רגוע",
-      "artist": "נוצר מקומית",
-      "synth": true
+      "name": "resolve",
+      "artist": "ElevenLabs",
+      "synth": false
     },
     {
       "key": "glow",

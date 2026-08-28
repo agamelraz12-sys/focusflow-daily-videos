@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 2,
+  "motivatorCursor": 7,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -399,6 +399,41 @@
       "limitingBelief": "אף אחד לא באמת שם לב לשינויים קטנים שלי.",
       "hookHe": "פתאום כולם מתחילים לשאול אתכם.",
       "motivator": "status"
+    },
+    {
+      "at": "2026-08-28T12:29:52.168Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-08-28T12:41:09.310Z",
+      "idea": "This video shows how to build discipline by linking new, small habits to existing routines for effortless integration.",
+      "limitingBelief": "משמעת אומרת לשנות הרגלים קיימים.",
+      "hookHe": "אל תנסו לשנות שום דבר.",
+      "motivator": "ease"
+    },
+    {
+      "at": "2026-08-28T12:51:10.798Z",
+      "idea": "This video explains how discipline through automation saves mental and physical effort, leading to more free time and energy.",
+      "limitingBelief": "כל יום זו מלחמה נגד עצמכם.",
+      "hookHe": "רוב האנשים סתם מותשים מהיום.",
+      "motivator": "saving"
+    },
+    {
+      "at": "2026-08-28T13:01:07.042Z",
+      "idea": "The rapid pace of change means opportunities are fleeting and demand immediate action.",
+      "limitingBelief": "הדלת הזו תמיד תישאר פתוחה.",
+      "hookHe": "העולם משתנה מהר כל כך.",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-08-28T13:14:05.055Z",
+      "idea": "This video explains that true discipline is not fragile and always waiting, even after setbacks.",
+      "limitingBelief": "משמעת היא דבר שביר מאוד.",
+      "hookHe": "רוב אנשים מאבדים משמעת בקלות.",
+      "motivator": "security"
     }
   ]
 }
