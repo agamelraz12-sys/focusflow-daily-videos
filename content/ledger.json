@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 7,
+  "motivatorCursor": 2,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -434,6 +434,48 @@
       "limitingBelief": "משמעת היא דבר שביר מאוד.",
       "hookHe": "רוב אנשים מאבדים משמעת בקלות.",
       "motivator": "security"
+    },
+    {
+      "at": "2026-08-29T07:38:49.524Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-08-29T07:46:57.947Z",
+      "idea": "Self-discipline is about making choices easier by setting up systems, not fighting impulses.",
+      "limitingBelief": "משמעת אומרת להילחם כל הזמן.",
+      "hookHe": "משמעת עצמית לא דורשת מלחמה.",
+      "motivator": "anger"
+    },
+    {
+      "at": "2026-08-29T07:54:15.222Z",
+      "idea": "How self-discipline leads to true freedom and peace, not struggle.",
+      "limitingBelief": "משמעת תמיד מרגישה כמו מאבק קשה.",
+      "hookHe": "רוב האנשים לא חופשיים בכלל.",
+      "motivator": "freedom"
+    },
+    {
+      "at": "2026-08-29T08:01:19.026Z",
+      "idea": "This video is about how self-discipline is a shared journey, not a solitary struggle.",
+      "limitingBelief": "אני חייב להצליח לבד לגמרי.",
+      "hookHe": "רוב אנשים לא יודעים סוד.",
+      "motivator": "belonging"
+    },
+    {
+      "at": "2026-08-29T08:09:41.614Z",
+      "idea": "How focusing on small, disciplined actions improves daily life, rather than just big goals.",
+      "limitingBelief": "משמעת היא רק למטרות גדולות וחשובות.",
+      "hookHe": "האם אתם מפספסים את החיים?",
+      "motivator": "fear"
+    },
+    {
+      "at": "2026-08-29T08:16:38.324Z",
+      "idea": "The social recognition that comes from self-discipline.",
+      "limitingBelief": "השקעה במשמעת לא משנה דבר.",
+      "hookHe": "הסוד האמיתי לכבוד פשוט.",
+      "motivator": "status"
     }
   ]
 }
