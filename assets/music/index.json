@@ -3,23 +3,23 @@
     {
       "key": "lift",
       "file": "bed_lift.mp3",
-      "name": "lift",
-      "artist": "ElevenLabs",
-      "synth": false
+      "name": "פסקול רגוע",
+      "artist": "נוצר מקומית",
+      "synth": true
     },
     {
       "key": "pulse",
       "file": "bed_pulse.mp3",
-      "name": "pulse",
-      "artist": "ElevenLabs",
-      "synth": false
+      "name": "פסקול רגוע",
+      "artist": "נוצר מקומית",
+      "synth": true
     },
     {
       "key": "dawn",
       "file": "bed_dawn.mp3",
-      "name": "dawn",
-      "artist": "ElevenLabs",
-      "synth": false
+      "name": "פסקול רגוע",
+      "artist": "נוצר מקומית",
+      "synth": true
     },
     {
       "key": "resolve",
