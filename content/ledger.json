@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 7,
+  "motivatorCursor": 2,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -511,6 +511,48 @@
       "limitingBelief": "אין לי דרך לחזור למסלול אחרי נפילה.",
       "hookHe": "רוב אנשים לא מבינים כישלון.",
       "motivator": "security"
+    },
+    {
+      "at": "2026-08-31T06:29:04.238Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-08-31T06:37:35.062Z",
+      "idea": "This video challenges the common misconception that discipline requires suffering, asserting instead that it enables doing what one truly loves.",
+      "limitingBelief": "משמעת זה לעשות דברים ששונאים.",
+      "hookHe": "שיקרו לכם על משמעת עצמית.",
+      "motivator": "anger"
+    },
+    {
+      "at": "2026-08-31T06:47:30.439Z",
+      "idea": "Self-discipline helps automate tasks, leading to freedom from constant effort.",
+      "limitingBelief": "צריך להתחיל מחדש כל בוקר.",
+      "hookHe": "האם אפשר לנוח ולהתקדם?",
+      "motivator": "freedom"
+    },
+    {
+      "at": "2026-08-31T06:55:55.923Z",
+      "idea": "This video shows how community support and shared effort are key to building self-discipline.",
+      "limitingBelief": "צריך להראות לכולם שאני חזק.",
+      "hookHe": "רוב אנשים מפספסים את הסוד.",
+      "motivator": "belonging"
+    },
+    {
+      "at": "2026-08-31T07:04:51.864Z",
+      "idea": "Discipline builds resilience, not perfect control.",
+      "limitingBelief": "משמעת אמיתית מובילה לשליטה מושלמת.",
+      "hookHe": "רוב אנשים חושבים שליטה מושלמת.",
+      "motivator": "fear"
+    },
+    {
+      "at": "2026-08-31T07:12:39.316Z",
+      "idea": "Show how self-discipline elevates social status through perceived appreciation and reputation.",
+      "limitingBelief": "אנשים לא מעריכים את המאמץ שלכם.",
+      "hookHe": "רוצים שיעריכו אתכם יותר?",
+      "motivator": "status"
     }
   ]
 }
