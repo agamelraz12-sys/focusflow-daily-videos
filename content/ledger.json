@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 2,
+  "motivatorCursor": 7,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -553,6 +553,41 @@
       "limitingBelief": "אנשים לא מעריכים את המאמץ שלכם.",
       "hookHe": "רוצים שיעריכו אתכם יותר?",
       "motivator": "status"
+    },
+    {
+      "at": "2026-09-01T05:57:02.145Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-09-01T06:05:23.225Z",
+      "idea": "How to achieve self-discipline with minimal effort and a simple approach.",
+      "limitingBelief": "צריך שיטה מסובכת למשמעת.",
+      "hookHe": "אין זמן? זו הדרך.",
+      "motivator": "ease"
+    },
+    {
+      "at": "2026-09-01T06:14:21.366Z",
+      "idea": "Self-discipline isn't a constant battle, it's about setting up systems that save you from internal conflict and decision fatigue.",
+      "limitingBelief": "משמעת אומרת להילחם כל הזמן.",
+      "hookHe": "לא צריך להילחם בעצמכם כל יום.",
+      "motivator": "saving"
+    },
+    {
+      "at": "2026-09-01T06:21:58.820Z",
+      "idea": "Urgency of acting on unique opportunities now, not later.",
+      "limitingBelief": "תמיד יש זמן אחר להתחיל.",
+      "hookHe": "אנשים לא רואים מה קורה.",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-09-01T06:31:56.522Z",
+      "idea": "Building resilient self-discipline that withstands challenges.",
+      "limitingBelief": "משמעת טובה עלולה להישבר בכל רגע.",
+      "hookHe": "האם משמעת תמיד נשברת בסוף?",
+      "motivator": "security"
     }
   ]
 }
