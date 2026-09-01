@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 7,
+  "motivatorCursor": 10,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -588,6 +588,27 @@
       "limitingBelief": "משמעת טובה עלולה להישבר בכל רגע.",
       "hookHe": "האם משמעת תמיד נשברת בסוף?",
       "motivator": "security"
+    },
+    {
+      "at": "2026-09-01T18:56:17.469Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-09-01T19:04:32.286Z",
+      "idea": "Discipline is a gift, not a punishment, reducing guilt and freeing the mind.",
+      "limitingBelief": "משמעת היא עונש על אי עשייה.",
+      "hookHe": "הפסדתם המון בגלל שקר.",
+      "motivator": "anger"
+    },
+    {
+      "at": "2026-09-01T19:28:29.784Z",
+      "idea": "How planning for self-discipline actually creates more freedom.",
+      "limitingBelief": "תכנון סוגר אתכם בחוקים.",
+      "hookHe": "רוב אנשים לא חופשיים באמת.",
+      "motivator": "freedom"
     }
   ]
 }
