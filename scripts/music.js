@@ -100,6 +100,51 @@ function compose(prompt) {
 }
 
 
+
+// ------------------------------------------------------ her own library ---
+
+/*
+ * The songs the founder supplied herself, in "שירים לאינסטגרם" next to this
+ * repo. Real tracks with vocals, and — the part that matters — cleared by her,
+ * so there is no licence question and no artist credit to bolt onto every
+ * caption. This beats every source that came before it: Pixabay has no music
+ * API, Jamendo needs an account, archive.org's free-for-commercial pool turned
+ * out to be mostly grindcore and noise, and ElevenLabs is out of credits.
+ *
+ * Point SONGS_DIR somewhere else to use a different library.
+ */
+const SONGS_DIR = process.env.SONGS_DIR
+  || path.join(ROOT, '..', 'שירים לאינסטגרם');
+
+/*
+ * Songs open with an intro that has not got going yet. Starting a sixty second
+ * reel on it wastes the part of the track that carries the feeling, so skip in
+ * to where the song has arrived.
+ */
+const SONG_START_SEC = Number(process.env.SONG_START_SEC || 24);
+
+function libraryTracks() {
+  if (!fs.existsSync(SONGS_DIR)) return [];
+  return fs.readdirSync(SONGS_DIR)
+    .filter((f) => /.(mp3|m4a|wav|aac)$/i.test(f))
+    .sort()
+    .map((f) => {
+      // "All For You - Anno Domini Beats.mp3" -> title and artist
+      const base = f.replace(/.[^.]+$/, '');
+      const dash = base.lastIndexOf(' - ');
+      return {
+        key: 'lib-' + base,
+        file: f,
+        dir: SONGS_DIR,
+        name: dash > 0 ? base.slice(0, dash) : base,
+        artist: dash > 0 ? base.slice(dash + 3) : '',
+        song: true,
+        owned: true,
+        startSec: SONG_START_SEC,
+      };
+    });
+}
+
 // --------------------------------------------------------------- jamendo ---
 
 /*
@@ -227,6 +272,14 @@ async function stock(want = BRIEFS.length) {
   const have = idx.tracks.filter((t) => fs.existsSync(path.join(MUSIC_DIR, t.file)));
   const haveKeys = new Set(have.map((t) => t.key));
 
+  // Her own library wins outright when it is there: real songs, already
+  // cleared by her, so no licence question and no credit line in the caption.
+  const own = libraryTracks();
+  if (own.length) {
+    console.log('  using ' + own.length + ' songs from your own library');
+    return own;
+  }
+
   // Real songs first when a Jamendo id exists. Composed beds are the fallback,
   // and they are also what runs when ElevenLabs credits are exhausted.
   const jamendoId = process.env.JAMENDO_CLIENT_ID;
@@ -270,7 +323,11 @@ async function stock(want = BRIEFS.length) {
  */
 function pick(tracks, n) {
   const t = tracks[n % tracks.length];
-  return { path: path.join(MUSIC_DIR, t.file), track: t };
+  return {
+    path: path.join(t.dir || MUSIC_DIR, t.file),
+    startSec: t.startSec || 0,
+    track: t,
+  };
 }
 
 module.exports = { stock, pick, MUSIC_DIR, BRIEFS };

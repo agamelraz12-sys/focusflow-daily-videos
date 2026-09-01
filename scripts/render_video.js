@@ -508,11 +508,26 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
   const emojiPath = wantsEmoji ? await ensureEmoji() : null;
   if (emojiPath) fs.copyFileSync(emojiPath, path.join(WORK, 'emoji.png'));
 
-  const inputs = ['-i', 'novoice.mp4', '-i', 'voice.wav', '-stream_loop', '-1', '-i', 'bg.mp3'];
+  /*
+   * Skip into the song before looping it. A track's first seconds are its
+   * intro, which is the least emotive part of it — starting there spends the
+   * whole reel on the wind-up.
+   */
+  const musicStart = Number(C.musicStartSec || 0);
+  const bgIn = ['-stream_loop', '-1'];
+  if (musicStart > 0) bgIn.push('-ss', musicStart.toFixed(2));
+  const inputs = ['-i', 'novoice.mp4', '-i', 'voice.wav', ...bgIn, '-i', 'bg.mp3'];
   const audioFc =
     '[1:a]apad,asplit=2[v1][v2];'
-    + `[2:a]loudnorm=I=-26:TP=-2,afade=t=in:st=0:d=1.5,afade=t=out:st=${Math.max(0, TOTAL - 2.5).toFixed(2)}:d=2.5[bg0];`
-    + '[bg0][v1]sidechaincompress=threshold=0.03:ratio=8:attack=20:release=400[bg];'
+    /*
+     * The bed should be felt, not just technically present. It used to sit at
+     * -26 LUFS with a hard duck, which is inaudible on a phone speaker; the
+     * point of a song is the feeling it adds, and nobody likes a video for a
+     * bed they cannot hear. Louder, ducked more gently — still clearly under
+     * the narrator, verified by transcribing the finished mix.
+     */
+    + `[2:a]loudnorm=I=-21:TP=-2,afade=t=in:st=0:d=1.2,afade=t=out:st=${Math.max(0, TOTAL - 2.5).toFixed(2)}:d=2.5[bg0];`
+    + '[bg0][v1]sidechaincompress=threshold=0.05:ratio=6:attack=25:release=350[bg];'
     // The TTS comes back mono at 24 kHz. Instagram and TikTok expect 48 kHz
     // stereo, so the mix is resampled up before it leaves the graph.
     + '[v2][bg]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.95,'

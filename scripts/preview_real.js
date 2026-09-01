@@ -43,6 +43,7 @@ const OUT = path.join(ROOT, 'out', 'preview-real');
     outDir: OUT,
     cues,
     musicFile: bed.path,
+    musicStartSec: bed.startSec,
     brand: process.env.BRAND_HANDLE || undefined,
   });
 

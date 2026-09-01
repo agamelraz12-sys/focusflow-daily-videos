@@ -150,7 +150,8 @@ function captionFor(platform, draft, musicTrack) {
    * under CC BY is a different matter: naming the artist is the condition of
    * using it commercially at all.
    */
-  const credit = musicTrack && musicTrack.song && musicTrack.artist
+  // Her own library needs no credit line — she cleared those tracks herself.
+  const credit = musicTrack && musicTrack.song && musicTrack.artist && !musicTrack.owned
     ? `
 
 🎵 ${musicTrack.name} · ${musicTrack.artist}`
@@ -207,6 +208,7 @@ async function doSlot(i, dateStr, ledger, tracks, booked) {
         outDir: dir,
         cues: cut.cues,
         musicFile: bed.path,
+        musicStartSec: bed.startSec,
         brand: BRAND || undefined,
       });
       // Which frame the profile grid should show. Read it now: `dir` is deleted
