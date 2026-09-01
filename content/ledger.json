@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 10,
+  "motivatorCursor": 2,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -609,6 +609,27 @@
       "limitingBelief": "תכנון סוגר אתכם בחוקים.",
       "hookHe": "רוב אנשים לא חופשיים באמת.",
       "motivator": "freedom"
+    },
+    {
+      "at": "2026-09-01T19:45:40.661Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-09-01T19:53:58.175Z",
+      "idea": "This video is about how discipline helps discover one's true identity, rather than erasing it.",
+      "limitingBelief": "משמעת אומרת לאבד את עצמכם.",
+      "hookHe": "משמעת תמיד מגלה את האמת.",
+      "motivator": "fear"
+    },
+    {
+      "at": "2026-09-01T20:02:37.397Z",
+      "idea": "Self-discipline unlocks new social opportunities and recognition.",
+      "limitingBelief": "משמעת עצמית הופכת אתכם לאנשים משעממים.",
+      "hookHe": "אנשים ישאלו אתכם מה הסוד.",
+      "motivator": "status"
     }
   ]
 }
