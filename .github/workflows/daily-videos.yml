@@ -68,6 +68,28 @@ jobs:
           key: voice-${{ github.run_id }}
           restore-keys: voice-
 
+      # The music lives in a separate PRIVATE repo. These are YouTube Audio
+      # Library tracks: the licence covers using them inside content, not
+      # redistributing the files, and this repo has to stay public so Buffer can
+      # fetch the rendered MP4s. A read-only deploy key bridges the two.
+      - name: Fetch the song library
+        env:
+          SONGS_DEPLOY_KEY: ${{ secrets.SONGS_DEPLOY_KEY }}
+          SONGS_REPO: ${{ secrets.SONGS_REPO }}
+        run: |
+          if [ -z "$SONGS_DEPLOY_KEY" ] || [ -z "$SONGS_REPO" ]; then
+            echo "no song library configured, the run will fall back to composed beds"
+            exit 0
+          fi
+          mkdir -p ~/.ssh
+          echo "$SONGS_DEPLOY_KEY" > ~/.ssh/songs_key
+          chmod 600 ~/.ssh/songs_key
+          ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
+          export GIT_SSH_COMMAND="ssh -i ~/.ssh/songs_key -o IdentitiesOnly=yes"
+          git clone --depth 1 "git@github.com:${SONGS_REPO}.git" "$RUNNER_TEMP/songs"
+          rm -f ~/.ssh/songs_key
+          echo "songs available: $(ls "$RUNNER_TEMP/songs"/*.mp3 2>/dev/null | wc -l)"
+
       - name: Preflight
         env:
           PIXABAY_KEY: ${{ secrets.PIXABAY_KEY }}
@@ -105,6 +127,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRAND_HANDLE: ${{ vars.BRAND_HANDLE }}
           PROFILE_LINK: ${{ vars.PROFILE_LINK }}
+          SONGS_DIR: ${{ runner.temp }}/songs
+          SONG_START_SEC: "0"
           FORCE_RUN: ${{ inputs.force }}
           TARGET_DATE: ${{ inputs.target_date }}
         run: node scripts/main.js
