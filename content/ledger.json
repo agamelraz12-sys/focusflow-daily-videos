@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 2,
+  "motivatorCursor": 3,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -630,6 +630,13 @@
       "limitingBelief": "משמעת עצמית הופכת אתכם לאנשים משעממים.",
       "hookHe": "אנשים ישאלו אתכם מה הסוד.",
       "motivator": "status"
+    },
+    {
+      "at": "2026-09-02T05:19:47.753Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
     }
   ]
 }
