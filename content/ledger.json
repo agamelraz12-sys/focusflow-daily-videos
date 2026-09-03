@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 3,
+  "motivatorCursor": 8,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -637,6 +637,41 @@
       "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
       "hookHe": "הרגע הזה לא יחזור לעולם",
       "motivator": "opportunity"
+    },
+    {
+      "at": "2026-09-03T05:24:13.442Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-09-03T05:37:46.306Z",
+      "idea": "Self-discipline saves mental energy by automating choices.",
+      "limitingBelief": "משמעת עצמית דורשת מאבק והתמודדות תמידית.",
+      "hookHe": "משמעת עצמית דווקא חוסכת אנרגיה.",
+      "motivator": "saving"
+    },
+    {
+      "at": "2026-09-03T05:54:30.327Z",
+      "idea": "This video explains why rare opportunities demand immediate action and do not wait.",
+      "limitingBelief": "הזדמנות תמיד תחכה, אין לחץ.",
+      "hookHe": "רוב אנשים מפספסים הזדמנות.",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-09-03T06:04:38.449Z",
+      "idea": "A reliable system for discipline provides consistent results and security.",
+      "limitingBelief": "משמעת דורשת מאמץ עצום ומתיש כל יום.",
+      "hookHe": "רוב אנשים חושבים שמשמעת קשה.",
+      "motivator": "security"
+    },
+    {
+      "at": "2026-09-03T06:13:28.348Z",
+      "idea": "Regain control by choosing what you react to, rather than being constantly driven by external stimuli.",
+      "limitingBelief": "אני חייב תמיד להגיב לגירויים חיצוניים.",
+      "hookHe": "אתם לא חייבים להגיב לכל.",
+      "motivator": "control"
     }
   ]
 }
