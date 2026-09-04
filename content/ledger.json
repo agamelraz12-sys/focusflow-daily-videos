@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 8,
+  "motivatorCursor": 2,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -672,6 +672,41 @@
       "limitingBelief": "אני חייב תמיד להגיב לגירויים חיצוניים.",
       "hookHe": "אתם לא חייבים להגיב לכל.",
       "motivator": "control"
+    },
+    {
+      "at": "2026-09-04T05:24:24.703Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-09-04T05:32:55.636Z",
+      "idea": "This video is about how self-discipline allows for genuine spontaneity and freedom.",
+      "limitingBelief": "משמעת הורגת את הספונטניות בחיים.",
+      "hookHe": "האם משמעת הורסת את החופש?",
+      "motivator": "freedom"
+    },
+    {
+      "at": "2026-09-04T05:43:43.095Z",
+      "idea": "This video shows how self-discipline is a shared journey, not a solitary struggle.",
+      "limitingBelief": "רק אני מרגיש ככה לבד.",
+      "hookHe": "מה אנשים ממושמעים באמת יודעים?",
+      "motivator": "belonging"
+    },
+    {
+      "at": "2026-09-04T05:52:14.432Z",
+      "idea": "How discipline creates more time and prevents regret.",
+      "limitingBelief": "אנשים חושבים שאין להם מספיק זמן לעשות הכל.",
+      "hookHe": "אנשים לא מבינים כמה זמן נעלם.",
+      "motivator": "fear"
+    },
+    {
+      "at": "2026-09-04T06:00:53.538Z",
+      "idea": "Discipline enhances social status and respect.",
+      "limitingBelief": "משמעת היא רק עניין אישי שלי.",
+      "hookHe": "למה אנשים מתייחסים אליכם אחרת?",
+      "motivator": "status"
     }
   ]
 }
