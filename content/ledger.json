@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 2,
+  "motivatorCursor": 8,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -707,6 +707,48 @@
       "limitingBelief": "משמעת היא רק עניין אישי שלי.",
       "hookHe": "למה אנשים מתייחסים אליכם אחרת?",
       "motivator": "status"
+    },
+    {
+      "at": "2026-09-05T05:09:18.499Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-09-05T05:17:26.099Z",
+      "idea": "How to make starting new habits effortless.",
+      "limitingBelief": "קשה מאוד להתחיל דברים חדשים.",
+      "hookHe": "רוב האנשים לא מבינים את הסוד.",
+      "motivator": "ease"
+    },
+    {
+      "at": "2026-09-05T05:26:26.565Z",
+      "idea": "Discipline is an investment that yields savings in time, energy, and money.",
+      "limitingBelief": "צריך להשקיע המון כדי להיות ממושמעים.",
+      "hookHe": "האם אתם משלמים מחיר יקר?",
+      "motivator": "saving"
+    },
+    {
+      "at": "2026-09-05T05:33:45.004Z",
+      "idea": "This video is about recognizing the urgency of self-discipline because the world is constantly moving forward.",
+      "limitingBelief": "אפשר להמתין שהכל יסתדר.",
+      "hookHe": "רגע אחד משנה הכל.",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-09-05T05:42:17.641Z",
+      "idea": "How to reliably get back on track with self-discipline after setbacks, building lasting confidence.",
+      "limitingBelief": "אני תמיד נופל מהדרך ואין לי ביטחון שאצליח.",
+      "hookHe": "הטעות הגדולה ביותר במשמעת.",
+      "motivator": "security"
+    },
+    {
+      "at": "2026-09-05T05:50:08.094Z",
+      "idea": "The viewer can regain control over their habits and break free from feeling dictated by them.",
+      "limitingBelief": "אני לא יכול לשלוט בהרגלים שלי.",
+      "hookHe": "לא תאמינו מי באמת שולט.",
+      "motivator": "control"
     }
   ]
 }
