@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 2,
+  "motivatorCursor": 6,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -784,6 +784,34 @@
       "limitingBelief": "אני רק עוד אחד כמו כולם.",
       "hookHe": "רוצים שיעריכו אתכם יותר?",
       "motivator": "status"
+    },
+    {
+      "at": "2026-09-07T05:30:10.133Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-09-07T05:41:15.381Z",
+      "idea": "Discipline can be easily integrated into daily life without needing special time.",
+      "limitingBelief": "צריך לפנות זמן מיוחד למשמעת.",
+      "hookHe": "רוב אנשים עושים טעות קטנה.",
+      "motivator": "ease"
+    },
+    {
+      "at": "2026-09-07T05:52:48.999Z",
+      "idea": "Discipline actually saves energy and effort, contrary to popular belief.",
+      "limitingBelief": "משמעת דורשת להשקיע אנרגיה כל הזמן.",
+      "hookHe": "לא תבזבזו יותר אנרגיה בחינם.",
+      "motivator": "saving"
+    },
+    {
+      "at": "2026-09-07T06:01:52.688Z",
+      "idea": "Emphasizing the rapid pace of change and the necessity of immediate self-discipline to avoid being left behind.",
+      "limitingBelief": "העולם לא זז מהר כל כך.",
+      "hookHe": "העולם של היום לא מחכה לכם.",
+      "motivator": "opportunity"
     }
   ]
 }
