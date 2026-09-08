@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 6,
+  "motivatorCursor": 0,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -812,6 +812,41 @@
       "limitingBelief": "העולם לא זז מהר כל כך.",
       "hookHe": "העולם של היום לא מחכה לכם.",
       "motivator": "opportunity"
+    },
+    {
+      "at": "2026-09-08T05:33:07.865Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-09-08T05:41:09.287Z",
+      "idea": "This video shows how to reclaim daily control from past actions.",
+      "limitingBelief": "העבר קובע מה תעשו היום.",
+      "hookHe": "היום שלכם נקבע אתמול",
+      "motivator": "control"
+    },
+    {
+      "at": "2026-09-08T05:49:12.650Z",
+      "idea": "This video exposes the lie about self-discipline being hard and reveals a simpler, less effortful approach.",
+      "limitingBelief": "ניסיתם הכל וכלום לא עזר.",
+      "hookHe": "אתם לא נכשלתם במשמעת.",
+      "motivator": "anger"
+    },
+    {
+      "at": "2026-09-08T05:58:18.821Z",
+      "idea": "Discipline frees up mental space and time, leading to true freedom.",
+      "limitingBelief": "משמעת אומרת להיות עסוקים כל הזמן.",
+      "hookHe": "חופש אמיתי קורה בלי מאמץ.",
+      "motivator": "freedom"
+    },
+    {
+      "at": "2026-09-08T06:10:36.661Z",
+      "idea": "This video is about finding support and community in your self-discipline journey, breaking the belief that no one understands your struggle.",
+      "limitingBelief": "אין מי שיבין את המאבק שלי.",
+      "hookHe": "רוב אנשים מרגישים לבד.",
+      "motivator": "belonging"
     }
   ]
 }
