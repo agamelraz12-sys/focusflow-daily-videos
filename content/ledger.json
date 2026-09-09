@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 0,
+  "motivatorCursor": 5,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -847,6 +847,41 @@
       "limitingBelief": "אין מי שיבין את המאבק שלי.",
       "hookHe": "רוב אנשים מרגישים לבד.",
       "motivator": "belonging"
+    },
+    {
+      "at": "2026-09-09T05:35:30.380Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-09-09T05:45:04.397Z",
+      "idea": "This video explains how self-discipline makes you a role model for others.",
+      "limitingBelief": "אף אחד לא רואה בכם מודל לחיקוי.",
+      "hookHe": "רוב האנשים רוצים להיות כמוכם.",
+      "motivator": "status"
+    },
+    {
+      "at": "2026-09-09T05:53:58.172Z",
+      "idea": "How simple self-discipline can save significant money without complex financial management.",
+      "limitingBelief": "לנהל כסף דורש מומחיות רבה.",
+      "hookHe": "רוב אנשים מאבדים עשרת אלפים.",
+      "motivator": "money"
+    },
+    {
+      "at": "2026-09-09T06:02:20.318Z",
+      "idea": "This video is about simplifying self-discipline by focusing on effortless continuation rather than constant restarting.",
+      "limitingBelief": "משמעת דורשת תמיד להתחיל מחדש.",
+      "hookHe": "הסוד למשמעת בלי שום מאמץ.",
+      "motivator": "ease"
+    },
+    {
+      "at": "2026-09-09T06:12:54.866Z",
+      "idea": "How self-discipline, when done right, saves you significant time and effort.",
+      "limitingBelief": "משמעת עצמית גוזלת המון זמן יקר.",
+      "hookHe": "רוב אנשים מבזבזים שעות בחינם.",
+      "motivator": "saving"
     }
   ]
 }
