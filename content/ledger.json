@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 5,
+  "motivatorCursor": 6,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -882,6 +882,13 @@
       "limitingBelief": "משמעת עצמית גוזלת המון זמן יקר.",
       "hookHe": "רוב אנשים מבזבזים שעות בחינם.",
       "motivator": "saving"
+    },
+    {
+      "at": "2026-09-10T05:33:12.855Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
     }
   ]
 }
