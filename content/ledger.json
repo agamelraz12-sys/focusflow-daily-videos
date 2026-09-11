@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 6,
+  "motivatorCursor": 1,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -889,6 +889,48 @@
       "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
       "hookHe": "הרגע הזה לא יחזור לעולם",
       "motivator": "opportunity"
+    },
+    {
+      "at": "2026-09-11T05:31:26.940Z",
+      "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
+      "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
+      "hookHe": "הרגע הזה לא יחזור לעולם",
+      "motivator": "opportunity"
+    },
+    {
+      "at": "2026-09-11T05:40:07.236Z",
+      "idea": "How to reclaim control over your day from external demands and internal impulses.",
+      "limitingBelief": "אני רק מגיב למה שקורה סביבי.",
+      "hookHe": "אתם לא באמת בוחרים כלום.",
+      "motivator": "control"
+    },
+    {
+      "at": "2026-09-11T05:49:15.745Z",
+      "idea": "How traditional discipline advice is wrong and exhausting, and how true discipline is actually easier.",
+      "limitingBelief": "מלמדים אתכם משמעת בצורה שגויה.",
+      "hookHe": "משקרים לכם על משמעת.",
+      "motivator": "anger"
+    },
+    {
+      "at": "2026-09-11T05:57:40.204Z",
+      "idea": "This video shows how small habits create mental peace and freedom from constant tasks.",
+      "limitingBelief": "אי אפשר לנוח כשעבודה מחכה.",
+      "hookHe": "אי אפשר לנוח כשעבודה מחכה.",
+      "motivator": "freedom"
+    },
+    {
+      "at": "2026-09-11T06:06:24.849Z",
+      "idea": "This video explains how self-discipline is a shared journey and not a solitary struggle.",
+      "limitingBelief": "אני לבד מול הקשיים.",
+      "hookHe": "אתם לא תצליחו לבד לעולם.",
+      "motivator": "belonging"
+    },
+    {
+      "at": "2026-09-11T06:15:03.379Z",
+      "idea": "This video addresses the limiting belief that age prevents starting new habits, replacing it with the empowering belief that age is not a barrier to building discipline.",
+      "limitingBelief": "אני כבר לא צעיר, קשה לי לשנות.",
+      "hookHe": "האם באמת מאוחר מדי?",
+      "motivator": "fear"
     }
   ]
 }
