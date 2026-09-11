@@ -8,7 +8,15 @@ on:
     # cannot double-post, whatever else breaks.
     # 01:00 UTC is 04:00 Israel in summer and 03:00 in winter — comfortably
     # before the 07:45 slot either way.
-    - cron: "0 1 * * *"
+    # PAUSED 2026-09-11, at her instruction.
+    #
+    # This machine sells the self discipline guide. The product being
+    # launched now is the ADHD guide, and six videos a day on one profile
+    # buried everything else: Instagram's queue was full at ten, so the
+    # posts for the new guide could not even be scheduled.
+    #
+    # Nothing here is deleted. Uncomment the cron to start it again.
+    # - cron: "0 1 * * *"
   workflow_dispatch:
     inputs:
       force:
