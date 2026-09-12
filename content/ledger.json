@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 1,
+  "motivatorCursor": 4,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -931,6 +931,27 @@
       "limitingBelief": "אני כבר לא צעיר, קשה לי לשנות.",
       "hookHe": "האם באמת מאוחר מדי?",
       "motivator": "fear"
+    },
+    {
+      "at": "2026-09-12T15:26:24.347Z",
+      "idea": "The struggle to remember tasks that aren't immediately visible, leading to self-blame.",
+      "limitingBelief": "אני שוכח דברים חשובים כי אני מבולגן.",
+      "hookHe": "פתאום משימות נעלמות מהראש.",
+      "motivator": "relief"
+    },
+    {
+      "at": "2026-09-12T15:36:24.196Z",
+      "idea": "Explaining why simple, boring tasks are uniquely hard for ADHD brains.",
+      "limitingBelief": "אני פשוט עצלן מול משימות קלות.",
+      "hookHe": "משימות קלות הן הכי קשות.",
+      "motivator": "mechanism"
+    },
+    {
+      "at": "2026-09-12T15:39:54.580Z",
+      "idea": "How traditional 'do important tasks first' advice fails for ADHD and why starting with interest is more effective.",
+      "limitingBelief": "צריך להתחיל משימות חשובות קודם כל.",
+      "hookHe": "משימות חשובות לרוב לא מתחילות.",
+      "motivator": "reframe"
     }
   ]
 }

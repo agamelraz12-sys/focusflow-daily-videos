@@ -26,7 +26,7 @@ const model = () => process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 const apiKey = () => process.env.GEMINI_API_KEY;
 
 /*
- * How many value cues sit between the hook and the fear block. Each cue is one
+ * How many value cues sit between the hook and the turn block. Each cue is one
  * subtitle line and one clip, so this number sets the length of the video.
  *
  * 12 lands around 60 seconds. Eighteen was the first try and it produced an
@@ -39,7 +39,7 @@ const apiKey = () => process.env.GEMINI_API_KEY;
 const VALUE_CUES = 12;
 const VALUE_MIN = 10;
 const VALUE_MAX = 20;
-const FEAR_CUES = 4;
+const TURN_CUES = 4;
 
 // ---------------------------------------------------------------- ledger ----
 
@@ -157,7 +157,7 @@ const SCHEMA = {
         required: ['he', 'en', 'query'],
       },
     },
-    fear: {
+    turn: {
       type: 'array',
       items: {
         type: 'object',
@@ -170,17 +170,45 @@ const SCHEMA = {
       },
     },
   },
-  required: ['idea', 'limitingBelief', 'empoweringBelief', 'caption', 'title', 'hook', 'value', 'fear'],
+  required: ['idea', 'limitingBelief', 'empoweringBelief', 'caption', 'title', 'hook', 'value', 'turn'],
 };
 
 function buildPrompt(motivator, avoid, complaints) {
   return `You are writing the script for a vertical short video (Instagram Reel / TikTok / YouTube Short).
 
 THE BUSINESS
-The account sells a guide for building self discipline, and a mobile app that helps people
-actually follow through on what they plan. Every single video exists to do one job:
-take one limiting belief the viewer holds about self discipline, break it, and replace it
-with an empowering belief. The guide is the thing being sold. The video is the argument.
+The account is פוקוס. It is about ADHD, and it exists for people whose brains work this
+way — all of them, any age, any gender. The product is a mobile app that helps someone
+with ADHD actually start and finish the things they meant to do. Getting people to try
+the app is the job. The video is the argument.
+
+WHAT THE ACCOUNT BELIEVES, AND WHAT EVERY VIDEO MUST OBEY
+The one sentence this whole account is built on is: this is not laziness, this is ADHD.
+Everything you write has to be compatible with that sentence.
+
+- Never imply the viewer is lazy, undisciplined, weak willed, wasteful, or behind other
+  people. They have been told that their entire life and it is the reason they are here.
+- Do not write about "self discipline". That is the opposite frame. If a line would fit
+  on a generic motivation or hustle account, it is wrong for this one.
+- No money angles, no "most people lose thousands", no once in a lifetime urgency, no
+  social status, no shaming comparison to other people. These get scrolled past by this
+  audience at best and lose a follower at worst.
+- Write about how an ADHD brain actually works, and about what to do given that it works
+  that way. Interest over importance. Urgency unlocking action. Time blindness. Task
+  paralysis when a task is boring rather than hard. The first move being the whole
+  problem. Object permanence. Rejection sensitivity. Hyperfocus and its cost.
+- Be specific enough to be recognised. "It is hard to start" is nothing. "The form has
+  been open in a tab for eleven days and it takes four minutes" is the whole video.
+- Do not promise transformation. This audience has bought transformation before and it
+  did not work, and overpromising is the fastest way to lose them. Promise one thing
+  that is a bit easier.
+- Never claim ADHD is a superpower, and never claim it is a tragedy. Neither is honest.
+
+THE HOUSE FORMULA, taken from the posts that actually performed on this account
+Name a precise everyday moment, explain the mechanism underneath it, remove the blame,
+then give one concrete move. For example: "You have had a task on the list for a week.
+You know exactly what needs doing. And still you have not." Then why that happens. Then
+that it is not laziness. Then the one thing that helps.
 
 THIS VIDEO'S EMOTIONAL DRIVER: ${motivator.name}
 ${motivator.angle}
@@ -196,14 +224,16 @@ STRUCTURE
    move to make. Ten times more concrete than a normal motivational video. If a line
    could appear in any generic self help post, it is wrong. Somewhere inside these lines
    the limiting belief must be named and dismantled, and the empowering belief installed.
-3. fear — exactly ${FEAR_CUES} lines, and they come last, right before the call to action.
-   Paint a vivid, concrete picture of the viewer's future if they do nothing. Not vague
-   dread. A specific scene: what a year from now looks like, what they will be telling
-   themselves, what will still be exactly the same. Make them feel the cost of standing
-   still.
-   These lines DESCRIBE a future. They never instruct. "In a year the same list is
-   still there" is right. "Keep putting things off" is wrong — that is an order, and it
-   reads as though you are telling them to fail.
+3. turn — exactly ${TURN_CUES} lines, and they come last, right before the call to action.
+   This is where the video turns. Everything before it explained why the brain does this.
+   These lines show what it looks like when something finally fits that brain instead of
+   fighting it. A specific, small, believable scene: the one task that got done, the
+   morning that started without the usual twenty minutes of circling.
+   Keep it modest. One thing going better, not a life transformed.
+   These lines DESCRIBE. They never instruct and they never threaten. "The form got sent
+   on Tuesday" is right. "Stop putting things off" is wrong, that is an order. "In a year
+   nothing will have changed" is also wrong, that is the shame this account exists to
+   remove.
 
 HEBREW RULES — these are hard rules and the script is rejected if any is broken
 - Every "he" field is ONE line. Never two lines. Never a line break.
@@ -283,10 +313,10 @@ function validate(draft) {
     problems.push(`value: got ${draft.value?.length} lines, need between ${VALUE_MIN} and ${VALUE_MAX}`);
   }
   (draft.value || []).forEach((c, i) => check(c, `value[${i}]`));
-  if (!Array.isArray(draft.fear) || draft.fear.length !== FEAR_CUES) {
-    problems.push(`fear: got ${draft.fear?.length} lines, need exactly ${FEAR_CUES}`);
+  if (!Array.isArray(draft.turn) || draft.turn.length !== TURN_CUES) {
+    problems.push(`turn: got ${draft.turn?.length} lines, need exactly ${TURN_CUES}`);
   }
-  (draft.fear || []).forEach((c, i) => check(c, `fear[${i}]`));
+  (draft.turn || []).forEach((c, i) => check(c, `turn[${i}]`));
 
   if (!draft.caption) problems.push('caption: missing');
   if (!draft.limitingBelief) problems.push('limitingBelief: missing');
@@ -384,7 +414,7 @@ function toCues(draft, platform) {
   return [
     draft.hook,
     ...draft.value,
-    ...draft.fear,
+    ...draft.turn,
     ...cta.map((c, i) => ({
       he: c.he,
       en: c.en,
@@ -408,7 +438,7 @@ function remember(ledger, draft) {
   return ledger;
 }
 
-module.exports = { writeScript, toCues, loadLedger, saveLedger, remember, validate, VALUE_CUES, FEAR_CUES };
+module.exports = { writeScript, toCues, loadLedger, saveLedger, remember, validate, VALUE_CUES, TURN_CUES };
 
 // --------------------------------------------------------------------- CLI --
 

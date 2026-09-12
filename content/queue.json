@@ -1,99 +1,99 @@
 [
   {
-    "idea": "This video argues that discipline is essential for seizing fleeting, once-in-a-lifetime opportunities.",
-    "limitingBelief": "אפשר לדחות דברים למועד מאוחר יותר",
-    "empoweringBelief": "חובה לתפוס הזדמנויות ברגע הנכון",
-    "caption": "יש דברים שקורים פעם בחיים. הם לא מחכים. מי שפועל בזמן, זוכה. מי שלא, מפספס. איך אתם מנצלים את הרגעים האלה?",
-    "title": "הזדמנויות לא חוזרות פעמיים",
+    "idea": "How traditional 'do important tasks first' advice fails for ADHD and why starting with interest is more effective.",
+    "limitingBelief": "צריך להתחיל משימות חשובות קודם כל.",
+    "empoweringBelief": "עדיף להתחיל במה שמעניין אתכם.",
+    "caption": "כולם אומרים להתחיל עם משימות חשובות. אבל מה קורה כשזה לא עובד? המוח שלכם עובד אחרת לגמרי. גלו את הדרך שמתאימה לכם. איך אתם מתחילים לעשות דברים?",
+    "title": "משימות חשובות? עדיף אחרת.",
     "hook": {
-      "he": "הרגע הזה לא יחזור לעולם",
-      "en": "The specific moment you are experiencing right now will never come again.",
-      "query": "ticking clock face"
+      "he": "משימות חשובות לרוב לא מתחילות.",
+      "en": "Important tasks often never get started at all.",
+      "query": "empty to do list"
     },
     "value": [
       {
-        "he": "חלונות נפתחים לרגע קצר",
-        "en": "Certain opportunities present themselves only for a brief and precious window.",
-        "query": "light opening blinds"
+        "he": "אומרים לכם להתחיל דחוף.",
+        "en": "They tell you to start with urgent tasks.",
+        "query": "person stressed office"
       },
       {
-        "he": "חובה לפעול במהירות ובזמן",
-        "en": "It is absolutely crucial to take action with both speed and perfect timing.",
-        "query": "runner starting race"
+        "he": "אבל זה לא עובד אצלכם.",
+        "en": "But for your brain, that often fails.",
+        "query": "frustrated person desk"
       },
       {
-        "he": "זאת לא תחרות נגד אחרים",
-        "en": "Remember, you are not competing against anybody else, only against yourself.",
-        "query": "person running alone"
+        "he": "המוח זקוק לגירוי חדש.",
+        "en": "Your brain needs novelty to engage fully.",
+        "query": "person looking bored"
       },
       {
-        "he": "רק נגד איבוד הזדמנות נדירה",
-        "en": "The true competition is against the risk of letting a unique opportunity slip away.",
-        "query": "closed door sign"
+        "he": "דברים חשובים לא מרגשים.",
+        "en": "Important things are not always exciting enough.",
+        "query": "boring paperwork stack"
       },
       {
-        "he": "משמעת בונה הרגלי פעולה חכמים",
-        "en": "Self-discipline helps you build consistent and intelligent habits for taking action.",
-        "query": "person organizing desk"
+        "he": "לכן זה לא מתקדם כלל.",
+        "en": "That's why nothing seems to move forward.",
+        "query": "calendar marked days"
       },
       {
-        "he": "תחלקו משימות לחלקים קטנים",
-        "en": "Take larger tasks and strategically break them down into much smaller, manageable parts.",
-        "query": "puzzle pieces fitting"
+        "he": "האמונה היא שאתם עצלנים.",
+        "en": "The common belief is that you are lazy.",
+        "query": "person looking tired"
       },
       {
-        "he": "תקבעו זמן קבוע לביצוע",
-        "en": "Designate a specific and non-negotiable time slot for completing each part.",
-        "query": "calendar date marked"
+        "he": "זו טעות נפוצה מאוד.",
+        "en": "But that widely held belief is wrong.",
+        "query": "confused face closeup"
       },
       {
-        "he": "תתחילו עם הדבר הכי קל",
-        "en": "Always begin your work with the single easiest and most approachable task first.",
-        "query": "person making first step"
+        "he": "לא עצלות, זה מנגנון מוח.",
+        "en": "It's not laziness, it's how your brain works.",
+        "query": "brain activity animation"
       },
       {
-        "he": "זה ייתן לכם מומנטום מעולה",
-        "en": "This initial easy step will provide you with excellent forward momentum and confidence.",
-        "query": "dominoes falling fast"
+        "he": "תתחילו במה שמעניין אתכם.",
+        "en": "Instead, start with what genuinely interests you.",
+        "query": "person looking excited"
       },
       {
-        "he": "כדאי לזכור, הזמן אוזל",
-        "en": "It's always wise to keep in mind that your available time is continually diminishing.",
-        "query": "hourglass sand flowing"
+        "he": "המוח קופץ על עניין במהרה.",
+        "en": "Your brain quickly latches onto things of interest.",
+        "query": "lightbulb idea"
       },
       {
-        "he": "הזדמנויות לא מחכות לאף אחד",
-        "en": "Once-in-a-lifetime opportunities simply do not pause or wait for anybody to catch up.",
-        "query": "train departing station"
+        "he": "משם אפשר להמשיך בקלות.",
+        "en": "From there, continuing becomes much easier.",
+        "query": "person smiling working"
       },
       {
-        "he": "תפעלו עכשיו, לפני שיאחר",
-        "en": "Take decisive action immediately, before the crucial moment passes you by forever.",
-        "query": "person reaching out"
+        "he": "קחו דקה, התחילו באחר.",
+        "en": "Take one minute, start something different now.",
+        "query": "short timer ticking"
       }
     ],
-    "fear": [
+    "turn": [
       {
-        "he": "בעוד שנה אותו חלון",
-        "en": "Picture yourself one year from now, looking at the exact same open window.",
-        "query": "empty window sill"
+        "he": "פתאום הדברים זזים קדימה.",
+        "en": "Suddenly, things begin to move forward.",
+        "query": "gears turning smoothly"
       },
       {
-        "he": "תגידו אולי כבר מאוחר מדי",
-        "en": "You will likely be telling yourselves that perhaps it has already become too late.",
-        "query": "person regretting choice"
+        "he": "הטופס נשלח בקלות רבה.",
+        "en": "The form was sent with surprising ease.",
+        "query": "finger clicking send"
       },
       {
-        "he": "העולם ימשיך להתקדם קדימה",
-        "en": "Meanwhile, the rest of the world will continue to steadily progress further and further.",
-        "query": "crowd walking away"
+        "he": "המייל שחיכה נכתב לבסוף.",
+        "en": "The long-awaited email finally got written.",
+        "query": "email sent notification"
       },
       {
-        "he": "אתם תשארו באותו המקום",
-        "en": "And sadly, you will find yourselves remaining stuck in exactly the same spot.",
-        "query": "still person street"
+        "he": "פחות מאמץ, יותר נעשה.",
+        "en": "Less effort, and more actually gets done.",
+        "query": "finished checklist"
       }
     ],
-    "motivator": "opportunity"
+    "motivator": "reframe"
   }
 ]

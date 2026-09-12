@@ -64,65 +64,77 @@ function addressesOnePerson(text) {
 }
 
 /*
- * The 11 survival motivators. Each video is built on exactly one of them so the
+ * The 11 emotional drivers. Each video is built on exactly one of them so the
  * emotional through-line stays sharp instead of muddling five feelings at once.
  * `angle` is what goes into the writing prompt.
+ *
+ * These were rewritten on 2026-09-12. The first set was the standard direct
+ * response list — fear, status, money, scarcity, anger — and on an account
+ * about ADHD it was actively counterproductive. Those levers all work by making
+ * the viewer feel behind, and a person with ADHD has been made to feel behind
+ * since primary school. The videos that came out of it read like a money guru's
+ * page ("most people waste hours for free") and contradicted the one line in
+ * the bio that matters: this is not laziness.
+ *
+ * So the drivers below are the ones that actually move this audience. They work
+ * by removing shame rather than applying it. Nothing here is allowed to imply
+ * the viewer is lazy, broken, or behind.
  */
 const MOTIVATORS = [
   {
-    key: 'fear',
-    name: 'פחד',
-    angle: 'Build a concrete negative scenario the viewer can picture themselves inside. Use "what if", "what happens if you do not", "imagine that". The feeling to produce is unease and urgency to act now so they do not regret it later.',
+    key: 'recognition',
+    name: 'הכרה',
+    angle: 'Describe one very specific everyday ADHD moment in such precise detail that the viewer feels watched. Not a general struggle, a scene: the exact tab still open, the exact message left unanswered for nine days, the laundry moved from the machine to the chair. The feeling to produce is "this is literally me, how do they know".',
   },
   {
-    key: 'status',
-    name: 'סטטוס חברתי',
-    angle: 'Show that after using this, people around them treat them differently — a question someone asks them, a friend reacting, a compliment they receive. Put them somewhere higher without saying it outright.',
+    key: 'relief',
+    name: 'הקלה',
+    angle: 'Take something the viewer privately blames themselves for and explain the mechanism behind it. The relief comes from learning there is a reason, and that the reason is not a character flaw. Never say they are lazy, and never imply they simply have not tried hard enough. The feeling is a breath out.',
   },
   {
-    key: 'money',
-    name: 'כסף',
-    angle: 'Talk in clear numbers. Show income earned or expense avoided in a way they feel in their pocket. High return for small investment. Simple and direct: do this, get that. No tricks.',
+    key: 'mechanism',
+    name: 'איך המוח עובד',
+    angle: 'Pure curiosity about the ADHD brain. Explain one concrete mechanism in plain language: why interest beats importance, why a deadline suddenly unlocks everything, why the boring task is physically harder than the hard task. Teach something real. The feeling is "oh, that is what is happening in there".',
+  },
+  {
+    key: 'reframe',
+    name: 'מבט אחר',
+    angle: 'Take a piece of standard productivity advice the viewer has been given a hundred times, and show precisely why it fails on this brain. Then give the version that fits it instead. The feeling is "so it was not me failing the method, the method did not fit me".',
+  },
+  {
+    key: 'momentum',
+    name: 'תנועה',
+    angle: 'Starting is the whole problem, so talk about nothing except the first sixty seconds. One trick that makes the opening move small enough to actually happen. Not the plan, not the system, just the first move. The feeling is "I could do that right now".',
+  },
+  {
+    key: 'agency',
+    name: 'שליטה',
+    angle: 'One small lever that genuinely works, put back in the viewer hands. Not control over their whole life, control over the next hour. Concrete and testable today. The feeling is quiet capability, not hype.',
   },
   {
     key: 'ease',
-    name: 'פשטות ונוחות',
-    angle: 'Make it feel effortless. No genius required, it fits inside their existing life, it almost does itself. This is the simplest solution they will find and starting takes no effort at all.',
+    name: 'פשטות',
+    angle: 'Make the move small enough to be believable. No overhaul, no new system to maintain, nothing that needs the viewer to already be organised in order to get organised. It has to fit inside the life they already have on a bad day, not a good one.',
   },
   {
-    key: 'saving',
-    name: 'חיסכון',
-    angle: 'Focus on what they will NOT have to spend — time, money, energy — not only on what they gain. Compare against the alternative: instead of hours of work, it happens by itself. Smarter, more efficient, more worthwhile.',
-  },
-  {
-    key: 'opportunity',
-    name: 'הזדמנות נדירה',
-    angle: 'A once-in-a-lifetime window, not something that repeats. Add time pressure: something is changing, about to close, almost too late. The world is moving on and standing still means being left behind. A small pinch of FOMO, not a hard shove.',
-  },
-  {
-    key: 'security',
-    name: 'ביטחון',
-    angle: 'Radiate stability and dissolve worry. Whatever happens, they are covered. Talk about a result that lasts, a method that works again and again, a way back they can always return to. They are not taking a risk.',
-  },
-  {
-    key: 'control',
-    name: 'שליטה',
-    angle: 'Move them from dependence to power. "You decide", "you are in control", "not dependent on anyone". They take the wheel back — from a platform, from other people, from their own time. They are the one who sets the terms now.',
-  },
-  {
-    key: 'anger',
-    name: 'כעס',
-    angle: 'Touch a real frustration — being played, being sold nonsense, being fed up. A slightly cynical note, a sharper word, a rebellious tone. They are finally taking their own side, and getting even the smart way. Add a sense of justice.',
-  },
-  {
-    key: 'freedom',
-    name: 'חופש',
-    angle: 'Life without dependence, without limits, without a boss, without fixed hours. Describe enjoying life while things keep working in the background. Calm, airy, light, almost soothing language. Make them want to breathe and remember they deserve it.',
+    key: 'pride',
+    name: 'גאווה',
+    angle: 'A small win that the viewer would normally dismiss, taken seriously. Explain why that particular win is harder for this brain than for others, and therefore counts for more. The feeling is being credited for something nobody has ever credited them for.',
   },
   {
     key: 'belonging',
     name: 'שייכות',
-    angle: 'Not about the product but about who else is here. Create togetherness: you are not alone in this. Describe a living, supportive group the viewer would want to belong to. Warmth, acceptance, strength that comes from the group.',
+    angle: 'Not about the product but about who else is here. You are not the only one whose brain does this. Describe the shared experience precisely enough that it reads as real people rather than a slogan. Warmth and acceptance, never pity.',
+  },
+  {
+    key: 'hope',
+    name: 'תקווה',
+    angle: 'Paint a concrete picture of an ordinary day that goes a little better. Not a transformed life, a normal Tuesday where one thing that usually collapses does not. Modest, specific and believable. Overpromising here destroys trust with this audience faster than anything else.',
+  },
+  {
+    key: 'honesty',
+    name: 'כנות',
+    angle: 'Say the hard part out loud without dressing it up. Some days nothing works, some tasks stay undone for months, and no method fixes that completely. Then say what is still worth doing anyway. The feeling is being told the truth by someone who is not selling a miracle.',
   },
 ];
 

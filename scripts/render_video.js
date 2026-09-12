@@ -28,6 +28,7 @@ const { execFileSync } = require('child_process');
 const { lineIsLegal, countWords, stripEmoji } = require('./lib/copy_rules.js');
 const { speak, narrationTextOf } = require('./tts.js');
 const { ensureLockup } = require('./make_logo.js');
+const { renderBackground } = require('./brand_bg.js');
 
 const ROOT = path.join(__dirname, '..');
 const W = 1080, H = 1920, FPS = 30;
@@ -278,8 +279,15 @@ async function render(C) {
   const WORK = path.join(OUT_DIR, '.work');
   fs.mkdirSync(WORK, { recursive: true });
 
+  /*
+   * 'brand' generates the background from the app's own palette; 'stock' is the
+   * original Pixabay path, kept because it is the only way to put real footage
+   * behind a line if that is ever wanted again. See scripts/brand_bg.js for why
+   * the default changed.
+   */
+  const VISUAL_STYLE = (process.env.VISUAL_STYLE || 'brand').toLowerCase();
   const PIXABAY_KEY = process.env.PIXABAY_KEY;
-  const needsStock = cues.some((c) => !c.clipFile);
+  const needsStock = VISUAL_STYLE === 'stock' && cues.some((c) => !c.clipFile);
   if (needsStock && !PIXABAY_KEY) throw new Error('PIXABAY_KEY is missing. Put it in .env');
 
   /*
@@ -401,9 +409,27 @@ async function render(C) {
     const dur = Math.max(0.6, c.clipEnd - c.clipStart);
     const seg = path.join(WORK, `seg${String(i).padStart(3, '0')}.mp4`);
     const keyPath = seg + '.key';
-    const key = `${c.query}|${dur.toFixed(3)}`;
+    const key = `${VISUAL_STYLE}|${c.query}|${dur.toFixed(3)}`;
     listLines.push(`file '${path.basename(seg)}'`);
     if (fs.existsSync(seg) && fs.existsSync(keyPath) && fs.readFileSync(keyPath, 'utf8') === key) continue;
+
+    /*
+     * The generated background already comes out at exactly W x H, the right
+     * frame rate and the exact length of the shot, so it goes straight to the
+     * segment. It must NOT go through the zoompan below: that path exists to
+     * crop and drift a stock clip of unknown size, and running it over the orb
+     * would crop the glow and stack a second motion on top of the drift the
+     * background already has.
+     */
+    if (VISUAL_STYLE === 'brand' && !c.clipFile) {
+      renderBackground(FFMPEG, {
+        index: i, seconds: dur, outFile: seg, width: W, height: H, fps: FPS,
+        seed: `${C.slug || OUT_DIR}`,
+      });
+      fs.writeFileSync(keyPath, key);
+      if ((i + 1) % 5 === 0 || i === cues.length - 1) console.log(`  backgrounds ${i + 1}/${cues.length}`);
+      continue;
+    }
 
     // A cue may carry its own footage (own filming, or an offline test run).
     // Otherwise go to Pixabay.
@@ -622,7 +648,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
    * caption is fully up. That number is written beside the video and read back
    * at scheduling time.
    */
-  const coverMs = pickCoverMs(outFile, capWindows, TOTAL, { FFMPEG });
+  const coverMs = pickCoverMs(outFile, capWindows, TOTAL, { FFMPEG, style: VISUAL_STYLE });
   fs.writeFileSync(coverPathFor(outFile),
     JSON.stringify({ thumbnailOffsetMs: coverMs }, null, 2) + '\n');
 
@@ -657,10 +683,22 @@ function coverOffsetMs(videoFile) {
  * open on a fade up from black, and a black tile with white text on it is still
  * a black tile.
  */
-function pickCoverMs(videoFile, capWindows, total, { FFMPEG }) {
+function pickCoverMs(videoFile, capWindows, total, { FFMPEG, style }) {
   const CROP_H = Math.round(W * 5 / 4);          // the 4:5 tile Instagram shows
   const CROP_Y = Math.round((H - CROP_H) / 2);
-  const DARK = 28;                               // mean luma, 0 to 255
+
+  /*
+   * Mean luma below which a frame is considered too dark to be a grid tile.
+   *
+   * 28 was set for stock footage, where clips routinely open on a fade up from
+   * black and a cover taken there is a black square. The generated background
+   * is near-black by design and never reaches 28 even with the caption on it,
+   * so keeping that number would push every video into the brightest-frame
+   * fallback and quietly cost the hook its place on the tile. What actually
+   * matters on a brand background is only that the caption is up, and the
+   * candidates are all taken from inside caption windows already.
+   */
+  const DARK = style === 'brand' ? 11 : 28;      // mean luma, 0 to 255
 
   const candidates = capWindows.slice(0, 3)
     .map((w) => {
