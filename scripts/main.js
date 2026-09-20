@@ -183,8 +183,9 @@ async function doSlot(i, dateStr, ledger, tracks, booked) {
 
   console.log('  writing a new script...');
   const draft = await writeScript({ ledger });
-  console.log(`  ${draft.motivator} · ${draft.idea}`);
+  console.log(`  ${draft.pillar} · ${draft.motivator} · ${draft.idea}`);
   console.log(`  breaking: ${draft.limitingBelief}`);
+  console.log(`  research: ${(draft.factsUsed || []).join(', ') || 'none'}`);
 
   const bed = music.pick(tracks, i);
 

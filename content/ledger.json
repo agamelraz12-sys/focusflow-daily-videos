@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 4,
+  "motivatorCursor": 9,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -952,6 +952,58 @@
       "limitingBelief": "צריך להתחיל משימות חשובות קודם כל.",
       "hookHe": "משימות חשובות לרוב לא מתחילות.",
       "motivator": "reframe"
+    },
+    {
+      "at": "2026-09-20T17:05:17.406Z",
+      "idea": "Explaining how ADHD brain wiring impacts communication in relationships, leading to feelings of misunderstanding or withdrawal, and offering understanding.",
+      "limitingBelief": "אני לא מבינה למה אני מגיבה ככה.",
+      "hookHe": "את מגיבה מהר מדי, או לא?",
+      "motivator": "mechanism",
+      "pillar": "relationships",
+      "factsUsed": [
+        "couples"
+      ]
+    },
+    {
+      "at": "2026-09-20T17:06:33.209Z",
+      "idea": "This video is about why conventional meal planning fails for ADHD brains and offers a 'bridge food' alternative.",
+      "limitingBelief": "אני עצלנית מכדי לתכנן ארוחות מראש.",
+      "hookHe": "את אוכלת רק בערב?",
+      "motivator": "reframe",
+      "pillar": "food",
+      "factsUsed": [
+        "forgot-to-eat"
+      ]
+    },
+    {
+      "at": "2026-09-20T17:08:17.188Z",
+      "idea": "Making the first small physical movement for self-care easier for women with ADHD.",
+      "limitingBelief": "אני פשוט עצלנית מכדי לדאוג לעצמי.",
+      "hookHe": "הגוף שלך פשוט תקוע במקום?",
+      "motivator": "momentum",
+      "pillar": "health",
+      "factsUsed": []
+    },
+    {
+      "at": "2026-09-20T17:15:55.819Z",
+      "idea": "Understanding why falling asleep is hard for women with ADHD and offering a small step towards better sleep.",
+      "limitingBelief": "אני פשוט לא מצליחה ללכת לישון בזמן.",
+      "hookHe": "את לא בוחרת להיות ערה.",
+      "motivator": "agency",
+      "pillar": "health",
+      "factsUsed": [
+        "sleep-delay"
+      ]
+    },
+    {
+      "at": "2026-09-20T17:16:20.562Z",
+      "idea": "Simplifying daunting work tasks into tiny, actionable steps for ADHD brains.",
+      "limitingBelief": "משימות עבודה גדולות דורשות המון מאמץ.",
+      "hookHe": "את נתקעת רגע לפני העבודה?",
+      "motivator": "ease",
+      "pillar": "work",
+      "factsUsed": []
     }
-  ]
+  ],
+  "pillarCursor": 5
 }
