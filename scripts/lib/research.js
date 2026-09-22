@@ -276,6 +276,15 @@ const PILLARS = [
  * validator reads this array, so a number that is not in it cannot reach a
  * video even if the model is certain of it.
  */
+/*
+ * The 2020 UK consensus statement on females with ADHD is the backbone of
+ * several entries below. Every number taken from it on 2026-09-22 was read
+ * out of the full text at bmcpsychiatry.biomedcentral.com and checked
+ * verbatim, not lifted from a summary of the paper. One source string so a
+ * correction to it lands everywhere at once.
+ */
+const SOURCE_YOUNG = 'Young et al., Females with ADHD: an expert consensus statement taking a lifespan approach, BMC Psychiatry 2020, 20:404';
+
 const FACTS = [
   // ---------------------------------------------------------- womanhood ---
   {
@@ -338,6 +347,90 @@ const FACTS = [
     source: 'Qualitative research with late-diagnosed women (Scientific Reports 2025; UK interview studies)',
   },
 
+  {
+    id: 'referral-gap',
+    pillars: ['womanhood', 'work', 'mood'],
+    claim: [
+      'Boys are sent for an ADHD assessment far more often than girls. Reported',
+      'clinic referral ratios run from 3 to 1 all the way up to 16 to 1 boys to',
+      'girls. Out in the general population the real gap is only about 3 to 1.',
+      'The clinic gap is much wider than the actual gap, and everything in',
+      'between those two numbers is girls that nobody sent. For scale, ADHD is',
+      'estimated at 7.1% of children and adolescents and around 2.8% of older',
+      'adults.',
+    ].join(' '),
+    numbers: ['3', '16', '7.1', '2.8'],
+    citable: true,
+    source: SOURCE_YOUNG + ', prevalence and sex-ratio section (clinic ratios ref 23, community ratio ref 4)',
+  },
+  {
+    id: 'vignette-bias',
+    pillars: ['womanhood', 'work', 'mood'],
+    claim: [
+      'The cleanest proof that she was not missed by chance. In two studies',
+      'teachers were handed the same description of a child with ADHD and only',
+      'the name and the pronouns were swapped. The version with the boy name was',
+      'more likely to be referred for extra support, and more likely to be judged',
+      'suitable for treatment. Same child, same behaviour, different name.',
+      'Parents show the same tilt, under rating hyperactivity in girls while over',
+      'rating exactly the same behaviour in boys.',
+    ].join(' '),
+    numbers: [],
+    citable: true,
+    source: SOURCE_YOUNG + ', referral bias section, teacher vignette studies refs 45 and 46, parent ratings ref 47',
+  },
+  {
+    id: 'wrong-label',
+    pillars: ['womanhood', 'mood'],
+    claim: [
+      'Because she never matched the picture people carry of ADHD, the quieter',
+      'presentation covers the condition, and she is more likely to be handed a',
+      'first diagnosis of an internalising disorder or a personality disorder',
+      'instead. That label is not neutral. The consensus statement says plainly',
+      'that it goes on to delay the right diagnosis and the right treatment.',
+    ].join(' '),
+    numbers: [],
+    citable: true,
+    source: SOURCE_YOUNG + ', on females attracting a primary diagnosis of internalising or personality disorders, refs 45, 47, 48',
+    frame: [
+      'Never tell her a diagnosis she already carries is wrong, and never suggest',
+      'she stop anything. Say that this is a known pattern and that ADHD is worth',
+      'asking about as well.',
+    ].join(' '),
+  },
+  {
+    id: 'scales-built-for-boys',
+    pillars: ['womanhood', 'work'],
+    claim: [
+      'The ruler itself was built on boys. The consensus statement notes that the',
+      'norms behind the common rating scales come mostly from male or mixed',
+      'samples, which works against women, and that tiny wording changes catch',
+      'her far better: asking about excessive talking and giggling rather than',
+      'excessive talking on its own. She did not fail the questionnaire. The',
+      'questionnaire was not written with her in it.',
+    ].join(' '),
+    numbers: [],
+    citable: true,
+    source: SOURCE_YOUNG + ', assessment section on rating scale norms and female-centric wording, ref 133',
+  },
+  {
+    id: 'treated-less',
+    pillars: ['womanhood', 'health'],
+    claim: [
+      'Response to stimulant treatment looks comparable in females and males. And',
+      'yet girls with ADHD are less likely to be prescribed it than boys, and',
+      'tend to start at an older age when they are. The gap is not in how well it',
+      'works for her. The gap is in who gets offered it.',
+    ].join(' '),
+    numbers: [],
+    citable: true,
+    source: SOURCE_YOUNG + ', pharmacological management section, refs 143 to 145',
+    medical: true,
+    frame: [
+      'Report what was found and recommend nothing. Never tell her to start, stop',
+      'or change any medicine, and never imply she is missing out on one.',
+    ].join(' '),
+  },
   // ------------------------------------------------------------- health ---
   {
     id: 'estrogen-dopamine',
@@ -465,6 +558,25 @@ const FACTS = [
     source: 'Hergüner et al. 2015, ADHD symptoms in women with PCOS; 2025 review of hormonal interplay in female ADHD',
   },
 
+  {
+    id: 'violence-vulnerability',
+    pillars: ['womanhood', 'relationships'],
+    claim: [
+      'An English household survey of adult psychiatric morbidity found that 27%',
+      'of women who had lived through extensive physical and sexual violence had',
+      'ADHD traits. The consensus statement raises it as a place services are not',
+      'looking, next to low self esteem and vulnerability to exploitation.',
+    ].join(' '),
+    numbers: ['27'],
+    citable: true,
+    source: 'Adult Psychiatric Morbidity Survey, England, cited in ' + SOURCE_YOUNG + ', ref 189',
+    frame: [
+      'This one has a single permitted use: that the services looking after these',
+      'women are not checking for ADHD. Never as a prediction about her, never as',
+      'a warning, never anywhere near advice about her relationship. If a video',
+      'cannot hold that frame, it does not get this finding.',
+    ].join(' '),
+  },
   // --------------------------------------------------------------- food ---
   {
     id: 'binge',
@@ -538,6 +650,24 @@ const FACTS = [
     frame: 'Report the finding. Never prescribe a supplement or a dose.',
   },
 
+  {
+    id: 'eating-disorders-all',
+    pillars: ['food', 'mood'],
+    claim: [
+      'It is wider than binge eating. A meta analysis of twelve studies found a',
+      'raised risk of every eating disorder syndrome in people with ADHD, bulimia',
+      'and anorexia and binge eating alike, with similar risk estimates for women',
+      'and men. Eating that has gone strange is part of the picture here, not a',
+      'separate private failure sitting on top of it.',
+    ].join(' '),
+    numbers: ['12'],
+    citable: true,
+    source: 'Meta-analysis of twelve studies, cited in ' + SOURCE_YOUNG + ', ref 62',
+    frame: [
+      'Name it so she stops filing it under lack of self control. Never pair it',
+      'with anything about what to eat, how much, or when.',
+    ].join(' '),
+  },
   // ------------------------------------------------------ relationships ---
   {
     id: 'rsd',
@@ -595,6 +725,36 @@ const FACTS = [
     ].join(' '),
   },
 
+  {
+    id: 'bullying-girls',
+    pillars: ['relationships', 'womanhood'],
+    claim: [
+      'Girls with ADHD are bullied more than their classmates, and the shape it',
+      'takes is social rather than physical: left out, talked about, targeted',
+      'online. Boys with ADHD get pushed in corridors instead. Being treated that',
+      'way is linked to lower self esteem and self efficacy and to more anxiety',
+      'and depression. The certainty that people are quietly annoyed with her was',
+      'taught to her by evidence.',
+    ].join(' '),
+    numbers: [],
+    citable: true,
+    source: SOURCE_YOUNG + ', peer relationships and victimisation section, refs 88 to 92',
+  },
+  {
+    id: 'emotional-control-life',
+    pillars: ['mood', 'womanhood', 'relationships'],
+    claim: [
+      'In a study of university students with ADHD symptoms, the thing that best',
+      'predicted dissatisfaction with life came out different by sex. For the men',
+      'it was poor social functioning. For the women it was poor emotional',
+      'control. The wave that arrives at full volume with no dimmer is not a side',
+      'detail of this for her. It is the part that decides how the whole life',
+      'feels.',
+    ].join(' '),
+    numbers: [],
+    citable: true,
+    source: 'Icelandic university student study, cited in ' + SOURCE_YOUNG + ', ref 77',
+  },
   // --------------------------------------------------------------- work ---
   {
     id: 'work-women',

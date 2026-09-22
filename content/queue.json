@@ -1,1 +1,802 @@
-[]
+[
+  {
+    "pillar": "womanhood",
+    "idea": "Clinic referral ratios for ADHD run up to 16 to 1 boys to girls while the real population gap is about 3 to 1. The difference is girls nobody sent.",
+    "limitingBelief": "אם היה לי משהו, מישהו היה שם לב מזמן.",
+    "empoweringBelief": "לא שמו לב כי לא הסתכלו, לא כי אין מה לראות.",
+    "factsUsed": [
+      "referral-gap"
+    ],
+    "title": "על כל בת, שישה עשר בנים",
+    "caption": "היחס בקליניקות שבודקות קשב מגיע עד 16 בנים על כל בת. באוכלוסייה עצמה הפער הרבה יותר קטן. כל מה שנמצא בין שני המספרים האלה זה בנות שפשוט לא הופנו לבדיקה. מקור: הצהרת הקונצנזוס של מומחי ADHD על נשים, BMC Psychiatry 2020. את מזהה את עצמך בזה?",
+    "hook": {
+      "he": "על כל בת שולחים 16 בנים",
+      "en": "For every girl referred, sixteen boys are sent",
+      "query": "empty school corridor"
+    },
+    "value": [
+      {
+        "he": "זה היחס בקליניקות שבודקות קשב",
+        "en": "That is the ratio inside assessment clinics",
+        "query": "clinic waiting room chairs"
+      },
+      {
+        "he": "אבל באוכלוסייה היחס האמיתי אחר",
+        "en": "But out in the population the real gap differs",
+        "query": "crowd of people walking"
+      },
+      {
+        "he": "שם זה רק שלושה בנים לבת",
+        "en": "There it is only about three boys per girl",
+        "query": "children classroom desks"
+      },
+      {
+        "he": "הפער בין שני המספרים האלה",
+        "en": "The distance between those two numbers matters",
+        "query": "gap between two walls"
+      },
+      {
+        "he": "עשוי מבנות שאף אחד לא הפנה",
+        "en": "Is made of girls that nobody ever referred",
+        "query": "girl alone at window"
+      },
+      {
+        "he": "את לא הפרעת בכיתה מספיק",
+        "en": "You never disrupted the classroom enough to count",
+        "query": "quiet girl in classroom"
+      },
+      {
+        "he": "פשוט בהית בחלון בשקט גמור",
+        "en": "You simply stared out of the window quietly",
+        "query": "student looking out window"
+      },
+      {
+        "he": "ואז גדלת והמשכת לבהות בשקט",
+        "en": "Then you grew up and kept staring quietly",
+        "query": "woman staring out window"
+      },
+      {
+        "he": "את לא התחלת את זה עכשיו",
+        "en": "You did not start having this last year",
+        "query": "old childhood photograph"
+      },
+      {
+        "he": "פשוט אף אחד לא הסתכל אז",
+        "en": "It is only that nobody looked back then",
+        "query": "teacher ignoring student"
+      },
+      {
+        "he": "המורה ראתה ילדה טובה ושקטה",
+        "en": "The teacher saw a good and quiet girl",
+        "query": "teacher marking papers"
+      },
+      {
+        "he": "וילדה טובה ושקטה לא מופנית",
+        "en": "And a good quiet girl does not get referred",
+        "query": "empty referral form"
+      }
+    ],
+    "turn": [
+      {
+        "he": "את יכולה להסתכל על זה אחרת",
+        "en": "You are allowed to look at this differently",
+        "query": "woman looking at mirror"
+      },
+      {
+        "he": "זאת לא עצלנות ולא חוסר אכפתיות",
+        "en": "This is not laziness and not a lack of caring",
+        "query": "tired woman at desk"
+      },
+      {
+        "he": "זאת בדיקה שאף אחד לא עשה",
+        "en": "It is an assessment nobody ever carried out",
+        "query": "closed medical folder"
+      },
+      {
+        "he": "ואם תתחילי לשאול עכשיו זה בסדר",
+        "en": "And starting to ask about it now is fine",
+        "query": "woman writing a note"
+      }
+    ]
+  },
+  {
+    "pillar": "womanhood",
+    "idea": "Two teacher vignette studies changed only the child's name and pronouns. The boy version was more likely to be referred for support and judged more suitable for treatment.",
+    "limitingBelief": "אם היו רואים אצלי בעיה, היו מטפלים בה.",
+    "empoweringBelief": "ראו את אותה התנהגות בדיוק והחליטו אחרת בגלל השם.",
+    "factsUsed": [
+      "vignette-bias"
+    ],
+    "title": "אותו ילד בדיוק, שם אחר",
+    "caption": "נתנו למורים תיאור אחד של ילד עם קשב, ושינו רק את השם ואת המין. את הגרסה עם השם הגברי הפנו יותר לעזרה, וגם חשבו שהיא מתאימה יותר לטיפול. אותה התנהגות. שם אחר. גם הורים מעריכים פחות את אותה סערה אצל בנות. מקור: הצהרת הקונצנזוס של מומחי ADHD על נשים, BMC Psychiatry 2020. שלחי את זה למי שצריכה לקרוא.",
+    "hook": {
+      "he": "נתנו למורים תיאור אחד של ילד",
+      "en": "Teachers were handed one single description of a child",
+      "query": "teacher reading paper"
+    },
+    "value": [
+      {
+        "he": "שינו רק את השם ואת המין",
+        "en": "They changed only the name and the gender",
+        "query": "name tag on desk"
+      },
+      {
+        "he": "כל השאר נשאר בדיוק אותו דבר",
+        "en": "Everything else stayed exactly the same as before",
+        "query": "two identical documents"
+      },
+      {
+        "he": "אותה התנהגות ואותם קשיים בכיתה",
+        "en": "The same behaviour and the same classroom difficulties",
+        "query": "busy classroom children"
+      },
+      {
+        "he": "הגרסה עם שם של בן",
+        "en": "The version carrying a boy name instead",
+        "query": "boy raising hand"
+      },
+      {
+        "he": "הופנתה יותר לעזרה ולתמיכה בכיתה",
+        "en": "Was referred more often for help and support",
+        "query": "teacher helping student"
+      },
+      {
+        "he": "וגם נחשבה מתאימה יותר לטיפול",
+        "en": "And was also judged more suitable for treatment",
+        "query": "doctor reviewing chart"
+      },
+      {
+        "he": "אותו ילד בדיוק, רק שם אחר",
+        "en": "The very same child, only a different name",
+        "query": "two children silhouettes"
+      },
+      {
+        "he": "גם הורים עושים את זה",
+        "en": "Parents show exactly the same tilt too",
+        "query": "parents talking at home"
+      },
+      {
+        "he": "מעריכים פחות את הסערה אצל בנות",
+        "en": "They under rate the storm they see in girls",
+        "query": "girl sitting alone"
+      },
+      {
+        "he": "ויותר מדי אותה סערה אצל בנים",
+        "en": "And over rate that same storm in boys",
+        "query": "boy running outdoors"
+      },
+      {
+        "he": "את לא נפלת בין הכיסאות",
+        "en": "You did not simply slip through the cracks",
+        "query": "empty chair classroom"
+      },
+      {
+        "he": "את נשארת מחוץ לדלת מההתחלה",
+        "en": "You were left outside the door from the start",
+        "query": "closed door hallway"
+      }
+    ],
+    "turn": [
+      {
+        "he": "השקט שלך נקרא כמו הסתדרות",
+        "en": "Your quietness was read as coping just fine",
+        "query": "quiet woman thinking"
+      },
+      {
+        "he": "אבל הוא היה עבודה קשה מאוד",
+        "en": "But that quiet was extremely hard unpaid work",
+        "query": "exhausted woman evening"
+      },
+      {
+        "he": "תסתכלי על הילדה ההיא שוב",
+        "en": "Take another look at that little girl again",
+        "query": "old school photo"
+      },
+      {
+        "he": "היא לא הייתה בסדר, היא הסתדרה",
+        "en": "She was not fine, she was merely managing",
+        "query": "girl forced smile"
+      }
+    ]
+  },
+  {
+    "pillar": "mood",
+    "idea": "Women who do not match the ADHD stereotype are more likely to receive a first diagnosis of an internalising or personality disorder, which delays the right diagnosis.",
+    "limitingBelief": "כבר אמרו לי מה יש לי, אז זה מה שיש.",
+    "empoweringBelief": "מותר להוסיף שאלה אחת בלי לוותר על שום דבר.",
+    "factsUsed": [
+      "wrong-label"
+    ],
+    "title": "נתנו לזה שם אחר",
+    "caption": "הרבה נשים מקבלות קודם אבחנה של חרדה, דיכאון או הפרעת אישיות, כי הן לא נראו כמו התמונה שאנשים מחזיקים בראש על קשב. הצהרת הקונצנזוס של מומחי ADHD על נשים אומרת במפורש שהשם הזה דוחה את האבחנה הנכונה ואת הטיפול הנכון. זה לא אומר שהאבחנה שלך שגויה. זה אומר ששווה לשאול גם על קשב. מקור: BMC Psychiatry 2020.",
+    "hook": {
+      "he": "קיבלת אבחנה של חרדה או דיכאון",
+      "en": "You were diagnosed with anxiety or with depression",
+      "query": "woman at therapist office"
+    },
+    "value": [
+      {
+        "he": "ואולי היא נכונה, ואולי לא הכול",
+        "en": "Maybe it is right, maybe not the whole picture",
+        "query": "half open window"
+      },
+      {
+        "he": "המחקר אומר משהו לא נוח",
+        "en": "The research says something quite uncomfortable here",
+        "query": "open research paper"
+      },
+      {
+        "he": "נשים עם קשב מקבלות קודם",
+        "en": "Women with attention difficulties first receive something else",
+        "query": "medical file stack"
+      },
+      {
+        "he": "אבחנה של הפנמה או הפרעת אישיות",
+        "en": "A diagnosis of internalising or of personality difficulties",
+        "query": "clipboard with notes"
+      },
+      {
+        "he": "כי הן לא נראו כמו התמונה",
+        "en": "Because they never looked like the expected picture",
+        "query": "portrait in frame"
+      },
+      {
+        "he": "והשם הזה דוחה את האמיתי",
+        "en": "And that label pushes the real one further away",
+        "query": "calendar pages falling"
+      },
+      {
+        "he": "לפעמים בשנים ולפעמים בעשור שלם",
+        "en": "Sometimes by years and sometimes by a decade",
+        "query": "clock on wall"
+      },
+      {
+        "he": "זה לא אומר שהאבחנה שלך שגויה",
+        "en": "This does not mean your diagnosis is wrong",
+        "query": "woman holding papers"
+      },
+      {
+        "he": "שווה לשאול גם על קשב",
+        "en": "It means attention is worth asking about too",
+        "query": "woman asking question"
+      },
+      {
+        "he": "החרדה יכולה להיות תוצאה ולא סיבה",
+        "en": "Anxiety can be a result rather than a cause",
+        "query": "domino pieces falling"
+      },
+      {
+        "he": "את לא צריכה לוותר על כלום",
+        "en": "You do not have to give up anything here",
+        "query": "woman standing confident"
+      },
+      {
+        "he": "רק להוסיף שאלה אחת לרופאה שלך",
+        "en": "Only add one more question for your doctor",
+        "query": "doctor and patient talking"
+      }
+    ],
+    "turn": [
+      {
+        "he": "את חיה עם זה שנים",
+        "en": "You have been living with this for years",
+        "query": "woman looking tired"
+      },
+      {
+        "he": "וקראו לזה בשם של משהו אחר",
+        "en": "And it was called by another condition name",
+        "query": "label on box"
+      },
+      {
+        "he": "תשאלי גם על קשב וריכוז",
+        "en": "Ask about attention and concentration as well",
+        "query": "woman talking to doctor"
+      },
+      {
+        "he": "לשאלה הזאת מגיע מקום משלה",
+        "en": "That question deserves a place of its own",
+        "query": "empty chair office"
+      }
+    ]
+  },
+  {
+    "pillar": "womanhood",
+    "idea": "ADHD rating scale norms come mostly from male or mixed samples, and small wording changes such as excessive talking and giggling catch female presentation better.",
+    "limitingBelief": "מילאתי שאלון ויצא שאין לי, אז כנראה אין לי.",
+    "empoweringBelief": "השאלון נבנה על בנים, והוא לא חיפש אותי בכלל.",
+    "factsUsed": [
+      "scales-built-for-boys"
+    ],
+    "title": "השאלון לא נכתב עלייך",
+    "caption": "הנורמות שמאחורי שאלוני הקשב הנפוצים נבנו בעיקר על מדגמים של בנים. הצהרת הקונצנזוס של מומחי ADHD על נשים כותבת שזה עובד נגד נשים, ושכדאי לשאול על דיבור וצחקוקים ולא רק על דיבור מוגזם. שינוי של מילה אחת, ופתאום רואים אותה. את לא נכשלת בשאלון. הוא פשוט לא נכתב איתך בראש. מקור: BMC Psychiatry 2020.",
+    "hook": {
+      "he": "מילאת שאלון ויצא שאת בסדר",
+      "en": "You filled a questionnaire and came out fine",
+      "query": "hands filling form"
+    },
+    "value": [
+      {
+        "he": "אולי השאלון פשוט לא חיפש אותך",
+        "en": "Perhaps that questionnaire was never looking for you",
+        "query": "magnifying glass paper"
+      },
+      {
+        "he": "הנורמות שלו נבנו על בנים",
+        "en": "Its norms were built mostly on male samples",
+        "query": "group of boys"
+      },
+      {
+        "he": "המחקר אומר שזה עובד נגד נשים",
+        "en": "Research says this works against women in practice",
+        "query": "research documents desk"
+      },
+      {
+        "he": "שואלים אם הילד מדבר יותר מדי",
+        "en": "They ask whether the child talks far too much",
+        "query": "child talking loudly"
+      },
+      {
+        "he": "והיא דיברה וגם צחקקה בלי הפסקה",
+        "en": "And she talked and giggled without any pause",
+        "query": "girls laughing together"
+      },
+      {
+        "he": "שינוי קטן במילה תופס אותה",
+        "en": "One small change in wording finally catches her",
+        "query": "pen editing text"
+      },
+      {
+        "he": "דיבור וצחקוקים במקום דיבור לבד",
+        "en": "Talking and giggling instead of talking alone",
+        "query": "two girls whispering"
+      },
+      {
+        "he": "זה ההבדל בין לראות ולפספס",
+        "en": "That is the difference between seeing and missing",
+        "query": "blurry and sharp focus"
+      },
+      {
+        "he": "את לא נכשלת בשאלון ההוא",
+        "en": "You did not fail that questionnaire at all",
+        "query": "crumpled paper form"
+      },
+      {
+        "he": "הוא פשוט לא נכתב איתך בראש",
+        "en": "It simply was not written with you in mind",
+        "query": "old typewriter paper"
+      },
+      {
+        "he": "אותו דבר קרה בדוחות בית הספר",
+        "en": "The same thing happened in the school reports",
+        "query": "school report card"
+      },
+      {
+        "he": "כתבו שהיא חולמנית ולא כתבו למה",
+        "en": "They wrote she was dreamy and never asked why",
+        "query": "handwritten school note"
+      }
+    ],
+    "turn": [
+      {
+        "he": "את לא מקרה קצה מוזר",
+        "en": "You are not some strange edge case here",
+        "query": "woman in crowd"
+      },
+      {
+        "he": "את הרוב שלא נמדד נכון",
+        "en": "You are the majority that was measured wrongly",
+        "query": "measuring tape ruler"
+      },
+      {
+        "he": "זה לא אומר שאין לך כלום",
+        "en": "This does not mean nothing is going on",
+        "query": "woman thinking quietly"
+      },
+      {
+        "he": "זה אומר ששווה להיבדק אצל מומחית",
+        "en": "It means a proper assessment is worth having",
+        "query": "specialist doctor office"
+      }
+    ]
+  },
+  {
+    "pillar": "mood",
+    "idea": "In a study of university students with ADHD symptoms, poor social functioning best predicted life dissatisfaction in men, while in women it was poor emotional control.",
+    "limitingBelief": "הרגשות שלי זה הפרט הקטן, הבעיה היא המשימות.",
+    "empoweringBelief": "דווקא הוויסות הרגשי הוא מה שקובע איך החיים מרגישים.",
+    "factsUsed": [
+      "emotional-control-life"
+    ],
+    "title": "הגל הוא לא הפרט הקטן",
+    "caption": "במחקר על סטודנטים עם סימני קשב בדקו מה הכי מנבא חוסר שביעות רצון מהחיים. אצל גברים זה היה התפקוד החברתי. אצל נשים זו הייתה השליטה ברגש. הגל שמגיע בווליום מלא בלי כפתור שמנמיך אותו הוא לא פרט צדדי בסיפור הזה. הוא החלק שקובע איך הכול מרגיש. מקור: הצהרת הקונצנזוס של מומחי ADHD על נשים, כתב העת BMC Psychiatry.",
+    "hook": {
+      "he": "בדקו מה הכי פוגע בשביעות הרצון",
+      "en": "They tested what most harms satisfaction with life",
+      "query": "woman sitting alone thinking"
+    },
+    "value": [
+      {
+        "he": "אצל גברים זה היה התפקוד החברתי",
+        "en": "In men it was poor social functioning overall",
+        "query": "man alone at party"
+      },
+      {
+        "he": "אצל נשים יצא משהו אחר לגמרי",
+        "en": "In women something entirely different came out",
+        "query": "woman looking at window"
+      },
+      {
+        "he": "אצל נשים זו הייתה השליטה ברגש",
+        "en": "For women it was control over emotion itself",
+        "query": "stormy sky clouds"
+      },
+      {
+        "he": "הגל שמגיע בווליום מלא בבת אחת",
+        "en": "The wave that arrives at full volume instantly",
+        "query": "ocean wave crashing"
+      },
+      {
+        "he": "בלי כפתור שמנמיך אותו לאט",
+        "en": "Without any dial that lowers it down slowly",
+        "query": "volume knob closeup"
+      },
+      {
+        "he": "זה לא הפרט הקטן בסיפור שלך",
+        "en": "This is not the small detail in your story",
+        "query": "small object large room"
+      },
+      {
+        "he": "זה החלק שקובע איך החיים מרגישים",
+        "en": "It is the part deciding how life actually feels",
+        "query": "woman face emotion"
+      },
+      {
+        "he": "כולם מדברים על משימות ורשימות",
+        "en": "Everyone keeps talking about tasks and lists",
+        "query": "to do list notebook"
+      },
+      {
+        "he": "ואצלך הכאב יושב במקום אחר",
+        "en": "And your pain is sitting somewhere else entirely",
+        "query": "woman holding chest"
+      },
+      {
+        "he": "בעוצמה שאף אחד לא רואה מבחוץ",
+        "en": "At an intensity nobody can see from outside",
+        "query": "calm face closeup"
+      },
+      {
+        "he": "את לא מוגזמת ולא דרמטית",
+        "en": "You are not exaggerating and not being dramatic",
+        "query": "woman wiping tears"
+      },
+      {
+        "he": "את מרגישה בווליום שלא נבחר",
+        "en": "You feel at a volume you never chose",
+        "query": "speaker sound waves"
+      }
+    ],
+    "turn": [
+      {
+        "he": "אם תתחילי לקרוא לזה בשמו",
+        "en": "If you start calling this by its real name",
+        "query": "woman writing journal"
+      },
+      {
+        "he": "זה כבר מפסיק להיות פגם באופי",
+        "en": "It stops being a flaw in your character",
+        "query": "broken mirror repaired"
+      },
+      {
+        "he": "ויסות רגשי זה משהו שנלמד",
+        "en": "Emotional regulation is something that can be learned",
+        "query": "woman practicing breathing"
+      },
+      {
+        "he": "והוא לא מגיע מלהתאמץ יותר חזק",
+        "en": "And it never comes from simply trying harder",
+        "query": "woman resting calmly"
+      }
+    ]
+  },
+  {
+    "pillar": "relationships",
+    "idea": "Girls with ADHD are bullied more than peers, in social and relational forms, and victimisation is linked to lower self esteem and more anxiety and depression.",
+    "limitingBelief": "אני פשוט פרנואידית, בטח כועסים עליי.",
+    "empoweringBelief": "המוח שלי אסף ראיות אמיתיות פעם, והן כבר לא מתארות היום.",
+    "factsUsed": [
+      "bullying-girls"
+    ],
+    "title": "מאיפה הביטחון שכועסים עלייך",
+    "caption": "בנות עם קשב סובלות מבריונות יותר מבנות אחרות, והצורה שונה. אצל בנים זה בדרך כלל פיזי. אצלה זה להישאר מחוץ לשיחה, לשמוע שדיברו עליה, לראות סטורי של כולן בלעדיה. הבריונות הזאת קשורה לביטחון נמוך יותר ולעוד חרדה ודיכאון אחר כך. אז הביטחון שמישהי כועסת עלייך עכשיו לא בא משום מקום. הוא פשוט כבר לא מתאר את היום. מקור: הצהרת הקונצנזוס של מומחי ADHD על נשים, BMC Psychiatry 2020.",
+    "hook": {
+      "he": "את בטוחה שמישהי כועסת עלייך עכשיו",
+      "en": "You are certain someone is angry with you now",
+      "query": "woman looking at phone"
+    },
+    "value": [
+      {
+        "he": "וזה לא בא משום מקום",
+        "en": "And this did not come out of nowhere",
+        "query": "old photographs scattered"
+      },
+      {
+        "he": "בנות עם קשב סובלות יותר מבריונות",
+        "en": "Girls with attention difficulties face more bullying",
+        "query": "girl alone playground"
+      },
+      {
+        "he": "והצורה שונה מזו של בנים",
+        "en": "And the form it takes differs from boys",
+        "query": "two separate groups"
+      },
+      {
+        "he": "אצל בנים זה בדרך כלל פיזי",
+        "en": "With boys it is usually physical and visible",
+        "query": "boys pushing playground"
+      },
+      {
+        "he": "אצלה זה להישאר מחוץ לשיחה",
+        "en": "With her it is being left out of conversations",
+        "query": "girl outside group"
+      },
+      {
+        "he": "לשמוע שדיברו עליה בקבוצה אחרת",
+        "en": "Hearing that they discussed her in another group",
+        "query": "girls whispering together"
+      },
+      {
+        "he": "לראות סטורי של כולן בלעדיה",
+        "en": "Seeing a story with everyone except her",
+        "query": "phone screen social media"
+      },
+      {
+        "he": "זה קשור לביטחון נמוך יותר",
+        "en": "This is linked to lower self esteem later",
+        "query": "woman avoiding mirror"
+      },
+      {
+        "he": "וגם ליותר חרדה ודיכאון אחר כך",
+        "en": "And also to more anxiety and depression afterwards",
+        "query": "woman sitting dark room"
+      },
+      {
+        "he": "המוח שלך אסף ראיות שנים",
+        "en": "Your brain collected real evidence for many years",
+        "query": "files and folders"
+      },
+      {
+        "he": "ולמד שכנראה מישהי כועסת עכשיו",
+        "en": "And learned that someone is probably angry now",
+        "query": "woman worried expression"
+      },
+      {
+        "he": "את לא פרנואידית, את מאומנת",
+        "en": "You are not paranoid, you were simply trained",
+        "query": "woman deep in thought"
+      }
+    ],
+    "turn": [
+      {
+        "he": "הראיות היו אמיתיות פעם מזמן",
+        "en": "That evidence was genuinely real a long time ago",
+        "query": "faded old photograph"
+      },
+      {
+        "he": "אבל הן לא מתארות את היום",
+        "en": "But it does not describe today at all",
+        "query": "sunrise new day"
+      },
+      {
+        "he": "תבדקי מול המציאות לפני שתחליטי",
+        "en": "Check against reality before you decide anything",
+        "query": "woman sending message"
+      },
+      {
+        "he": "לרוב אף אחת לא כועסת בכלל",
+        "en": "Most of the time nobody is angry at all",
+        "query": "friends laughing together"
+      }
+    ]
+  },
+  {
+    "pillar": "womanhood",
+    "idea": "Stimulant response looks comparable in females and males, yet girls are less likely to be prescribed treatment and start at an older age.",
+    "limitingBelief": "אם הייתי צריכה טיפול, היו מציעים לי אותו.",
+    "empoweringBelief": "הפער הוא במי נשאלת בכלל, לא ביעילות.",
+    "factsUsed": [
+      "treated-less"
+    ],
+    "title": "עובד אותו דבר, מוצע פחות",
+    "caption": "התגובה לטיפול נראית דומה אצל בנות ובנים. ובכל זאת בנות מקבלות הצעה לטיפול פחות, וכשכן, זה קורה בגיל מבוגר יותר. הפער הוא לא ביעילות. הפער הוא במי בכלל נשאלת. אני לא אומרת לך מה לעשות. זאת שיחה בינך לבין רופאה. רק שווה לדעת שהשיחה הזאת בכלל קיימת. מקור: הצהרת הקונצנזוס של מומחי ADHD על נשים, BMC Psychiatry 2020.",
+    "hook": {
+      "he": "הטיפול עובד אותו דבר אצל בנות",
+      "en": "Treatment appears to work the same for girls",
+      "query": "balanced scale weights"
+    },
+    "value": [
+      {
+        "he": "התגובה נראית דומה אצל בנות ובנים",
+        "en": "Response looks comparable between girls and boys",
+        "query": "two equal glasses"
+      },
+      {
+        "he": "אבל בנות מקבלות הצעה לטיפול פחות",
+        "en": "But girls are offered treatment far less often",
+        "query": "doctor writing notes"
+      },
+      {
+        "he": "וכשמקבלות זה קורה בגיל מבוגר יותר",
+        "en": "And when they do it happens at older ages",
+        "query": "calendar years passing"
+      },
+      {
+        "he": "זה לא פער ביעילות בכלל",
+        "en": "This is not a gap in how well it works",
+        "query": "identical test results"
+      },
+      {
+        "he": "זה פער במי בכלל נשאלת",
+        "en": "It is a gap in who even gets asked",
+        "query": "empty doctor chair"
+      },
+      {
+        "he": "אף אחד לא שאל אותה אז",
+        "en": "Nobody asked her the question back then",
+        "query": "girl sitting quietly"
+      },
+      {
+        "he": "כי היא לא הפריעה לאף אחד",
+        "en": "Because she was not disturbing anyone at all",
+        "query": "quiet classroom scene"
+      },
+      {
+        "he": "היא רק לא הספיקה כלום",
+        "en": "She was only never finishing anything at all",
+        "query": "unfinished homework papers"
+      },
+      {
+        "he": "וזה נראה כמו בעיה של אופי",
+        "en": "And that looked like a problem of character",
+        "query": "report card grades"
+      },
+      {
+        "he": "אני לא אומרת לך מה לעשות",
+        "en": "I am not telling you what to do here",
+        "query": "open hands gesture"
+      },
+      {
+        "he": "זאת שיחה בינך לבין רופאה",
+        "en": "This is a conversation between you and your doctor",
+        "query": "two women talking"
+      },
+      {
+        "he": "את פשוט צריכה לדעת שהשיחה קיימת",
+        "en": "You simply deserve to know the conversation exists",
+        "query": "woman opening door"
+      }
+    ],
+    "turn": [
+      {
+        "he": "את לא פספסת את הרכבת",
+        "en": "You have not missed any train at all",
+        "query": "train station platform"
+      },
+      {
+        "he": "אף אחד לא הראה לך אותה",
+        "en": "Nobody ever showed you where it was",
+        "query": "empty railway tracks"
+      },
+      {
+        "he": "תשאלי מה הבדיקה כוללת בכלל",
+        "en": "Ask what an assessment actually involves first",
+        "query": "woman asking doctor"
+      },
+      {
+        "he": "ואז תחליטי מה נכון לך",
+        "en": "And then decide what is right for you",
+        "query": "woman making decision"
+      }
+    ]
+  },
+  {
+    "pillar": "food",
+    "idea": "A meta analysis of twelve studies found raised risk of all eating disorder syndromes in ADHD, with similar risk estimates for women and men.",
+    "limitingBelief": "האכילה שלי היא חוסר שליטה עצמית פרטי שלי.",
+    "empoweringBelief": "זה חלק מוכר מהתמונה, ויש לו שם ויש לו מחקר.",
+    "factsUsed": [
+      "eating-disorders-all"
+    ],
+    "title": "האכילה היא חלק מהתמונה",
+    "caption": "סקירה של 12 מחקרים מצאה סיכון גבוה יותר לכל סוגי הפרעות האכילה אצל אנשים עם קשב, והסיכון דומה אצל נשים וגברים. אותה מערכת שמאבדת את הרסן מול הודעה או מול דחף מאבדת אותו גם במקומות אחרים. זה לא תחום נפרד ולא כישלון פרטי. אם האכילה מרגישה לך מחוץ לשליטה, זאת סיבה טובה לדבר עם איש מקצוע. מקור: הצהרת הקונצנזוס של מומחי ADHD על נשים, כתב העת BMC Psychiatry.",
+    "hook": {
+      "he": "האכילה שיצאה משליטה היא חלק מזה",
+      "en": "Eating that went out of control belongs here",
+      "query": "kitchen at night"
+    },
+    "value": [
+      {
+        "he": "לא רק התקפי זלילה בלילה",
+        "en": "Not only binge episodes late at night",
+        "query": "open fridge night"
+      },
+      {
+        "he": "סקירה של 12 מחקרים מצאה משהו",
+        "en": "A review of twelve studies found something clear",
+        "query": "stack of research papers"
+      },
+      {
+        "he": "סיכון גבוה לכל סוגי הפרעות האכילה",
+        "en": "Raised risk across every eating disorder syndrome",
+        "query": "empty plate table"
+      },
+      {
+        "he": "והסיכון דומה אצל נשים וגברים",
+        "en": "And the risk is similar for women and men",
+        "query": "two people eating"
+      },
+      {
+        "he": "זה לא תחום נפרד מהקשב",
+        "en": "This is not a separate area from attention",
+        "query": "connected puzzle pieces"
+      },
+      {
+        "he": "אותה מערכת שמאבדת את הרסן",
+        "en": "The same system that loses its brakes entirely",
+        "query": "car brake pedal"
+      },
+      {
+        "he": "מאבדת אותו גם מול הצלחת",
+        "en": "Loses them in front of the plate too",
+        "query": "plate on table"
+      },
+      {
+        "he": "ויסות רגשי ודחפים זה אותו שריר",
+        "en": "Emotion and impulse control are one single muscle",
+        "query": "arm muscle strain"
+      },
+      {
+        "he": "את לא חלשה ולא חסרת שליטה",
+        "en": "You are not weak and not lacking control",
+        "query": "woman standing strong"
+      },
+      {
+        "he": "יש לזה שם ויש לזה מחקר",
+        "en": "This has a name and it has research",
+        "query": "book open page"
+      },
+      {
+        "he": "את לא צריכה להילחם בזה לבד",
+        "en": "You do not have to fight this alone",
+        "query": "two hands together"
+      },
+      {
+        "he": "ובטח לא בשקט מוחלט",
+        "en": "And certainly not in complete silence either",
+        "query": "woman speaking openly"
+      }
+    ],
+    "turn": [
+      {
+        "he": "אם האכילה מרגישה לך מחוץ לשליטה",
+        "en": "If eating feels out of your control lately",
+        "query": "woman sitting kitchen"
+      },
+      {
+        "he": "זאת סיבה לדבר עם איש מקצוע",
+        "en": "That is a reason to speak with a professional",
+        "query": "therapist office chairs"
+      },
+      {
+        "he": "לא סיבה להתבייש עוד שנה",
+        "en": "Not a reason to feel ashamed another year",
+        "query": "woman covering face"
+      },
+      {
+        "he": "תדברי על זה עם מישהי שמבינה",
+        "en": "Talk about it with someone who truly understands",
+        "query": "two women talking"
+      }
+    ]
+  }
+]
