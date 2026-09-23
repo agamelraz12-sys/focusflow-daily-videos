@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 9,
+  "motivatorCursor": 2,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -1003,7 +1003,73 @@
       "motivator": "ease",
       "pillar": "work",
       "factsUsed": []
+    },
+    {
+      "at": "2026-09-23T05:31:11.518Z",
+      "idea": "Clinic referral ratios for ADHD run up to 16 to 1 boys to girls while the real population gap is about 3 to 1. The difference is girls nobody sent.",
+      "limitingBelief": "אם היה לי משהו, מישהו היה שם לב מזמן.",
+      "hookHe": "על כל בת שולחים 16 בנים",
+      "motivator": "pride",
+      "pillar": "womanhood",
+      "factsUsed": [
+        "referral-gap"
+      ]
+    },
+    {
+      "at": "2026-09-23T05:36:27.133Z",
+      "idea": "Two teacher vignette studies changed only the child's name and pronouns. The boy version was more likely to be referred for support and judged more suitable for treatment.",
+      "limitingBelief": "אם היו רואים אצלי בעיה, היו מטפלים בה.",
+      "hookHe": "נתנו למורים תיאור אחד של ילד",
+      "motivator": "belonging",
+      "pillar": "womanhood",
+      "factsUsed": [
+        "vignette-bias"
+      ]
+    },
+    {
+      "at": "2026-09-23T05:41:07.960Z",
+      "idea": "Women who do not match the ADHD stereotype are more likely to receive a first diagnosis of an internalising or personality disorder, which delays the right diagnosis.",
+      "limitingBelief": "כבר אמרו לי מה יש לי, אז זה מה שיש.",
+      "hookHe": "קיבלת אבחנה של חרדה או דיכאון",
+      "motivator": "hope",
+      "pillar": "mood",
+      "factsUsed": [
+        "wrong-label"
+      ]
+    },
+    {
+      "at": "2026-09-23T05:45:44.204Z",
+      "idea": "ADHD rating scale norms come mostly from male or mixed samples, and small wording changes such as excessive talking and giggling catch female presentation better.",
+      "limitingBelief": "מילאתי שאלון ויצא שאין לי, אז כנראה אין לי.",
+      "hookHe": "מילאת שאלון ויצא שאת בסדר",
+      "motivator": "honesty",
+      "pillar": "womanhood",
+      "factsUsed": [
+        "scales-built-for-boys"
+      ]
+    },
+    {
+      "at": "2026-09-23T05:50:40.597Z",
+      "idea": "In a study of university students with ADHD symptoms, poor social functioning best predicted life dissatisfaction in men, while in women it was poor emotional control.",
+      "limitingBelief": "הרגשות שלי זה הפרט הקטן, הבעיה היא המשימות.",
+      "hookHe": "בדקו מה הכי פוגע בשביעות הרצון",
+      "motivator": "recognition",
+      "pillar": "mood",
+      "factsUsed": [
+        "emotional-control-life"
+      ]
+    },
+    {
+      "at": "2026-09-23T05:55:35.431Z",
+      "idea": "Girls with ADHD are bullied more than peers, in social and relational forms, and victimisation is linked to lower self esteem and more anxiety and depression.",
+      "limitingBelief": "אני פשוט פרנואידית, בטח כועסים עליי.",
+      "hookHe": "את בטוחה שמישהי כועסת עלייך עכשיו",
+      "motivator": "regulation",
+      "pillar": "relationships",
+      "factsUsed": [
+        "bullying-girls"
+      ]
     }
   ],
-  "pillarCursor": 5
+  "pillarCursor": 4
 }
