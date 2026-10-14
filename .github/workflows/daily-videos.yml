@@ -150,7 +150,16 @@ jobs:
           # it, silently. assets/music/CREDITS.md stopped existing when the
           # music source changed, so state.json went unsaved for eight days and
           # the duplicate guard never had anything to read.
-          for f in state.json content/ledger.json assets/music/index.json; do
+          # content/queue.json BELONGS HERE and was missing until 2026-10-14.
+          # A queued script is dropped only once something has actually been
+          # scheduled, so the runner's copy of this file is the record of what
+          # has already gone out. Leaving it uncommitted means every run starts
+          # from the same eight scripts and posts the same videos again the
+          # next night — the duplicate posting that cost eight days in August,
+          # arriving by a different road. The ledger alone does not cover it:
+          # the ledger stops the WRITER repeating itself, and a queued script
+          # never goes near the writer.
+          for f in state.json content/queue.json content/ledger.json assets/music/index.json; do
             [ -e "$f" ] && git add "$f" || true
           done
           git diff --staged --quiet || git commit -m "Day scheduled $(TZ=Asia/Jerusalem date +%Y-%m-%d)"
