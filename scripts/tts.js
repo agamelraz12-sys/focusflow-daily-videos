@@ -351,19 +351,29 @@ async function speak(text, { ffprobe } = {}) {
       return { file, duration: durationOf(file, ffprobe), cached: false, characters: clean.length };
     } catch (e) {
       /*
-       * Fall back for the two reasons that are not our fault: the daily cap,
-       * and the network. A 400 or a 403 means the key or the request is wrong,
-       * and falling back there would hide a broken configuration behind a
-       * quietly worse voice for weeks.
+       * Fall back for the reasons that are not our fault: having run out, and
+       * the network. A 400 or a 403 means the key or the request is wrong, and
+       * falling back there would hide a broken configuration behind a quietly
+       * worse voice for weeks.
+       *
+       * 402 BELONGS WITH 429 AND WAS MISSING UNTIL 2026-10-14. The original
+       * list was written when the free tier was the only way this could fail,
+       * so "ran out" meant 429 and nothing else. Once billing existed, running
+       * out started arriving as 402 "prepayment credits are depleted", which
+       * landed in the branch meant for a broken key and killed the whole render
+       * on the first narrated line. It is not a configuration mistake: the key
+       * is right, the request is right, the balance is zero, and it is the
+       * founder's to top up. Exactly like 429, the run should keep going on the
+       * free Hebrew voice rather than produce nothing at all.
        */
-      const quota = /HTTP 429/.test(e.message);
+      const quota = /HTTP (429|402)/.test(e.message);
       const network = /ECONNRESET|ETIMEDOUT|ENOTFOUND|EPIPE|socket hang up|fetch failed/i.test(e.message);
       if (!quota && !network) throw e;
       if (!speak._warned) {
         console.warn(quota
-          ? '  Gemini TTS daily free quota is gone (10 requests a day). Falling back to he-IL Hila for the rest of this run.'
+          ? '  Gemini TTS has run out (no quota or no credit). Falling back to he-IL Hila for the rest of this run.'
           : `  Gemini TTS unreachable (${e.message.slice(0, 80)}). Falling back to he-IL Hila for the rest of this run.`);
-        if (quota) console.warn('  Enable billing on the Gemini API project to keep the Sulafat voice.');
+        if (quota) console.warn('  Top up the Gemini API project in AI Studio to get the Sulafat voice back.');
         speak._warned = true;
       }
       try { fs.unlinkSync(file); } catch (e2) { /* nothing to clean */ }

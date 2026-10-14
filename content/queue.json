@@ -1,801 +1,794 @@
 [
   {
-    "pillar": "womanhood",
-    "idea": "Clinic referral ratios for ADHD run up to 16 to 1 boys to girls while the real population gap is about 3 to 1. The difference is girls nobody sent.",
-    "limitingBelief": "אם היה לי משהו, מישהו היה שם לב מזמן.",
-    "empoweringBelief": "לא שמו לב כי לא הסתכלו, לא כי אין מה לראות.",
-    "factsUsed": [
-      "referral-gap"
-    ],
-    "title": "על כל בת, שישה עשר בנים",
-    "caption": "היחס בקליניקות שבודקות קשב מגיע עד 16 בנים על כל בת. באוכלוסייה עצמה הפער הרבה יותר קטן. כל מה שנמצא בין שני המספרים האלה זה בנות שפשוט לא הופנו לבדיקה. מקור: הצהרת הקונצנזוס של מומחי ADHD על נשים, BMC Psychiatry 2020. את מזהה את עצמך בזה?",
+    "pillar": "daily",
+    "idea": "The tied trash bag that stands by the door for days, because the last thirty seconds of an almost finished job is where an ADHD day stops.",
+    "limitingBelief": "אם אפילו שק אשפה לא יוצא, משהו בי לא בסדר.",
+    "empoweringBelief": "הצעד הקטן הוא הקשה באמת, וזה לא אומר עלי כלום.",
+    "factsUsed": [],
+    "title": "שק האשפה שעומד ליד הדלת",
+    "caption": "שק האשפה קשור ועומד ליד הדלת. כבר עשינו את החלק הקשה, ודווקא שלושים השניות האחרונות לא קורות. זאת לא עצלנות, הצעד הקטן נתקע. מה הדבר הקטן שעומד אצלך ליד הדלת עכשיו? 🗑️",
     "hook": {
-      "he": "על כל בת שולחים 16 בנים",
-      "en": "For every girl referred, sixteen boys are sent",
-      "query": "empty school corridor"
+      "he": "שק האשפה קשור כבר יומיים",
+      "en": "The trash bag has been tied for two days",
+      "query": "tied trash bag door"
     },
     "value": [
       {
-        "he": "זה היחס בקליניקות שבודקות קשב",
-        "en": "That is the ratio inside assessment clinics",
-        "query": "clinic waiting room chairs"
+        "he": "החלק הקשה כבר נגמר מזמן",
+        "en": "The hard part was already done long ago.",
+        "query": "full kitchen bin"
       },
       {
-        "he": "אבל באוכלוסייה היחס האמיתי אחר",
-        "en": "But out in the population the real gap differs",
-        "query": "crowd of people walking"
+        "he": "החלפנו את השקית, קשרנו, סידרנו",
+        "en": "We swapped the bag, tied it, tidied up.",
+        "query": "hands tying bag"
       },
       {
-        "he": "שם זה רק שלושה בנים לבת",
-        "en": "There it is only about three boys per girl",
-        "query": "children classroom desks"
+        "he": "נשארו שלושים שניות עד הפח",
+        "en": "Only thirty seconds to the outside bin.",
+        "query": "outdoor garbage bins"
       },
       {
-        "he": "הפער בין שני המספרים האלה",
-        "en": "The distance between those two numbers matters",
-        "query": "gap between two walls"
+        "he": "ושלושים השניות האלה לא קרו",
+        "en": "And then those thirty seconds never happened.",
+        "query": "apartment hallway door"
       },
       {
-        "he": "עשוי מבנות שאף אחד לא הפנה",
-        "en": "Is made of girls that nobody ever referred",
-        "query": "girl alone at window"
+        "he": "עוברים לידו בדרך החוצה",
+        "en": "We walk right past it on the way out",
+        "query": "person leaving apartment"
       },
       {
-        "he": "את לא הפרעת בכיתה מספיק",
-        "en": "You never disrupted the classroom enough to count",
-        "query": "quiet girl in classroom"
+        "he": "חוזרים הביתה, והוא עוד שם",
+        "en": "We come home and it is still standing there",
+        "query": "dark entryway evening"
       },
       {
-        "he": "פשוט בהית בחלון בשקט גמור",
-        "en": "You simply stared out of the window quietly",
-        "query": "student looking out window"
+        "he": "מזכירים לעצמנו, ואז שוכחים מיד",
+        "en": "We remind ourselves and then forget it immediately",
+        "query": "sticky note fridge"
       },
       {
-        "he": "ואז גדלת והמשכת לבהות בשקט",
-        "en": "Then you grew up and kept staring quietly",
-        "query": "woman staring out window"
+        "he": "וכל פעם שעוברים, מתביישים קצת",
+        "en": "And every time we pass it, we feel ashamed.",
+        "query": "tired person doorway"
       },
       {
-        "he": "את לא התחלת את זה עכשיו",
-        "en": "You did not start having this last year",
-        "query": "old childhood photograph"
+        "he": "זו לא עצלנות, זו לא בחירה",
+        "en": "This is not laziness, and it is not a choice.",
+        "query": "calm kitchen morning"
       },
       {
-        "he": "פשוט אף אחד לא הסתכל אז",
-        "en": "It is only that nobody looked back then",
-        "query": "teacher ignoring student"
+        "he": "הקושי הוא דווקא בצעד הקטן",
+        "en": "The hardest part is the smallest step.",
+        "query": "single step staircase"
       },
       {
-        "he": "המורה ראתה ילדה טובה ושקטה",
-        "en": "The teacher saw a good and quiet girl",
-        "query": "teacher marking papers"
+        "he": "דברים קטנים לא נראים דחופים",
+        "en": "Small things just do not feel urgent.",
+        "query": "clock kitchen wall"
       },
       {
-        "he": "וילדה טובה ושקטה לא מופנית",
-        "en": "And a good quiet girl does not get referred",
-        "query": "empty referral form"
+        "he": "השק יוצא כשאנחנו יוצאים",
+        "en": "So the bag leaves when we leave.",
+        "query": "keys by front door"
       }
     ],
     "turn": [
       {
-        "he": "את יכולה להסתכל על זה אחרת",
-        "en": "You are allowed to look at this differently",
-        "query": "woman looking at mirror"
+        "he": "פעם אחת זה קרה אחרת",
+        "en": "There was one time it happened differently.",
+        "query": "morning light kitchen"
       },
       {
-        "he": "זאת לא עצלנות ולא חוסר אכפתיות",
-        "en": "This is not laziness and not a lack of caring",
-        "query": "tired woman at desk"
+        "he": "קשרנו את השק ויצאנו מיד",
+        "en": "We tied the bag and walked straight outside",
+        "query": "hands carrying trash"
       },
       {
-        "he": "זאת בדיקה שאף אחד לא עשה",
-        "en": "It is an assessment nobody ever carried out",
-        "query": "closed medical folder"
+        "he": "הדרך לפח לקחה חצי דקה",
+        "en": "The walk to the bin took half a minute.",
+        "query": "walking outside night"
       },
       {
-        "he": "ואם תתחילי לשאול עכשיו זה בסדר",
-        "en": "And starting to ask about it now is fine",
-        "query": "woman writing a note"
+        "he": "חזרנו הביתה, ולא היה שם כלום",
+        "en": "We came home, and there was nothing there.",
+        "query": "clean empty hallway"
       }
     ]
   },
   {
-    "pillar": "womanhood",
-    "idea": "Two teacher vignette studies changed only the child's name and pronouns. The boy version was more likely to be referred for support and judged more suitable for treatment.",
-    "limitingBelief": "אם היו רואים אצלי בעיה, היו מטפלים בה.",
-    "empoweringBelief": "ראו את אותה התנהגות בדיוק והחליטו אחרת בגלל השם.",
+    "idea": "Why a small boring task at work is harder to start than a big difficult one",
+    "pillar": "work",
+    "limitingBelief": "אם קשה להתחיל משימה קטנה, זאת עצלנות.",
+    "empoweringBelief": "המוח מחלק כוח לפי עניין ודחיפות, ואפשר לעזור לו.",
     "factsUsed": [
-      "vignette-bias"
+      "boring-not-hard"
     ],
-    "title": "אותו ילד בדיוק, שם אחר",
-    "caption": "נתנו למורים תיאור אחד של ילד עם קשב, ושינו רק את השם ואת המין. את הגרסה עם השם הגברי הפנו יותר לעזרה, וגם חשבו שהיא מתאימה יותר לטיפול. אותה התנהגות. שם אחר. גם הורים מעריכים פחות את אותה סערה אצל בנות. מקור: הצהרת הקונצנזוס של מומחי ADHD על נשים, BMC Psychiatry 2020. שלחי את זה למי שצריכה לקרוא.",
+    "title": "למה קשה להתחיל מייל אחד ולא מצגת שלמה",
+    "caption": "מצגת שלמה נגמרה, מייל אחד לא. המוח לא בודק מה הכי חשוב, הוא בודק מה מעניין ומה דחוף. זאת לא עצלנות, ככה זה בנוי. איזו משימה קטנה בעבודה מחכה אצלך הכי הרבה זמן? 👀",
     "hook": {
-      "he": "נתנו למורים תיאור אחד של ילד",
-      "en": "Teachers were handed one single description of a child",
-      "query": "teacher reading paper"
+      "he": "מצגת שלמה נגמרה, מייל אחד לא",
+      "en": "A whole presentation finished, one email did not",
+      "query": "empty office desk"
     },
     "value": [
       {
-        "he": "שינו רק את השם ואת המין",
-        "en": "They changed only the name and the gender",
-        "query": "name tag on desk"
+        "he": "המשימה הגדולה בעבודה נגמרה בלילה",
+        "en": "The big task at work finished at night",
+        "query": "laptop glowing dark room"
       },
       {
-        "he": "כל השאר נשאר בדיוק אותו דבר",
-        "en": "Everything else stayed exactly the same as before",
-        "query": "two identical documents"
+        "he": "והמייל של שתי שורות עוד מחכה",
+        "en": "And the two line email is still waiting there",
+        "query": "unread email inbox screen"
       },
       {
-        "he": "אותה התנהגות ואותם קשיים בכיתה",
-        "en": "The same behaviour and the same classroom difficulties",
-        "query": "busy classroom children"
+        "he": "זה נראה הפוך, אבל זה הגיוני",
+        "en": "That looks backwards, and it actually makes sense",
+        "query": "person rubbing eyes"
       },
       {
-        "he": "הגרסה עם שם של בן",
-        "en": "The version carrying a boy name instead",
-        "query": "boy raising hand"
+        "he": "המוח לא בודק מה הכי חשוב",
+        "en": "The brain does not check what matters most",
+        "query": "pen tapping notebook"
       },
       {
-        "he": "הופנתה יותר לעזרה ולתמיכה בכיתה",
-        "en": "Was referred more often for help and support",
-        "query": "teacher helping student"
-      },
-      {
-        "he": "וגם נחשבה מתאימה יותר לטיפול",
-        "en": "And was also judged more suitable for treatment",
-        "query": "doctor reviewing chart"
-      },
-      {
-        "he": "אותו ילד בדיוק, רק שם אחר",
-        "en": "The very same child, only a different name",
-        "query": "two children silhouettes"
-      },
-      {
-        "he": "גם הורים עושים את זה",
-        "en": "Parents show exactly the same tilt too",
-        "query": "parents talking at home"
-      },
-      {
-        "he": "מעריכים פחות את הסערה אצל בנות",
-        "en": "They under rate the storm they see in girls",
-        "query": "girl sitting alone"
-      },
-      {
-        "he": "ויותר מדי אותה סערה אצל בנים",
-        "en": "And over rate that same storm in boys",
-        "query": "boy running outdoors"
-      },
-      {
-        "he": "את לא נפלת בין הכיסאות",
-        "en": "You did not simply slip through the cracks",
-        "query": "empty chair classroom"
-      },
-      {
-        "he": "את נשארת מחוץ לדלת מההתחלה",
-        "en": "You were left outside the door from the start",
-        "query": "closed door hallway"
-      }
-    ],
-    "turn": [
-      {
-        "he": "השקט שלך נקרא כמו הסתדרות",
-        "en": "Your quietness was read as coping just fine",
-        "query": "quiet woman thinking"
-      },
-      {
-        "he": "אבל הוא היה עבודה קשה מאוד",
-        "en": "But that quiet was extremely hard unpaid work",
-        "query": "exhausted woman evening"
-      },
-      {
-        "he": "תסתכלי על הילדה ההיא שוב",
-        "en": "Take another look at that little girl again",
-        "query": "old school photo"
-      },
-      {
-        "he": "היא לא הייתה בסדר, היא הסתדרה",
-        "en": "She was not fine, she was merely managing",
-        "query": "girl forced smile"
-      }
-    ]
-  },
-  {
-    "pillar": "mood",
-    "idea": "Women who do not match the ADHD stereotype are more likely to receive a first diagnosis of an internalising or personality disorder, which delays the right diagnosis.",
-    "limitingBelief": "כבר אמרו לי מה יש לי, אז זה מה שיש.",
-    "empoweringBelief": "מותר להוסיף שאלה אחת בלי לוותר על שום דבר.",
-    "factsUsed": [
-      "wrong-label"
-    ],
-    "title": "נתנו לזה שם אחר",
-    "caption": "הרבה נשים מקבלות קודם אבחנה של חרדה, דיכאון או הפרעת אישיות, כי הן לא נראו כמו התמונה שאנשים מחזיקים בראש על קשב. הצהרת הקונצנזוס של מומחי ADHD על נשים אומרת במפורש שהשם הזה דוחה את האבחנה הנכונה ואת הטיפול הנכון. זה לא אומר שהאבחנה שלך שגויה. זה אומר ששווה לשאול גם על קשב. מקור: BMC Psychiatry 2020.",
-    "hook": {
-      "he": "קיבלת אבחנה של חרדה או דיכאון",
-      "en": "You were diagnosed with anxiety or with depression",
-      "query": "woman at therapist office"
-    },
-    "value": [
-      {
-        "he": "ואולי היא נכונה, ואולי לא הכול",
-        "en": "Maybe it is right, maybe not the whole picture",
-        "query": "half open window"
-      },
-      {
-        "he": "המחקר אומר משהו לא נוח",
-        "en": "The research says something quite uncomfortable here",
-        "query": "open research paper"
-      },
-      {
-        "he": "נשים עם קשב מקבלות קודם",
-        "en": "Women with attention difficulties first receive something else",
-        "query": "medical file stack"
-      },
-      {
-        "he": "אבחנה של הפנמה או הפרעת אישיות",
-        "en": "A diagnosis of internalising or of personality difficulties",
-        "query": "clipboard with notes"
-      },
-      {
-        "he": "כי הן לא נראו כמו התמונה",
-        "en": "Because they never looked like the expected picture",
-        "query": "portrait in frame"
-      },
-      {
-        "he": "והשם הזה דוחה את האמיתי",
-        "en": "And that label pushes the real one further away",
-        "query": "calendar pages falling"
-      },
-      {
-        "he": "לפעמים בשנים ולפעמים בעשור שלם",
-        "en": "Sometimes by years and sometimes by a decade",
+        "he": "הוא בודק מה מעניין ומה דחוף",
+        "en": "It checks what feels interesting and what feels urgent",
         "query": "clock on wall"
       },
       {
-        "he": "זה לא אומר שהאבחנה שלך שגויה",
-        "en": "This does not mean your diagnosis is wrong",
-        "query": "woman holding papers"
+        "he": "מייל משעמם לא מעניין את המוח",
+        "en": "A boring email does not interest the brain",
+        "query": "boring email screen"
       },
       {
-        "he": "שווה לשאול גם על קשב",
-        "en": "It means attention is worth asking about too",
-        "query": "woman asking question"
+        "he": "ולכן קשה יותר להתחיל את המייל",
+        "en": "So the email is harder to start",
+        "query": "shoulders slumped chair"
       },
       {
-        "he": "החרדה יכולה להיות תוצאה ולא סיבה",
-        "en": "Anxiety can be a result rather than a cause",
-        "query": "domino pieces falling"
+        "he": "זאת לא עצלנות, ככה המוח בנוי",
+        "en": "This is not laziness, this is how it works",
+        "query": "hands still keyboard"
       },
       {
-        "he": "את לא צריכה לוותר על כלום",
-        "en": "You do not have to give up anything here",
-        "query": "woman standing confident"
+        "he": "לכן כשמשהו דחוף פתאום קל להתחיל",
+        "en": "That is why urgent things start more easily",
+        "query": "calendar deadline circled"
       },
       {
-        "he": "רק להוסיף שאלה אחת לרופאה שלך",
-        "en": "Only add one more question for your doctor",
-        "query": "doctor and patient talking"
+        "he": "ואז פתאום יש כוח להתחיל",
+        "en": "And suddenly there is energy to begin",
+        "query": "fingers typing fast"
+      },
+      {
+        "he": "לא צריך לחכות לרגע האחרון",
+        "en": "Nobody has to wait for the last minute",
+        "query": "window night city"
+      },
+      {
+        "he": "לשים טיימר לשש דקות ולהתחיל",
+        "en": "Set a timer for six minutes and begin",
+        "query": "phone timer countdown"
       }
     ],
     "turn": [
       {
-        "he": "את חיה עם זה שנים",
-        "en": "You have been living with this for years",
-        "query": "woman looking tired"
+        "he": "ביום רביעי הטיימר רץ שש דקות",
+        "en": "On Wednesday the timer ran for six minutes",
+        "query": "kitchen timer counter"
       },
       {
-        "he": "וקראו לזה בשם של משהו אחר",
-        "en": "And it was called by another condition name",
-        "query": "label on box"
+        "he": "המייל נשלח לפני עשר בבוקר",
+        "en": "The email was sent before ten in the morning",
+        "query": "closing laptop lid"
       },
       {
-        "he": "תשאלי גם על קשב וריכוז",
-        "en": "Ask about attention and concentration as well",
-        "query": "woman talking to doctor"
+        "he": "והפעם לא היה לילה ארוך",
+        "en": "And this time there was no long night",
+        "query": "lamp switched off"
       },
       {
-        "he": "לשאלה הזאת מגיע מקום משלה",
-        "en": "That question deserves a place of its own",
-        "query": "empty chair office"
-      }
-    ]
-  },
-  {
-    "pillar": "womanhood",
-    "idea": "ADHD rating scale norms come mostly from male or mixed samples, and small wording changes such as excessive talking and giggling catch female presentation better.",
-    "limitingBelief": "מילאתי שאלון ויצא שאין לי, אז כנראה אין לי.",
-    "empoweringBelief": "השאלון נבנה על בנים, והוא לא חיפש אותי בכלל.",
-    "factsUsed": [
-      "scales-built-for-boys"
-    ],
-    "title": "השאלון לא נכתב עלייך",
-    "caption": "הנורמות שמאחורי שאלוני הקשב הנפוצים נבנו בעיקר על מדגמים של בנים. הצהרת הקונצנזוס של מומחי ADHD על נשים כותבת שזה עובד נגד נשים, ושכדאי לשאול על דיבור וצחקוקים ולא רק על דיבור מוגזם. שינוי של מילה אחת, ופתאום רואים אותה. את לא נכשלת בשאלון. הוא פשוט לא נכתב איתך בראש. מקור: BMC Psychiatry 2020.",
-    "hook": {
-      "he": "מילאת שאלון ויצא שאת בסדר",
-      "en": "You filled a questionnaire and came out fine",
-      "query": "hands filling form"
-    },
-    "value": [
-      {
-        "he": "אולי השאלון פשוט לא חיפש אותך",
-        "en": "Perhaps that questionnaire was never looking for you",
-        "query": "magnifying glass paper"
-      },
-      {
-        "he": "הנורמות שלו נבנו על בנים",
-        "en": "Its norms were built mostly on male samples",
-        "query": "group of boys"
-      },
-      {
-        "he": "המחקר אומר שזה עובד נגד נשים",
-        "en": "Research says this works against women in practice",
-        "query": "research documents desk"
-      },
-      {
-        "he": "שואלים אם הילד מדבר יותר מדי",
-        "en": "They ask whether the child talks far too much",
-        "query": "child talking loudly"
-      },
-      {
-        "he": "והיא דיברה וגם צחקקה בלי הפסקה",
-        "en": "And she talked and giggled without any pause",
-        "query": "girls laughing together"
-      },
-      {
-        "he": "שינוי קטן במילה תופס אותה",
-        "en": "One small change in wording finally catches her",
-        "query": "pen editing text"
-      },
-      {
-        "he": "דיבור וצחקוקים במקום דיבור לבד",
-        "en": "Talking and giggling instead of talking alone",
-        "query": "two girls whispering"
-      },
-      {
-        "he": "זה ההבדל בין לראות ולפספס",
-        "en": "That is the difference between seeing and missing",
-        "query": "blurry and sharp focus"
-      },
-      {
-        "he": "את לא נכשלת בשאלון ההוא",
-        "en": "You did not fail that questionnaire at all",
-        "query": "crumpled paper form"
-      },
-      {
-        "he": "הוא פשוט לא נכתב איתך בראש",
-        "en": "It simply was not written with you in mind",
-        "query": "old typewriter paper"
-      },
-      {
-        "he": "אותו דבר קרה בדוחות בית הספר",
-        "en": "The same thing happened in the school reports",
-        "query": "school report card"
-      },
-      {
-        "he": "כתבו שהיא חולמנית ולא כתבו למה",
-        "en": "They wrote she was dreamy and never asked why",
-        "query": "handwritten school note"
-      }
-    ],
-    "turn": [
-      {
-        "he": "את לא מקרה קצה מוזר",
-        "en": "You are not some strange edge case here",
-        "query": "woman in crowd"
-      },
-      {
-        "he": "את הרוב שלא נמדד נכון",
-        "en": "You are the majority that was measured wrongly",
-        "query": "measuring tape ruler"
-      },
-      {
-        "he": "זה לא אומר שאין לך כלום",
-        "en": "This does not mean nothing is going on",
-        "query": "woman thinking quietly"
-      },
-      {
-        "he": "זה אומר ששווה להיבדק אצל מומחית",
-        "en": "It means a proper assessment is worth having",
-        "query": "specialist doctor office"
+        "he": "ובערב לא נשאר מייל פתוח",
+        "en": "And in the evening no email was left open",
+        "query": "dark office evening desk"
       }
     ]
   },
   {
     "pillar": "mood",
-    "idea": "In a study of university students with ADHD symptoms, poor social functioning best predicted life dissatisfaction in men, while in women it was poor emotional control.",
-    "limitingBelief": "הרגשות שלי זה הפרט הקטן, הבעיה היא המשימות.",
-    "empoweringBelief": "דווקא הוויסות הרגשי הוא מה שקובע איך החיים מרגישים.",
+    "idea": "Why the same tiny setback is nothing in the morning and ends the whole evening.",
+    "limitingBelief": "אם דבר קטן מפיל ערב שלם, זו דרמה.",
+    "empoweringBelief": "זה יום ארוך, לא תגובה מוגזמת.",
     "factsUsed": [
-      "emotional-control-life"
+      "exercise"
     ],
-    "title": "הגל הוא לא הפרט הקטן",
-    "caption": "במחקר על סטודנטים עם סימני קשב בדקו מה הכי מנבא חוסר שביעות רצון מהחיים. אצל גברים זה היה התפקוד החברתי. אצל נשים זו הייתה השליטה ברגש. הגל שמגיע בווליום מלא בלי כפתור שמנמיך אותו הוא לא פרט צדדי בסיפור הזה. הוא החלק שקובע איך הכול מרגיש. מקור: הצהרת הקונצנזוס של מומחי ADHD על נשים, כתב העת BMC Psychiatry.",
+    "title": "בבוקר כלום, בערב כל היום",
+    "caption": "בבוקר המגירה לא נסגרה ולא קרה כלום, ובערב אותו דבר בדיוק הפיל את כל היום. אנשים עם ADHD מספרים על זה הרבה: בסוף יום ארוך הכל מרגיש גדול יותר, ואין כוח לעצור את זה. מחקרים מצאו שתנועה עוזרת לריכוז, אז לפני שמחליטים שהערב נגמר, כמה דקות בחוץ בלי מסך. מה הדבר הקטן שהפיל לך ערב שלם? 🌊",
     "hook": {
-      "he": "בדקו מה הכי פוגע בשביעות הרצון",
-      "en": "They tested what most harms satisfaction with life",
-      "query": "woman sitting alone thinking"
+      "he": "המגירה לא נסגרה והיום נגמר",
+      "en": "The drawer would not shut, and the day ended.",
+      "query": "jammed kitchen drawer"
     },
     "value": [
       {
-        "he": "אצל גברים זה היה התפקוד החברתי",
-        "en": "In men it was poor social functioning overall",
-        "query": "man alone at party"
+        "he": "בשמונה בבוקר זה לא הפריע",
+        "en": "At eight in the morning it did not bother me.",
+        "query": "morning kitchen light"
       },
       {
-        "he": "אצל נשים יצא משהו אחר לגמרי",
-        "en": "In women something entirely different came out",
-        "query": "woman looking at window"
+        "he": "בתשע בלילה זה הפיל אותי",
+        "en": "At nine at night it knocked me down.",
+        "query": "dark apartment night"
       },
       {
-        "he": "אצל נשים זו הייתה השליטה ברגש",
-        "en": "For women it was control over emotion itself",
-        "query": "stormy sky clouds"
+        "he": "אותו דבר בדיוק, הרגשה אחרת לגמרי",
+        "en": "Exactly the same thing, a completely different feeling.",
+        "query": "drawer handle closeup"
       },
       {
-        "he": "הגל שמגיע בווליום מלא בבת אחת",
-        "en": "The wave that arrives at full volume instantly",
-        "query": "ocean wave crashing"
+        "he": "זה לא קרה בגלל המגירה",
+        "en": "It did not really happen because of the drawer.",
+        "query": "hand pushing drawer"
       },
       {
-        "he": "בלי כפתור שמנמיך אותו לאט",
-        "en": "Without any dial that lowers it down slowly",
-        "query": "volume knob closeup"
+        "he": "אנשים עם ADHD מספרים על זה",
+        "en": "People with ADHD describe this all the time.",
+        "query": "phone screen messages night"
       },
       {
-        "he": "זה לא הפרט הקטן בסיפור שלך",
-        "en": "This is not the small detail in your story",
-        "query": "small object large room"
+        "he": "בסוף יום ארוך הכל מרגיש גדול",
+        "en": "By the end of a long day everything feels huge.",
+        "query": "tired person couch evening"
       },
       {
-        "he": "זה החלק שקובע איך החיים מרגישים",
-        "en": "It is the part deciding how life actually feels",
-        "query": "woman face emotion"
+        "he": "ובערב אין כוח לעצור את זה",
+        "en": "In the evening there is no strength to stop it.",
+        "query": "empty battery phone"
       },
       {
-        "he": "כולם מדברים על משימות ורשימות",
-        "en": "Everyone keeps talking about tasks and lists",
-        "query": "to do list notebook"
+        "he": "ואז עולה גל ענק בלי אזהרה",
+        "en": "Then a huge wave rises with no warning.",
+        "query": "ocean wave rising"
       },
       {
-        "he": "ואצלך הכאב יושב במקום אחר",
-        "en": "And your pain is sitting somewhere else entirely",
-        "query": "woman holding chest"
+        "he": "אין כפתור שמנמיך את זה",
+        "en": "There is no button that turns it down.",
+        "query": "volume dial knob"
       },
       {
-        "he": "בעוצמה שאף אחד לא רואה מבחוץ",
-        "en": "At an intensity nobody can see from outside",
-        "query": "calm face closeup"
+        "he": "זו לא דרמה, זו עייפות אמיתית",
+        "en": "That is not drama, that is real tiredness.",
+        "query": "person sitting floor"
       },
       {
-        "he": "את לא מוגזמת ולא דרמטית",
-        "en": "You are not exaggerating and not being dramatic",
-        "query": "woman wiping tears"
+        "he": "מחקרים מצאו שתנועה עוזרת לריכוז",
+        "en": "Studies found that movement helps with focus.",
+        "query": "walking sneakers pavement"
       },
       {
-        "he": "את מרגישה בווליום שלא נבחר",
-        "en": "You feel at a volume you never chose",
-        "query": "speaker sound waves"
+        "he": "כמה דקות בחוץ, בלי מסך",
+        "en": "A few minutes outside, with no screen.",
+        "query": "evening street walk"
       }
     ],
     "turn": [
       {
-        "he": "אם תתחילי לקרוא לזה בשמו",
-        "en": "If you start calling this by its real name",
-        "query": "woman writing journal"
+        "he": "בערב הבא המגירה שוב נתקעה",
+        "en": "The next evening the drawer jammed again.",
+        "query": "wooden drawer closing"
       },
       {
-        "he": "זה כבר מפסיק להיות פגם באופי",
-        "en": "It stops being a flaw in your character",
-        "query": "broken mirror repaired"
+        "he": "היה גל, אבל הוא היה מוכר",
+        "en": "There was a wave, but it felt familiar.",
+        "query": "deep breath window"
       },
       {
-        "he": "ויסות רגשי זה משהו שנלמד",
-        "en": "Emotional regulation is something that can be learned",
-        "query": "woman practicing breathing"
+        "he": "יצאתי לרחוב לעשר דקות",
+        "en": "I stepped out to the street for ten minutes.",
+        "query": "night sidewalk walking"
       },
       {
-        "he": "והוא לא מגיע מלהתאמץ יותר חזק",
-        "en": "And it never comes from simply trying harder",
-        "query": "woman resting calmly"
+        "he": "המגירה חיכתה, והערב לא נגמר",
+        "en": "The drawer waited, and the evening was not over.",
+        "query": "calm kitchen evening"
       }
     ]
   },
   {
+    "idea": "Noticing the body on purpose once a day, instead of at the evening crash.",
+    "pillar": "health",
+    "limitingBelief": "פשוט לא אכפת לי מהגוף שלי.",
+    "empoweringBelief": "אפשר לעצור פעם ביום ולשאול מה כואב.",
+    "factsUsed": [],
+    "title": "ביום לא הרגשנו, ובערב הכל כאב",
+    "caption": "הרבה אנשים עם ADHD מספרים אותו דבר. כל היום לא מרגישים כלום, ובערב הכל כואב בבת אחת. זה לא חוסר אכפתיות. אפשר לשים תזכורת אחת ביום, לעצור ולשאול מה כואב עכשיו. כדאי לנסות היום, ולכתוב בתגובות מה כאב 🤍",
+    "hook": {
+      "he": "קמנו מהכיסא והכל כאב בבת אחת",
+      "en": "We got up from the chair and everything hurt at once.",
+      "query": "person standing up slowly desk"
+    },
+    "value": [
+      {
+        "he": "בסוף היום קמנו והכל כאב",
+        "en": "At the end of the day everything hurt.",
+        "query": "tired person evening desk"
+      },
+      {
+        "he": "בבוקר לא הרגשנו שום דבר",
+        "en": "In the morning we did not feel anything.",
+        "query": "morning kitchen window light"
+      },
+      {
+        "he": "הכתפיים שלנו היו קפוצות שעות",
+        "en": "Our shoulders stayed tight for hours.",
+        "query": "tense shoulders close up"
+      },
+      {
+        "he": "לא הלכנו לשירותים עד שכאב",
+        "en": "We did not go to the bathroom until it hurt.",
+        "query": "bathroom door hallway"
+      },
+      {
+        "he": "העייפות נופלת עלינו בבת אחת",
+        "en": "Tiredness falls on us all at once.",
+        "query": "exhausted person couch evening"
+      },
+      {
+        "he": "זה לא שלא אכפת לנו",
+        "en": "It is not that we do not care at all.",
+        "query": "hands holding warm mug"
+      },
+      {
+        "he": "מרגיש שהמוח ראשון, והגוף אחרון",
+        "en": "It feels like the body comes last.",
+        "query": "crowded street traffic"
+      },
+      {
+        "he": "קול שקט לא מנצח מסך מעניין",
+        "en": "A quiet voice cannot beat an interesting screen.",
+        "query": "glowing phone screen dark"
+      },
+      {
+        "he": "ככה זה מרגיש, שקט ואז צעקה",
+        "en": "That is how it feels, quiet and then a shout.",
+        "query": "wall clock closeup"
+      },
+      {
+        "he": "אף אחד לא בחר להתעלם מהגוף",
+        "en": "Nobody chose to ignore their own body.",
+        "query": "quiet room empty chair"
+      },
+      {
+        "he": "אפשר לעצור כל יום באותה שעה",
+        "en": "We can stop at the same time daily.",
+        "query": "phone alarm reminder screen"
+      },
+      {
+        "he": "שאלה אחת קצרה: מה כואב עכשיו",
+        "en": "One short question. What hurts right now?",
+        "query": "person touching jaw mirror"
+      }
+    ],
+    "turn": [
+      {
+        "he": "בארבע הטלפון צפצף באמצע משימה",
+        "en": "At four the phone beeped during a task.",
+        "query": "phone notification desk afternoon"
+      },
+      {
+        "he": "קמנו רגע, פתחנו את הכתפיים",
+        "en": "We stood up for a moment and opened the shoulders.",
+        "query": "person stretching shoulders room"
+      },
+      {
+        "he": "הערב הזה נגמר קצת יותר רגוע",
+        "en": "That evening ended a little calmer.",
+        "query": "lamp bedroom night calm"
+      },
+      {
+        "he": "הפעם קמנו לפני שהכתפיים כאבו",
+        "en": "This time we got up before the shoulders hurt.",
+        "query": "calm shoulders roll morning"
+      }
+    ]
+  },
+  {
+    "idea": "A short reply moving a plan to next week flips the whole evening, and the twenty minute pause that shortens the spiral.",
     "pillar": "relationships",
-    "idea": "Girls with ADHD are bullied more than peers, in social and relational forms, and victimisation is linked to lower self esteem and more anxiety and depression.",
-    "limitingBelief": "אני פשוט פרנואידית, בטח כועסים עליי.",
-    "empoweringBelief": "המוח שלי אסף ראיות אמיתיות פעם, והן כבר לא מתארות היום.",
+    "motivator": "sensitivity",
+    "limitingBelief": "כל הודעה קצרה אומרת שמישהו כועס",
+    "empoweringBelief": "התגובה מגיעה לפני המחשבה, ואפשר לחכות איתה",
     "factsUsed": [
-      "bullying-girls"
+      "rsd"
     ],
-    "title": "מאיפה הביטחון שכועסים עלייך",
-    "caption": "בנות עם קשב סובלות מבריונות יותר מבנות אחרות, והצורה שונה. אצל בנים זה בדרך כלל פיזי. אצלה זה להישאר מחוץ לשיחה, לשמוע שדיברו עליה, לראות סטורי של כולן בלעדיה. הבריונות הזאת קשורה לביטחון נמוך יותר ולעוד חרדה ודיכאון אחר כך. אז הביטחון שמישהי כועסת עלייך עכשיו לא בא משום מקום. הוא פשוט כבר לא מתאר את היום. מקור: הצהרת הקונצנזוס של מומחי ADHD על נשים, BMC Psychiatry 2020.",
+    "title": "מישהו קרוב דחה, וכל הערב משתנה",
+    "caption": "הודעה קצרה אחת, והגוף כבר החליט שמשהו רע קרה. אחר כך הראש בונה סיפור שלם, וכל הערב הולך על זה. זה לא מוגזם, זו אזעקה שמצלצלת לפני שבדקנו כלום 💛 מה ההודעה האחרונה שקראת שוב ושוב?",
     "hook": {
-      "he": "את בטוחה שמישהי כועסת עלייך עכשיו",
-      "en": "You are certain someone is angry with you now",
-      "query": "woman looking at phone"
+      "he": "מישהו קרוב דחה פגישה, והבטן התהפכה",
+      "en": "Someone close moved a plan, and my stomach dropped.",
+      "query": "phone message screen night"
     },
     "value": [
       {
-        "he": "וזה לא בא משום מקום",
-        "en": "And this did not come out of nowhere",
-        "query": "old photographs scattered"
+        "he": "מישהו קרוב כתב משפט אחד קצר",
+        "en": "Someone close wrote just one short sentence.",
+        "query": "hand holding phone kitchen"
       },
       {
-        "he": "בנות עם קשב סובלות יותר מבריונות",
-        "en": "Girls with attention difficulties face more bullying",
-        "query": "girl alone playground"
+        "he": "נדחה לשבוע הבא, זה הכל",
+        "en": "Postponed to next week, and that is all it said.",
+        "query": "text message bubble closeup"
       },
       {
-        "he": "והצורה שונה מזו של בנים",
-        "en": "And the form it takes differs from boys",
-        "query": "two separate groups"
+        "he": "שנייה אחת, והגוף כבר יודע משהו",
+        "en": "One second, and your body already knows something.",
+        "query": "person sitting couch still"
       },
       {
-        "he": "אצל בנים זה בדרך כלל פיזי",
-        "en": "With boys it is usually physical and visible",
-        "query": "boys pushing playground"
+        "he": "הבטן מגיבה לפני שיש מחשבה",
+        "en": "Your stomach reacts before any thought arrives.",
+        "query": "hands clasped lap closeup"
       },
       {
-        "he": "אצלה זה להישאר מחוץ לשיחה",
-        "en": "With her it is being left out of conversations",
-        "query": "girl outside group"
+        "he": "המחשבות בונות סיפור שלם על הקשר",
+        "en": "Your thoughts build a whole story about the relationship.",
+        "query": "person staring window evening"
       },
       {
-        "he": "לשמוע שדיברו עליה בקבוצה אחרת",
-        "en": "Hearing that they discussed her in another group",
-        "query": "girls whispering together"
+        "he": "קוראים את ההודעה שוב ושוב",
+        "en": "You read the message again and again.",
+        "query": "scrolling phone dark room"
       },
       {
-        "he": "לראות סטורי של כולן בלעדיה",
-        "en": "Seeing a story with everyone except her",
-        "query": "phone screen social media"
+        "he": "נזכרים במשהו שאמרנו לפני שבועיים",
+        "en": "We remember something we said about two weeks ago.",
+        "query": "person walking hallway alone"
       },
       {
-        "he": "זה קשור לביטחון נמוך יותר",
-        "en": "This is linked to lower self esteem later",
-        "query": "woman avoiding mirror"
+        "he": "עם קשב זו תגובה של הגוף",
+        "en": "With attention difficulties this is the body reacting.",
+        "query": "open notebook pen desk"
       },
       {
-        "he": "וגם ליותר חרדה ודיכאון אחר כך",
-        "en": "And also to more anxiety and depression afterwards",
-        "query": "woman sitting dark room"
+        "he": "התגובה לא מוגזמת, היא פשוט מהירה",
+        "en": "The reaction is not too big, it is just fast.",
+        "query": "clock hands close up"
       },
       {
-        "he": "המוח שלך אסף ראיות שנים",
-        "en": "Your brain collected real evidence for many years",
-        "query": "files and folders"
+        "he": "אמרו לנו לא לקחת ללב",
+        "en": "We were told not to take it personally.",
+        "query": "person sitting stairs quiet"
       },
       {
-        "he": "ולמד שכנראה מישהי כועסת עכשיו",
-        "en": "And learned that someone is probably angry now",
-        "query": "woman worried expression"
+        "he": "אבל הגוף מגיב לפני כל עצה",
+        "en": "But your body reacts before any advice arrives.",
+        "query": "chest breathing slow closeup"
       },
       {
-        "he": "את לא פרנואידית, את מאומנת",
-        "en": "You are not paranoid, you were simply trained",
-        "query": "woman deep in thought"
+        "he": "לחכות עשרים דקות בלי לשלוח כלום",
+        "en": "Waiting twenty minutes before sending anything at all.",
+        "query": "kitchen timer counter"
       }
     ],
     "turn": [
       {
-        "he": "הראיות היו אמיתיות פעם מזמן",
-        "en": "That evidence was genuinely real a long time ago",
-        "query": "faded old photograph"
+        "he": "התשובה חיכתה עשרים דקות בטלפון",
+        "en": "The reply waited twenty minutes in the phone.",
+        "query": "phone face down table"
       },
       {
-        "he": "אבל הן לא מתארות את היום",
-        "en": "But it does not describe today at all",
-        "query": "sunrise new day"
+        "he": "בינתיים היה זמן לשטוף כלים",
+        "en": "Meanwhile there was time to wash a few dishes.",
+        "query": "washing dishes sink"
       },
       {
-        "he": "תבדקי מול המציאות לפני שתחליטי",
-        "en": "Check against reality before you decide anything",
-        "query": "woman sending message"
+        "he": "הסיבה הגיעה אחר כך, תור לרופא",
+        "en": "The reason came later, just a doctor appointment.",
+        "query": "clinic waiting room chairs"
       },
       {
-        "he": "לרוב אף אחת לא כועסת בכלל",
-        "en": "Most of the time nobody is angry at all",
-        "query": "friends laughing together"
-      }
-    ]
-  },
-  {
-    "pillar": "womanhood",
-    "idea": "Stimulant response looks comparable in females and males, yet girls are less likely to be prescribed treatment and start at an older age.",
-    "limitingBelief": "אם הייתי צריכה טיפול, היו מציעים לי אותו.",
-    "empoweringBelief": "הפער הוא במי נשאלת בכלל, לא ביעילות.",
-    "factsUsed": [
-      "treated-less"
-    ],
-    "title": "עובד אותו דבר, מוצע פחות",
-    "caption": "התגובה לטיפול נראית דומה אצל בנות ובנים. ובכל זאת בנות מקבלות הצעה לטיפול פחות, וכשכן, זה קורה בגיל מבוגר יותר. הפער הוא לא ביעילות. הפער הוא במי בכלל נשאלת. אני לא אומרת לך מה לעשות. זאת שיחה בינך לבין רופאה. רק שווה לדעת שהשיחה הזאת בכלל קיימת. מקור: הצהרת הקונצנזוס של מומחי ADHD על נשים, BMC Psychiatry 2020.",
-    "hook": {
-      "he": "הטיפול עובד אותו דבר אצל בנות",
-      "en": "Treatment appears to work the same for girls",
-      "query": "balanced scale weights"
-    },
-    "value": [
-      {
-        "he": "התגובה נראית דומה אצל בנות ובנים",
-        "en": "Response looks comparable between girls and boys",
-        "query": "two equal glasses"
-      },
-      {
-        "he": "אבל בנות מקבלות הצעה לטיפול פחות",
-        "en": "But girls are offered treatment far less often",
-        "query": "doctor writing notes"
-      },
-      {
-        "he": "וכשמקבלות זה קורה בגיל מבוגר יותר",
-        "en": "And when they do it happens at older ages",
-        "query": "calendar years passing"
-      },
-      {
-        "he": "זה לא פער ביעילות בכלל",
-        "en": "This is not a gap in how well it works",
-        "query": "identical test results"
-      },
-      {
-        "he": "זה פער במי בכלל נשאלת",
-        "en": "It is a gap in who even gets asked",
-        "query": "empty doctor chair"
-      },
-      {
-        "he": "אף אחד לא שאל אותה אז",
-        "en": "Nobody asked her the question back then",
-        "query": "girl sitting quietly"
-      },
-      {
-        "he": "כי היא לא הפריעה לאף אחד",
-        "en": "Because she was not disturbing anyone at all",
-        "query": "quiet classroom scene"
-      },
-      {
-        "he": "היא רק לא הספיקה כלום",
-        "en": "She was only never finishing anything at all",
-        "query": "unfinished homework papers"
-      },
-      {
-        "he": "וזה נראה כמו בעיה של אופי",
-        "en": "And that looked like a problem of character",
-        "query": "report card grades"
-      },
-      {
-        "he": "אני לא אומרת לך מה לעשות",
-        "en": "I am not telling you what to do here",
-        "query": "open hands gesture"
-      },
-      {
-        "he": "זאת שיחה בינך לבין רופאה",
-        "en": "This is a conversation between you and your doctor",
-        "query": "two women talking"
-      },
-      {
-        "he": "את פשוט צריכה לדעת שהשיחה קיימת",
-        "en": "You simply deserve to know the conversation exists",
-        "query": "woman opening door"
-      }
-    ],
-    "turn": [
-      {
-        "he": "את לא פספסת את הרכבת",
-        "en": "You have not missed any train at all",
-        "query": "train station platform"
-      },
-      {
-        "he": "אף אחד לא הראה לך אותה",
-        "en": "Nobody ever showed you where it was",
-        "query": "empty railway tracks"
-      },
-      {
-        "he": "תשאלי מה הבדיקה כוללת בכלל",
-        "en": "Ask what an assessment actually involves first",
-        "query": "woman asking doctor"
-      },
-      {
-        "he": "ואז תחליטי מה נכון לך",
-        "en": "And then decide what is right for you",
-        "query": "woman making decision"
+        "he": "הלכנו לישון בלי לנסח התנצלות",
+        "en": "We went to sleep without writing an apology.",
+        "query": "warm living room evening"
       }
     ]
   },
   {
     "pillar": "food",
-    "idea": "A meta analysis of twelve studies found raised risk of all eating disorder syndromes in ADHD, with similar risk estimates for women and men.",
-    "limitingBelief": "האכילה שלי היא חוסר שליטה עצמית פרטי שלי.",
-    "empoweringBelief": "זה חלק מוכר מהתמונה, ויש לו שם ויש לו מחקר.",
-    "factsUsed": [
-      "eating-disorders-all"
-    ],
-    "title": "האכילה היא חלק מהתמונה",
-    "caption": "סקירה של 12 מחקרים מצאה סיכון גבוה יותר לכל סוגי הפרעות האכילה אצל אנשים עם קשב, והסיכון דומה אצל נשים וגברים. אותה מערכת שמאבדת את הרסן מול הודעה או מול דחף מאבדת אותו גם במקומות אחרים. זה לא תחום נפרד ולא כישלון פרטי. אם האכילה מרגישה לך מחוץ לשליטה, זאת סיבה טובה לדבר עם איש מקצוע. מקור: הצהרת הקונצנזוס של מומחי ADHD על נשים, כתב העת BMC Psychiatry.",
+    "idea": "The chain of steps before a meal is what cancels dinner, and food you assemble instead of cook still counts.",
+    "limitingBelief": "אם לא בישלתי, לא באמת אכלתי ארוחה.",
+    "empoweringBelief": "אוכל שלא בושל הוא ארוחה לכל דבר.",
+    "factsUsed": [],
+    "title": "אוכל שלא מבשלים הוא עדיין אוכל",
+    "caption": "לפעמים מה שעוצר את הארוחה זה לא הרעב, אלא הסיר שצריך לשטוף קודם. אוכל שלא מבשלים הוא עדיין אוכל, ושלושה דברים על צלחת זאת ארוחה לכל דבר. הערב שלושה דברים על צלחת אחת 🍽️",
     "hook": {
-      "he": "האכילה שיצאה משליטה היא חלק מזה",
-      "en": "Eating that went out of control belongs here",
-      "query": "kitchen at night"
+      "he": "מחבת אחת בכיור, ואין ארוחה",
+      "en": "One pan in the sink, and no meal",
+      "query": "pan in sink"
     },
     "value": [
       {
-        "he": "לא רק התקפי זלילה בלילה",
-        "en": "Not only binge episodes late at night",
-        "query": "open fridge night"
+        "he": "לפני האוכל יש עוד שלב",
+        "en": "Before the food there is another step",
+        "query": "kitchen counter evening"
       },
       {
-        "he": "סקירה של 12 מחקרים מצאה משהו",
-        "en": "A review of twelve studies found something clear",
-        "query": "stack of research papers"
+        "he": "לשטוף, לקלף, למצוא סיר נקי",
+        "en": "Wash something, peel something, find a clean pot",
+        "query": "hands washing pot"
       },
       {
-        "he": "סיכון גבוה לכל סוגי הפרעות האכילה",
-        "en": "Raised risk across every eating disorder syndrome",
-        "query": "empty plate table"
+        "he": "ופתאום רואים את כל השלבים",
+        "en": "And suddenly you see all the steps",
+        "query": "cutting board knife"
       },
       {
-        "he": "והסיכון דומה אצל נשים וגברים",
-        "en": "And the risk is similar for women and men",
-        "query": "two people eating"
+        "he": "ואז פשוט לא אוכלים כלום",
+        "en": "And then nothing gets eaten at all",
+        "query": "fridge door closing"
       },
       {
-        "he": "זה לא תחום נפרד מהקשב",
-        "en": "This is not a separate area from attention",
-        "query": "connected puzzle pieces"
+        "he": "ועובר עוד זמן בלי אוכל",
+        "en": "And more time passes with no food",
+        "query": "empty coffee cup"
       },
       {
-        "he": "אותה מערכת שמאבדת את הרסן",
-        "en": "The same system that loses its brakes entirely",
-        "query": "car brake pedal"
+        "he": "זו לא עצלות, זה הרבה שלבים",
+        "en": "This is not laziness, it is many steps",
+        "query": "person sitting tired"
       },
       {
-        "he": "מאבדת אותו גם מול הצלחת",
-        "en": "Loses them in front of the plate too",
-        "query": "plate on table"
+        "he": "מרגיש כאילו ארוחה חייבת להיות מבושלת",
+        "en": "It feels like a meal has to be cooked",
+        "query": "pot on stove"
       },
       {
-        "he": "ויסות רגשי ודחפים זה אותו שריר",
-        "en": "Emotion and impulse control are one single muscle",
-        "query": "arm muscle strain"
+        "he": "אוכל שלא מבשלים הוא עדיין אוכל",
+        "en": "Food that was never cooked is still food",
+        "query": "bread on counter"
       },
       {
-        "he": "את לא חלשה ולא חסרת שליטה",
-        "en": "You are not weak and not lacking control",
-        "query": "woman standing strong"
+        "he": "לחם, גבינה, מלפפון, זאת ארוחה",
+        "en": "Bread, cheese and cucumber is a real meal",
+        "query": "cheese cucumber board"
       },
       {
-        "he": "יש לזה שם ויש לזה מחקר",
-        "en": "This has a name and it has research",
-        "query": "book open page"
+        "he": "שלושה דברים מהמקרר על צלחת",
+        "en": "Three things from the fridge onto one plate",
+        "query": "hand opening fridge"
       },
       {
-        "he": "את לא צריכה להילחם בזה לבד",
-        "en": "You do not have to fight this alone",
-        "query": "two hands together"
+        "he": "כדאי מדף אחד עם אוכל מוכן",
+        "en": "One shelf with food that is ready",
+        "query": "pantry shelf jars"
       },
       {
-        "he": "ובטח לא בשקט מוחלט",
-        "en": "And certainly not in complete silence either",
-        "query": "woman speaking openly"
+        "he": "לא צריך לבשל כדי לאכול",
+        "en": "You do not need to cook to eat",
+        "query": "simple plate table"
       }
     ],
     "turn": [
       {
-        "he": "אם האכילה מרגישה לך מחוץ לשליטה",
-        "en": "If eating feels out of your control lately",
-        "query": "woman sitting kitchen"
+        "he": "אתמול אכלתי משהו לפני הערב",
+        "en": "Yesterday I ate something before the evening",
+        "query": "plate window light"
       },
       {
-        "he": "זאת סיבה לדבר עם איש מקצוע",
-        "en": "That is a reason to speak with a professional",
-        "query": "therapist office chairs"
+        "he": "בלי בישול, בלי סיר, בלי כלים",
+        "en": "No cooking, no pot, no dishes to wash",
+        "query": "clean empty sink"
       },
       {
-        "he": "לא סיבה להתבייש עוד שנה",
-        "en": "Not a reason to feel ashamed another year",
-        "query": "woman covering face"
+        "he": "פתחתי את המקרר, וזה הספיק",
+        "en": "I opened the fridge, and that was enough",
+        "query": "open fridge light"
       },
       {
-        "he": "תדברי על זה עם מישהי שמבינה",
-        "en": "Talk about it with someone who truly understands",
-        "query": "two women talking"
+        "he": "ובערב נשאר לי כוח לעוד משהו",
+        "en": "In the evening I had energy for something more",
+        "query": "lamp living room"
+      }
+    ]
+  },
+  {
+    "idea": "Why the standard advice to work in total silence does not fit everyone with ADHD, and what is worth trying instead.",
+    "pillar": "daily",
+    "limitingBelief": "אם גם חדר שקט לא עוזר, אז הבעיה בי.",
+    "empoweringBelief": "השקט לא מתאים לכולם, והמוח לא הבעיה.",
+    "factsUsed": [],
+    "title": "בחדר השקט הראש הכי רועש",
+    "caption": "כל החיים אומרים שצריך חדר שקט כדי להתרכז. יש אנשים שדווקא בשקט מוחלט נתקעים, ואז השעמום נהיה ממש קשה. אף אחד לא שאל מה עוזר לך. אז שווה לנסות היום רעש אחד ברקע וטיימר קצר, ולכתוב לי בתגובות מה עבד אצלך: שקט מוחלט או קצת רעש? 🎧",
+    "hook": {
+      "he": "בחדר הכי שקט הראש הכי רועש",
+      "en": "In the quietest room your head gets loudest",
+      "query": "empty quiet library"
+    },
+    "value": [
+      {
+        "he": "ותמיד נותנים את אותה עצה, שקט",
+        "en": "And the advice is always the same, quiet",
+        "query": "closed office door"
+      },
+      {
+        "he": "הטלפון במגירה והדלת כבר סגורה",
+        "en": "The phone is in a drawer, the door already closed",
+        "query": "phone inside drawer"
+      },
+      {
+        "he": "וחצי שעה אחר כך, כלום",
+        "en": "And half an hour later, still nothing",
+        "query": "wall clock ticking"
+      },
+      {
+        "he": "ושוב זה נראה כמו כישלון שלך",
+        "en": "And again it looks like your own failure",
+        "query": "person head hands"
+      },
+      {
+        "he": "אבל העצה הזאת לא מתאימה לכולם",
+        "en": "But that advice does not fit everyone",
+        "query": "old textbook page"
+      },
+      {
+        "he": "יש מי שצריך שקט כדי להתרכז",
+        "en": "Some people really need quiet to focus",
+        "query": "quiet study room"
+      },
+      {
+        "he": "ויש מי שהשקט דווקא מקשה עליו",
+        "en": "And for some people quiet makes it harder",
+        "query": "student staring window"
+      },
+      {
+        "he": "ואף אחד לא שאל מה עוזר",
+        "en": "And nobody ever asked what actually helps",
+        "query": "empty waiting room"
+      },
+      {
+        "he": "יש אנשים שבשקט מוחלט נתקעים",
+        "en": "Some people get stuck in total silence",
+        "query": "bare white wall"
+      },
+      {
+        "he": "ואז השעמום נהיה ממש קשה",
+        "en": "And then the boredom gets really hard",
+        "query": "fidgeting hands table"
+      },
+      {
+        "he": "שווה לנסות קצת רעש ברקע",
+        "en": "It is worth trying a little background noise",
+        "query": "headphones on desk"
+      },
+      {
+        "he": "רעש אחד ברקע, וטיימר קצר",
+        "en": "One sound in the background and a short timer",
+        "query": "kitchen timer counter"
+      }
+    ],
+    "turn": [
+      {
+        "he": "אתמול הדלת נשארה פתוחה והמוזיקה התנגנה",
+        "en": "Yesterday the door stayed open and the music played",
+        "query": "open door hallway"
+      },
+      {
+        "he": "לא היה שקט, והצלחת להתחיל",
+        "en": "There was no silence, and you managed to start",
+        "query": "person typing laptop"
+      },
+      {
+        "he": "עשרים דקות עברו והטופס כבר התמלא",
+        "en": "Twenty minutes passed and the form was already filling in",
+        "query": "sand timer running"
+      },
+      {
+        "he": "הטופס נשלח, והמוזיקה עוד התנגנה",
+        "en": "The form was sent while the music still kept playing",
+        "query": "hand closing laptop"
+      }
+    ]
+  },
+  {
+    "pillar": "daily",
+    "idea": "A five minute phone call carried around for three weeks, and the first move that is only picking the phone up.",
+    "limitingBelief": "אם עוד לא עשיתי את זה, כנראה אין לי מספיק רצון.",
+    "empoweringBelief": "המוח לא מגיב למילה חשוב, אז מתחילים מצעד אחד.",
+    "factsUsed": [
+      "boring-not-hard"
+    ],
+    "title": "השיחה שנסחבת כבר שלושה שבועות",
+    "caption": "שיחה של חמש דקות יכולה להיסחב שלושה שבועות, וזה לא בגלל שהיא קשה. המוח הזה לא מגיב למילה חשוב, הוא מגיב לעניין ולדחיפות. הטריק הוא לא לתכנן את השיחה, אלא רק להרים את הטלפון. איזו שיחה נסחבת אצלך עכשיו? 📞",
+    "hook": {
+      "he": "שיחה של חמש דקות, שלושה שבועות",
+      "en": "A five minute call, carried around for three weeks.",
+      "query": "phone screen contact"
+    },
+    "value": [
+      {
+        "he": "המספר שמור, הטלפון ביד",
+        "en": "The number is saved and the phone is right there.",
+        "query": "hand holding phone"
+      },
+      {
+        "he": "וזה לא קורה כבר שבועות",
+        "en": "And still it has not happened for weeks.",
+        "query": "calendar days passing"
+      },
+      {
+        "he": "המוח לא מתעורר מהמילה חשוב",
+        "en": "This brain does not wake up for the word important.",
+        "query": "person at desk thinking"
+      },
+      {
+        "he": "הוא מתעורר מעניין ומדחיפות",
+        "en": "It wakes up for interest and for urgency.",
+        "query": "clock ticking closeup"
+      },
+      {
+        "he": "שיחה משעממת לא מפעילה כלום",
+        "en": "A boring call switches nothing on at all.",
+        "query": "phone face down table"
+      },
+      {
+        "he": "אז היא נדחית עוד יום",
+        "en": "So it gets pushed to tomorrow one more time.",
+        "query": "sticky note reminder"
+      },
+      {
+        "he": "והדחייה הזאת מוסיפה לה כובד",
+        "en": "And each delay makes it feel a little heavier.",
+        "query": "cluttered desk evening"
+      },
+      {
+        "he": "עד שהיא נראית גדולה מדי",
+        "en": "Until it looks far bigger than it really is.",
+        "query": "small note long shadow"
+      },
+      {
+        "he": "הטריק הוא לא לתכנן אותה",
+        "en": "The trick is not to plan the call at all.",
+        "query": "crossing out plan"
+      },
+      {
+        "he": "אלא לעשות צעד אחד קטן",
+        "en": "The trick is one very small first move.",
+        "query": "finger tapping screen"
+      },
+      {
+        "he": "להרים את הטלפון ולחייג",
+        "en": "Pick the phone up and start dialling.",
+        "query": "person dialling phone"
+      },
+      {
+        "he": "בלי להחליט כמה זמן נדבר",
+        "en": "Without deciding how long it will take.",
+        "query": "window light morning"
+      }
+    ],
+    "turn": [
+      {
+        "he": "אתמול השיחה נמשכה ארבע דקות",
+        "en": "Yesterday that call lasted only four minutes.",
+        "query": "short phone call"
+      },
+      {
+        "he": "שלושה שבועות מול ארבע דקות",
+        "en": "Three weeks of waiting, against four real minutes.",
+        "query": "calendar crossed off"
+      },
+      {
+        "he": "הטלפון חזר לשולחן והיה שקט",
+        "en": "The phone went back down and it was quiet.",
+        "query": "phone on quiet table"
+      },
+      {
+        "he": "ונשאר כוח לדבר הבא",
+        "en": "And there was energy left for the next thing.",
+        "query": "person walking outside calm"
       }
     ]
   }
