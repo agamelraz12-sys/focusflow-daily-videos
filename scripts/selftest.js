@@ -1,8 +1,8 @@
 'use strict';
 /* Checks the rules that must never silently drift. No API keys needed. */
 const {
-  CTA, MIN_FEMININE_LINES, MOTIVATORS: MOTIVATORS_FOR_TEST,
-  countWords, lineIsLegal, dodgesHer, carriesFeminineMark, countFeminine,
+  CTA, MOTIVATORS: MOTIVATORS_FOR_TEST,
+  countWords, lineIsLegal, picksAGender,
 } = require('./lib/copy_rules.js');
 const { israelToUTC } = require('./main.js');
 
@@ -27,8 +27,8 @@ for (const [platform, lines] of Object.entries(CTA)) {
       // instead — that is the thing that must not drift.
       const rows = l.he.split('\n');
       const expected = platform === 'instagram'
-        ? ['תגיבי "אני" אם את עדיין כאן,', 'וקבלי 7 ימי ניסיון באפליקציה', 'בחינם 👇']
-        : ['את רוצה 7 ימי ניסיון', 'באפליקציה בחינם?', '', 'כנסי לקישור בפרופיל שלנו.'];
+        ? ['לכתוב "אני" בתגובות', 'ולקבל 7 ימי ניסיון באפליקציה', 'בחינם 👇']
+        : ['רוצה 7 ימי ניסיון', 'באפליקציה בחינם?', '', 'הקישור בפרופיל שלנו.'];
       check(`${platform}[${i}] card row count`, rows.length, expected.length);
       expected.forEach((want, n) => check(`${platform}[${i}] row ${n + 1}`, rows[n], want));
     } else {
@@ -43,49 +43,55 @@ check('three words rejected', lineIsLegal('רק שלוש מילים'), false);
 check('seven words rejected', lineIsLegal('אחת שתיים שלוש ארבע חמש שש שבע'), false);
 
 /*
- * The account speaks to one woman (2026-09-18). These checks used to assert the
- * exact opposite and were rewritten with the rule, not worked around. JS's \b is
+ * THE ADDRESS RULE HAS FLIPPED THREE TIMES AND THESE CHECKS FLIPPED WITH IT.
+ * They were rewritten each time rather than deleted or worked around, which is
+ * why the history is readable here at all:
+ *
+ *   2026-08-08  gender neutral, singular address rejected
+ *   2026-09-18  one woman, and this file then DEMANDED feminine lines
+ *   2026-10-14  neutral again, on her words: keep the content general for
+ *               people with ADHD
+ *
+ * So today a line is wrong for picking a gender in either direction. JS's \b is
  * defined against [A-Za-z0-9_], so it never matches a Hebrew word boundary and a
  * blocklist built on it is dead code that always passes — hence the tokeniser.
  */
-console.log('\nspeaks to her: catches the wrong address');
-check('catches אתה', !!dodgesHer('אתה צריך להתחיל עכשיו מיד'), true);
-check('catches a masculine order opening the line', !!dodgesHer('תתחיל מחר בבוקר בשקט'), true);
-check('catches קח anywhere in the line', !!dodgesHer('פשוט קח דף וכתוב שורה'), true);
-check('catches plural verbs', !!dodgesHer('תתחילו היום בשתי דקות בלבד'), true);
-check('catches plural possessive', !!dodgesHer('הרשימה שלכם מחכה כבר חודשים'), true);
-check('catches plural past tense', !!dodgesHer('אם הגעתם עד לכאן תגיבו'), true);
+console.log('\naddress: catches a line that picks a gender');
+check('catches אתה', !!picksAGender('אתה צריך להתחיל עכשיו מיד'), true);
+check('catches a masculine order opening the line', !!picksAGender('תתחיל מחר בבוקר בשקט'), true);
+check('catches קח anywhere in the line', !!picksAGender('פשוט קח דף וכתוב שורה'), true);
+// the same sentence in the other direction. Until 2026-10-14 this one PASSED.
+check('catches תתחילי, the feminine', !!picksAGender('תתחילי מחר בבוקר בשקט'), true);
+check('catches את opening the line', !!picksAGender('את לא עצלנית, זה ADHD'), true);
+check('catches בואי', !!picksAGender('בואי ננסה משהו אחד קטן'), true);
+check('catches plural verbs', !!picksAGender('תתחילו היום בשתי דקות בלבד'), true);
+check('catches plural possessive', !!picksAGender('הרשימה שלכם מחכה כבר חודשים'), true);
+check('catches plural past tense', !!picksAGender('אם הגעתם עד לכאן תגיבו'), true);
 
-console.log('\nspeaks to her: leaves good copy alone');
-check('allows feminine singular', !!dodgesHer('תתחילי מחר בבוקר בשקט'), false);
-check('allows שלך, which is both genders', !!dodgesHer('הרשימה שלך מחכה כבר חודשים'), false);
-check('allows את as pronoun', !!dodgesHer('את לא עצלנית, זה ADHD'), false);
+console.log('\naddress: the three registers that must pass');
+check('infinitive', !!picksAGender('להתחיל מהדבר הכי קטן היום'), false);
+check('we', !!picksAGender('נתחיל מדבר אחד ונראה'), false);
+check('impersonal', !!picksAGender('אפשר להתחיל גם בלי מוטיבציה'), false);
+
+console.log('\naddress: ordinary Hebrew the check must not eat');
+check('שלך is spelled the same for both', !!picksAGender('הרשימה שלך מחכה כבר חודשים'), false);
+check('סיימת is spelled the same for both', !!picksAGender('סיימת את זה ולא שמת לב'), false);
+check('רוצה is spelled the same for both', !!picksAGender('רוצה שבוע אחד שעובד אחרת?'), false);
 // the accusative particle is ordinary Hebrew and must never be flagged
-check('allows accusative את mid sentence', !!dodgesHer('לפתוח את המחברת ולכתוב שורה'), false);
+check('accusative את mid sentence', !!picksAGender('לפתוח את המחברת ולכתוב שורה'), false);
 // a feminine noun takes the same verb form as a masculine "you" — this is the
 // false positive that a flat blocklist produces, and it must not come back
-check('allows a feminine noun subject', !!dodgesHer('המשימה תמשיך לחכות שם'), false);
-check('allows a plain description', !!dodgesHer('המוח מחפש עניין ולא חשיבות'), false);
-
-console.log('\nfeminine that survives being read out loud');
-check('תתחילי can only be read one way', carriesFeminineMark('תתחילי מהדבר הכי קטן'), true);
-check('שתתחילי counts too', carriesFeminineMark('אין צורך שתתחילי מהסוף'), true);
-check('את as subject counts', carriesFeminineMark('את לא צריכה עוד שיטה'), true);
-// spelled identically for both genders, so the narrator has to guess — these
-// must NOT count towards the quota, which is the entire point of the check
-check('שלך does not count, it is spelled the same', carriesFeminineMark('הרשימה שלך מחכה כבר חודשים'), false);
-check('הגעת does not count either', carriesFeminineMark('הגעת עד לכאן וזה מספיק'), false);
-check('counts across a script', countFeminine([
-  'את לא עצלנית, זה ADHD',
-  'המוח מחפש עניין ולא חשיבות',
-  'תתחילי מהדבר הכי קטן',
-  'תרגישי את זה תוך דקה',
-]), 3);
-check('the quota is reachable', countFeminine([
-  'את לא עצלנית, זה ADHD',
-  'תתחילי מהדבר הכי קטן',
-  'תרגישי את זה תוך דקה',
-]) >= MIN_FEMININE_LINES, true);
+check('a feminine noun subject', !!picksAGender('המשימה תמשיך לחכות שם'), false);
+check('a plain description', !!picksAGender('המוח מחפש עניין ולא חשיבות'), false);
+// את in the MIDDLE of a line. The first-token test misses it, and the natural
+// way to write it is one token with a prefix (כשאת), not two.
+check('כשאת plus a feminine participle', !!picksAGender('כשאת מתחילה הכל נתקע'), true);
+check('שאת plus a feminine participle', !!picksAGender('שאת מרגישה תקועה זה נורמלי'), true);
+check('but accusative את before a noun is fine', !!picksAGender('לכתוב את המחשבה על דף'), false);
+check('and third person is a character, not the reader', !!picksAGender('היא מתחילה ולא מסיימת'), false);
+check('ש plus ב is not an order to sit', !!picksAGender('המערכת שב ADHD כבר חסרה'), false);
+check('שבו is the relative pronoun', !!picksAGender('השבוע שבו הכל נתקע'), false);
+check('an infinitive has no gender', !!picksAGender('אפשר לקחת את זה לרופא'), false);
 
 console.log('\nline breaks survive the trip to ASS');
 // stripEmoji collapses whitespace, so a card handed over whole came out as one

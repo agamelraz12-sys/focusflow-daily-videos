@@ -16,8 +16,8 @@ const path = require('path');
 const https = require('https');
 
 const {
-  AVATAR, MOTIVATORS, CTA, CTA_QUERIES, MIN_FEMININE_LINES,
-  countWords, lineIsLegal, dodgesHer, countFeminine,
+  AVATAR, MOTIVATORS, CTA, CTA_QUERIES,
+  countWords, lineIsLegal, picksAGender, tokens,
   mentionsDiet, prescribes, disagrees,
 } = require('./lib/copy_rules.js');
 const {
@@ -349,24 +349,28 @@ HEBREW RULES — these are hard rules and the script is rejected if any is broke
 - Every "he" line is between 4 and 6 words. Not 3. Not 7. Count the words.
 - Third grade Hebrew. Every single word must be understandable to an eight year old.
   No loan words, no jargon, no clever phrasing that needs a second read.
-- Speak to ONE WOMAN, in the singular feminine. This is not optional and it is the rule
-  most likely to be broken by accident, so read the script back for it before returning.
-  * Right: את, שלך, לך, אותך, תתחילי, תכתבי, תרגישי, מתחילה, עייפה.
-  * Wrong, masculine: אתה, תתחיל, תכתוב, קח, בוא.
-  * Wrong, plural: תגיבו, תתחילו, שלכם, לכם, אתכם, הגעתם. She specifically rejected the
-    plural. It makes the account sound like a phone company writing to a customer base.
-  * Wrong, dodging: do not escape into impersonal phrasing to avoid choosing a gender.
-    מי ש, אנשים ש, אפשר ל, כדאי ל, הדרך היא. A line or two like that is ordinary Hebrew;
-    a whole script of it is a script that never actually spoke to her.
-- At least three lines in the script must use a form that can ONLY be read as feminine:
-  a verb ending in י (תתחילי, תרגישי, תכתבי), a participle ending in ה or ת (מתחילה,
-  יושבת), or את as the subject. This is a narration requirement, not a style one. שלך,
-  לך, אותך and הגעת are spelled the same for both genders, so a script built only from
-  those is read aloud by the voice as if it were talking to a man.
-- Check the agreement in every line before you return it. Writing in the feminine makes
-  it easy to slip on the words that agree with the NOUN instead of with her: "זו אתגר"
-  is wrong because אתגר is masculine, "זה אתגר" is right, and "היום שלך מוכן" is right
-  for the same reason. She is the person, not every noun in the sentence.
+- NEVER PICK A GENDER. The account is for anyone with ADHD, women and men. This rule was
+  the other way round until 2026-10-14 and is now reversed, so ignore any instinct that
+  this content should sound feminine. A script is rejected for addressing a man OR a
+  woman, and it is the rule most likely to be broken by accident, so read every line back
+  for it before returning.
+  * Wrong, feminine: את יכולה, תתחילי, תכתבי, תרגישי, בואי, קחי.
+  * Wrong, masculine: אתה יכול, תתחיל, תכתוב, קח, בוא.
+  * Wrong, plural: תגיבו, תתחילו, שלכם, לכם, אתכם, הגעתם. She rejected the plural
+    separately, as sounding like a phone company writing to a customer base.
+  * Wrong, clumsy: never a slash form like תתחיל/י or בחר/י. It makes the reader stop
+    and parse a slash, and it is the ugliest way to dodge this.
+- THE THREE REGISTERS THAT WORK, in order of preference. Reach for the first one first.
+  * infinitive: להתחיל מדבר אחד, לכתוב את זה בתגובות, לנסות שוב מחר
+  * "we":        נתחיל מדבר אחד, נבחר משימה אחת, ניקח דקה
+  * impersonal:  אפשר להתחיל בקטן, לא צריך לסיים הכל היום
+  The infinitive is the most direct and should carry most instructions. "we" is warm and
+  good for the turn. The impersonal is the softest, so use it least.
+- Words Hebrew spells the same for both genders are completely fine and always were:
+  שלך, לך, אותך, סיימת, הצלחת, אמרת, רוצה, עונה, עושה. Use them freely. They are how a
+  line stays personal without picking a side.
+- Check the agreement in every line before you return it: "זו אתגר" is wrong because
+  אתגר is masculine, "זה אתגר" is right. The demonstrative agrees with the NOUN.
 - Zero dashes anywhere in the Hebrew. No hyphen, no en dash, no em dash.
 - Emoji are allowed only in the caption, never inside a "he" line.
 - Every line has to be something a real person would actually say out loud. Read it back
@@ -492,8 +496,8 @@ function validate(draft) {
     if (/[�]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:^|[^\uD800-\uDBFF])[\uDC00-\uDFFF]/.test(cue.he)) {
       problems.push(`${where}: "${cue.he}" contains a broken character, rewrite the line`);
     }
-    const dodge = dodgesHer(cue.he);
-    if (dodge) problems.push(`${where}: "${cue.he}" — ${dodge}`);
+    const gendered = picksAGender(cue.he);
+    if (gendered) problems.push(`${where}: "${cue.he}" — ${gendered}`);
     const agreement = disagrees(cue.he);
     if (agreement) problems.push(`${where}: "${cue.he}" — ${agreement}`);
     if (!cue.en || countWords(cue.en) < 5) problems.push(`${where}: English narration too short`);
@@ -572,23 +576,41 @@ function validate(draft) {
   }
 
   /*
-   * The per-line check above only bans the wrong address; it cannot demand the
-   * right one, because most lines describe something and correctly address
-   * nobody. So the requirement lands here, on the script as a whole: enough
-   * lines have to carry a form that can only be read as feminine for the
-   * narrator to never have to guess. See carriesFeminineMark for why spelling
-   * alone is not enough once a line is spoken out loud.
+   * There used to be a quota here demanding at least three unmistakably
+   * FEMININE lines per script, because the narrator had to be stopped from
+   * guessing. On 2026-10-14 the account went back to addressing nobody's
+   * gender, which removes the problem at the root rather than solving it: a
+   * line in the infinitive cannot be narrated as the wrong gender, because it
+   * does not carry one. The quota is gone, not disabled, and `picksAGender`
+   * now rejects both directions per line.
    */
-  const spoken = [draft.hook, ...(draft.value || []), ...(draft.turn || [])]
-    .filter((c) => c && typeof c.he === 'string')
-    .map((c) => c.he);
-  const feminine = countFeminine(spoken);
-  if (feminine < MIN_FEMININE_LINES) {
-    problems.push(
-      `script: only ${feminine} line(s) are unmistakably feminine, need ${MIN_FEMININE_LINES}. ` +
-      'Rewrite some lines to speak to her directly (את, תתחילי, תרגישי, מתחילה) ' +
-      'instead of describing people in general.',
-    );
+
+  /*
+   * THE HOOK IS THE WHOLE VIDEO, so it gets its own check.
+   *
+   * Everything downstream is wasted if nobody watches past the first line, and
+   * the failure mode is specific and recognisable: the model writes a title
+   * instead of a hook. "דרכים להתחיל משימות" is a heading. "המשימה הזאת
+   * יושבת ברשימה שבוע, ולוקחת ארבע דקות" is a hook. The difference is that a
+   * hook opens something the viewer now needs closed.
+   *
+   * Only shapes that are mechanically detectable are checked here; the rest of
+   * the work is done by the brief. A greeting or an announcement of what the
+   * video will cover is the one thing worth refusing outright.
+   */
+  const hookHe = draft.hook && typeof draft.hook.he === 'string' ? draft.hook.he : '';
+  if (hookHe) {
+    const t = tokens(hookHe);
+    const ANNOUNCEMENTS = ['היום', 'בסרטון', 'בפוסט', 'נדבר', 'אספר', 'נלמד', 'שלום', 'היי', 'ברוכים'];
+    const announces = ANNOUNCEMENTS.filter((w) => t.includes(w));
+    // "היום" alone is fine inside a scene ("היום שלך התחיל אחרת"); it is only
+    // an announcement next to one of the telling verbs.
+    const telling = ['נדבר', 'אספר', 'נלמד', 'בסרטון', 'בפוסט'].some((w) => t.includes(w));
+    if (telling) {
+      problems.push(`hook: "${hookHe}" announces what the video will be about. A hook opens a gap, it does not introduce one. Start inside the scene instead.`);
+    } else if (announces.includes('שלום') || announces.includes('היי') || announces.includes('ברוכים')) {
+      problems.push(`hook: "${hookHe}" opens with a greeting. Nobody stops scrolling for a greeting. Open on the claim.`);
+    }
   }
 
   return problems;

@@ -285,7 +285,63 @@ const PILLARS = [
  */
 const SOURCE_YOUNG = 'Young et al., Females with ADHD: an expert consensus statement taking a lifespan approach, BMC Psychiatry 2020, 20:404';
 
+/*
+ * The Monash hormone survey, added 2026-09-30 for the carousel posts. It is the
+ * first study to ask women with ADHD about their symptoms across every
+ * hormonal stage of life at once, and its three headline numbers are the most
+ * useful thing in this whole file for an audience that has never been told any
+ * of this. Confirmed against Monash's own research portal and its press release
+ * independently before being written down.
+ */
+const SOURCE_MONASH = 'Osianlis, Gurvich et al., HER Centre Australia, Monash University. ADHD in females: survey findings on symptoms across hormonal life stages, Journal of Psychiatric Research. Online survey of 600 women, June to November 2023';
+
 const FACTS = [
+  // -------------------------------------------------- hormones (Monash) ---
+  {
+    id: 'hormones-lifespan',
+    pillars: ['health', 'womanhood', 'mood'],
+    claim: [
+      'The first study to ask women with ADHD about every hormonal stage of life',
+      'at once surveyed 600 of them. 97% said their symptoms got worse during',
+      'menopause. 88% said their symptoms change across the menstrual cycle, and',
+      'mostly in the two weeks before the period. More than 70% said things got',
+      'worse after having a baby. Almost every woman in that survey noticed it.',
+      'Almost none of them had ever been told it was connected.',
+    ].join(' '),
+    numbers: ['600', '97', '88', '70'],
+    citable: true,
+    source: SOURCE_MONASH,
+    frame: [
+      'These are what women reported about themselves, which is the strength of',
+      'the study and also its limit: say "women said", never "it will happen to',
+      'you". Never use it to predict her month or her forties.',
+    ].join(' '),
+  },
+  {
+    id: 'multimorbidity',
+    pillars: ['health', 'womanhood'],
+    claim: [
+      'A study following more than 120,000 women aged 18 to 32 found that women',
+      'who had ADHD as girls were more than twice as likely to be living with',
+      'several long term health conditions at once, across breathing, gut,',
+      'hormonal, autoimmune and mental health. Growing up poor on top of it',
+      'raised that again. The point is not that her body is failing. The point is',
+      'that her body and her attention were never two separate stories, and the',
+      'medical system has been treating them as though they were.',
+    ].join(' '),
+    numbers: ['120,000', '120000', '18', '32'],
+    citable: true,
+    source: 'Wilson et al., Intersecting trajectories of childhood ADHD, socioeconomic deprivation and distinct multimorbidity patterns in women, Nature Mental Health 2026. Population cohort of women born in Wales 1991 to 1998',
+    frame: [
+      'The single most frightening fact in this file and the easiest to misuse.',
+      'Say "more than twice as likely", never a decimal risk ratio: the precise',
+      'figures circulating for this came from secondary coverage and were not',
+      'read at the primary source. NEVER present it as her future. It exists',
+      'here to connect her tiredness, her pain and her attention into one story',
+      'she can take to a doctor, not to tell her what is coming.',
+    ].join(' '),
+  },
+
   // ---------------------------------------------------------- womanhood ---
   {
     id: 'dx-gap',
@@ -463,7 +519,7 @@ const FACTS = [
       'is about three times the risk. PMDD is not a bad mood before a period. It is',
       'a week where the floor goes.',
     ].join(' '),
-    numbers: ['715', '31.4', '9.8', '3'],
+    numbers: ['715', '31.4', '9.8', '3', '18', '34'],
     citable: true,
     source: 'Broughton, Lambert, Wertz & Agnew-Blais, British Journal of Psychiatry, 2025, n=715, RR 3.19',
     frame: 'Never diagnose her with it. Name it so she can take it to a doctor.',

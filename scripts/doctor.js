@@ -102,7 +102,26 @@ function post(host, urlPath, headers, body) {
     }
     if (r.status === 200) ok('Gemini', `${model} responding`);
     else if (r.status >= 500) warn('Gemini', `${model} overloaded (HTTP ${r.status}) — the writer will retry`);
-    else bad('Gemini', `HTTP ${r.status} on ${model} — ${r.body.slice(0, 140)}`);
+    /*
+     * A REFUSAL IS NOT FATAL WHEN THE QUEUE CAN CARRY THE DAY.
+     *
+     * The branch above already forgives a MISSING key while scripts are
+     * queued, on exactly the right reasoning: a queued script never calls
+     * Gemini, so the run does not need it. That reasoning was then dropped
+     * here, where the key exists and the API refuses it, and the consequence
+     * was eleven consecutive nights dead: from 2026-10-03 every run failed in
+     * under a minute on `HTTP 402 ... prepayment credits are depleted`, while
+     * eight perfectly good hand written scripts sat in the queue untouched.
+     * Everything else in the preflight was green the whole time.
+     *
+     * 402 means no credit, 429 means out of quota, 403 means the key was
+     * revoked. All three are the founder's to fix and none of them stop a
+     * queued script from being rendered and posted tonight. So they block only
+     * when there is nothing queued to fall back on.
+     */
+    else if (queued > 0) {
+      warn('Gemini', `HTTP ${r.status} on ${model}, so nothing new can be written — but ${queued} script(s) are queued and a queued script never calls Gemini. ${r.body.slice(0, 110)}`);
+    } else bad('Gemini', `HTTP ${r.status} on ${model} and the queue is empty, so there is nothing to post — ${r.body.slice(0, 140)}`);
   }
 
   // Narration. Microsoft's he-IL voices are native Hebrew and free; ElevenLabs

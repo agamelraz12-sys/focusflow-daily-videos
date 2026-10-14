@@ -41,46 +41,50 @@ function lineIsLegal(text) {
  * read the same description instead of three drifting copies of it.
  */
 const AVATAR = {
-  hebrew: 'אישה עם ADHD, מגיל 18 עד גיל 50',
-  who: 'One woman with ADHD, anywhere from eighteen to about fifty. Women only.',
+  hebrew: 'אדם עם ADHD',
+  who: 'One person with ADHD. Not a gender, not an age band.',
   /*
-   * The band was 18 to 25 for a few hours on 2026-09-18 and the founder widened
-   * it to 50 the same day. Do not narrow it back.
+   * THIS HAS NOW BEEN SET THREE TIMES AND THE REASONING IS WORTH KEEPING.
    *
-   * Why this matters beyond reach: a narrow band quietly forces every example
-   * into one life, and the moment a video assumes a lecture and a shared flat,
-   * the thirty eight year old watching it knows the account is not for her. The
-   * specificity that makes a video land therefore moves OUT of the person and
-   * INTO the scene, which is where it belonged anyway. The scenes vary from
-   * video to video. The woman they are written to does not.
+   *   2026-09-12  everyone, any age, any gender
+   *   2026-09-18  one woman with ADHD, eighteen to about fifty
+   *   2026-10-14  back to everyone, in her words: keep the content general
+   *               for people with ADHD. Testers said the product is not only
+   *               for women and the app flipped the same day in PR #193.
    *
-   * At this width she is sometimes a mother, which closes the gap with the
-   * product direction — Sol was pointed at mothers with ADHD on 2026-09-17.
+   * What did NOT change across all three is the part that actually makes a
+   * video land, and that is the point: the three struggles below were written
+   * for a woman and are true of anybody with this wiring. Nothing underneath
+   * had to be rewritten when the address changed, which is the clearest
+   * evidence that the address was never what made the content work.
    */
   life: [
-    'A student, a woman at work, a mother of small children, a woman running her',
-    'own thing, or several of those at once. Do not fix on one: pick a different',
-    'life for the scene each time, and never write a line that only makes sense',
-    'in one of them. What she has instead of an age is the three things below.',
+    'A student, someone at work, a parent of small children, someone running',
+    'their own thing, or several of those at once. Do not fix on one: pick a',
+    'different life for the scene each time, and never write a line that only',
+    'makes sense inside one of them. A line that assumes children tells everyone',
+    'without them that the account is not for them, and so does a line that',
+    'assumes a lecture hall. What the viewer has instead of a demographic is the',
+    'three things below.',
   ].join(' '),
   /*
-   * The three things she came here for, in the founder's own order of pain.
-   * These, not her age, are what makes a video recognisable — and all three are
-   * as true at forty five as they are at nineteen, which is why the band could
-   * widen without the content changing underneath it.
+   * The three things they came here for, in the founder's own order of pain.
+   * These, not an age and not a gender, are what makes a video recognisable.
    */
   struggles: [
     'MOODS. The feeling moves faster than the day does. A good morning that is',
-    'gone by noon for no reason she can name, a small comment that flattens her',
-    'for hours, boredom that arrives as physical restlessness, the crash after a',
-    'day where everything finally worked. She experiences this as being unstable',
-    'or "too much", and nobody has ever told her it is part of the same wiring.',
+    'gone by noon for no reason anyone can name, a small comment that flattens',
+    'the whole afternoon, boredom that arrives as physical restlessness, the',
+    'crash after a day where everything finally worked. It gets experienced as',
+    'being unstable or "too much", and nobody has ever said it is part of the',
+    'same wiring.',
     'FINISHING. Starting sometimes happens. Finishing almost never does. Nine',
     'things open at once, each one eighty percent done, and the last twenty',
-    'percent of every single one is where her life is stuck.',
+    'percent of every single one is where the whole life is stuck.',
     'RUNNING AN ORDINARY DAY. The boring machinery of being an adult: the form,',
-    'the appointment, the laundry that made it to the chair, the bank app she',
-    'has not opened, eating at hours that make sense, going to sleep on purpose.',
+    'the appointment, the laundry that made it to the chair, the bank app nobody',
+    'has opened in months, eating at hours that make sense, going to sleep on',
+    'purpose.',
   ].join(' '),
 };
 
@@ -110,8 +114,26 @@ const AVATAR = {
  *    world), and a rule that blocks good copy gets switched off the first time
  *    it fires, after which it guards nothing. The brief discourages them instead.
  */
+/*
+ * Three words were removed from these lists on 2026-09-30, and it is worth
+ * saying why rather than quietly shortening them. They were found by running
+ * the first carousel copy through this checker: it rejected five lines and all
+ * five were the checker being wrong, which is the failure that eventually gets
+ * a guard switched off entirely.
+ *
+ *   שב      was here as the masculine "sit down". In real Hebrew it is almost
+ *           always the prefix pair ש plus ב: "המערכת שב ADHD כבר חסרה".
+ *   שבו     was in the plural list as "sit down, all of you". In real Hebrew it
+ *           is the relative pronoun: "השבוע שבו את נשברת".
+ *   לקחת    was here as masculine. It is an infinitive and carries no gender at
+ *           all: "תוכלי לקחת אותו לרופאה" is flawless feminine copy.
+ *
+ * None of the three had ever fired on the 141 hooks already published, so the
+ * lists lost nothing real. An imperative to sit is not a sentence this account
+ * would ever write; a relative clause is one it writes constantly.
+ */
 const MASCULINE_ANYWHERE = new Set([
-  'אתה', 'בוא', 'קח', 'שב', 'תן', 'לקחת',
+  'אתה', 'בוא', 'קח', 'תן',
 ]);
 
 // Flagged only when the line opens with them — see trap 2 above.
@@ -123,7 +145,7 @@ const MASCULINE_OPENER = new Set([
 
 const PLURAL_ADDRESS = new Set([
   'אתם', 'אתן', 'לכם', 'מכם', 'בכם', 'אתכם', 'אתכן',
-  'קחו', 'כנסו', 'קבלו', 'וקבלו', 'בואו', 'שבו', 'לכו', 'תנו', 'שימו', 'זכרו',
+  'קחו', 'כנסו', 'קבלו', 'וקבלו', 'בואו', 'לכו', 'תנו', 'שימו', 'זכרו',
   'הגעתם', 'ראיתם', 'שמעתם', 'ניסיתם', 'חשבתם', 'עשיתם', 'הרגשתם', 'ידעתם',
   'שכחתם', 'הגעתן', 'ניסיתן',
 ]);
@@ -151,49 +173,100 @@ function isPluralVerb(word) {
 }
 
 /*
- * Returns a short reason the line does not speak to her, or null when it is
- * clean. A line that simply describes something ("המוח מחפש עניין ולא חשיבות")
- * is clean: the rule bans the dodges, it does not demand the marker in every
- * line. The marker is required at the script level instead, by countFeminine.
+ * Feminine second person. Unlike the masculine future, none of these has a
+ * third person reading, so they are flagged wherever they appear.
+ *   בואי, קחי, כנסי   feminine imperatives
+ *   תתחילי, תרגישי    second person feminine future, the yod ending
+ * `את` is the exception and must only be flagged in subject position, because
+ * it is also the ordinary accusative particle: "לפתוח את הטופס" is genderless
+ * Hebrew and rejecting it would reject half the language.
  */
-function dodgesHer(text) {
+const FEMININE_WORDS = new Set([
+  'בואי', 'קחי', 'שבי', 'תני', 'כנסי', 'קבלי', 'וקבלי', 'לבדי', 'תגיבי', 'כתבי', 'סמני',
+]);
+
+function isFeminineFuture(word) {
+  return /^ש?ת[֐-׿]{2,}י$/.test(word);
+}
+
+/*
+ * The words that turn a following את from the accusative particle into the
+ * pronoun. Each is a feminine participle or adjective that can only be
+ * agreeing with the person being spoken to. Deliberately a short closed list:
+ * a general "any feminine participle" rule would flag "היא מתחילה", which is
+ * a character in a scene and perfectly good copy.
+ */
+const FEM_AFTER_AT = new Set([
+  'יכולה', 'צריכה', 'מצליחה', 'עייפה', 'יודעת', 'מתחילה', 'מוכנה', 'עוצרת',
+  'חייבת', 'נכנסת', 'מקבלת', 'תקועה', 'נשברת', 'מרגישה', 'חושבת', 'זוכרת',
+  'לבד', 'כאן',
+]);
+
+/*
+ * THIS RULE HAS NOW FLIPPED THREE TIMES. Read before "fixing" it.
+ *
+ *   2026-08-08  speak to everyone. Gender neutral, singular address rejected.
+ *   2026-09-18  speak to one woman. The neutral guard was deleted, not left
+ *               dormant, and this file demanded three feminine lines a script.
+ *   2026-10-14  reversed again, on her words: keep the content general for
+ *               people with ADHD. Testers complained and the product is not
+ *               only for women. The app flipped the same day in PR #193.
+ *
+ * The lesson that survived all three, written down twice before and worth
+ * repeating: THE AUDIENCE DESCRIPTION DOES NOT DECIDE THE ADDRESS, SHE DOES.
+ * Do not infer either direction from "the audience is women with ADHD".
+ *
+ * So today a line is rejected for picking a gender in EITHER direction, and
+ * the registers that pass are the ones the app already settled on, in order of
+ * preference:
+ *   infinitive   להתחיל, לכתוב בתגובות, לנסות שוב
+ *   "we"         נתחיל מדבר אחד, נבחר משימה אחת
+ *   impersonal   אפשר לנסות, לא צריך לסיים הכל
+ * Words Hebrew spells the same for both genders were always fine and still
+ * are: שלך, לך, אותך, סיימת, הצלחת, רוצה.
+ *
+ * Plural is still rejected, and that is not a leftover. She rejected
+ * שלכם/לכם in August as sounding like a phone company writing to a customer
+ * base, and nothing since has changed that.
+ */
+function picksAGender(text) {
   const t = tokens(text);
+
   const masc = t.find((w) => MASCULINE_ANYWHERE.has(w));
-  if (masc) return `"${masc}" speaks to a man`;
-  if (t.length && MASCULINE_OPENER.has(t[0])) return `"${t[0]}" opens as an order to a man`;
+  if (masc) return `"${masc}" speaks to a man. Use the infinitive, "we", or an impersonal form.`;
+  if (t.length && MASCULINE_OPENER.has(t[0])) {
+    return `"${t[0]}" opens as an order to a man. Use the infinitive, "we", or an impersonal form.`;
+  }
+
+  const fem = t.find((w) => FEMININE_WORDS.has(w) || isFeminineFuture(w));
+  if (fem) return `"${fem}" speaks to a woman. Use the infinitive, "we", or an impersonal form.`;
+  if (t[0] === 'את') return '"את" opens as an address to a woman. Use the infinitive, "we", or an impersonal form.';
+  /*
+   * את as a pronoun in the MIDDLE of a line, which the first-token test misses:
+   * "כשאת מתחילה", "אם את עייפה". It cannot simply be flagged anywhere, because
+   * את is also the accusative particle and "לפתוח את הטופס" is genderless
+   * Hebrew. What separates them is the next word: the particle is followed by a
+   * noun, the pronoun by a verb or an adjective that agrees with her. Same
+   * shape as the app's own guard, which pairs את with a feminine adjective.
+   */
+  // כשאת and שאת are one token, not two, so an exact match on "את" misses the
+  // most natural way to write this ("כשאת מתחילה"). Build the forms forward.
+  const i = t.findIndex((w) => w === 'את' || w === 'שאת' || w === 'כשאת' || w === 'ואת');
+  if (i > -1 && FEM_AFTER_AT.has(t[i + 1])) {
+    return `"${t[i]} ${t[i + 1]}" speaks to a woman. Use the infinitive, "we", or an impersonal form.`;
+  }
+
   const plural = t.find((w) => PLURAL_ADDRESS.has(w) || isPluralPossessive(w) || isPluralVerb(w));
-  if (plural) return `"${plural}" is plural, write to one woman`;
+  if (plural) return `"${plural}" is plural, which she rejected as sounding like a phone company.`;
+
   return null;
 }
 
 /*
- * Does this line CARRY its femininity, rather than merely permit it?
- *
- * Hebrew writes שלך, לך, אותך, הגעת identically for both genders, so a script
- * can read feminine on the page and still be narrated as masculine — the TTS
- * has to choose between mimcha and mimech and gets it wrong often. It happened
- * twice on the promo reel. Only a form with the yod or he ending (תתחילי,
- * מתחילה) can be read one way, so the validator requires a few of those in
- * every script and the narrator never has to guess.
+ * Kept as an alias so nothing that imported the old name breaks silently while
+ * the flip settles. It is the same check; only what counts as wrong changed.
  */
-const FEMININE_WORDS = new Set(['בואי', 'קחי', 'שבי', 'תני', 'כנסי', 'קבלי', 'וקבלי', 'לבדי']);
-
-function carriesFeminineMark(text) {
-  const t = tokens(text);
-  if (t[0] === 'את') return true;                        // pronoun, subject position
-  if (t.some((w) => FEMININE_WORDS.has(w))) return true;
-  // תתחילי, שתתחילי, תרגישי — second person feminine, unmistakable out loud.
-  return t.some((w) => /^ש?ת[֐-׿]{2,}י$/.test(w));
-}
-
-function countFeminine(lines) {
-  return lines.filter((l) => carriesFeminineMark(l)).length;
-}
-
-// How many of a script's ~17 spoken lines must carry an unmistakable feminine
-// form. Three is easily reached by copy that genuinely addresses her and is not
-// reached at all by copy that hedged its way back to neutral.
-const MIN_FEMININE_LINES = 3;
+const dodgesHer = picksAGender;
 
 /*
  * TWO THINGS THIS ACCOUNT MAY NEVER SAY, checked rather than requested.
@@ -438,10 +511,26 @@ const CTA = {
   // specified. `card: true` exempts it from the one line and 4 to 6 word rules
   // — the last line is a single word on purpose. That exemption applies to the
   // closing card only, never to a translation line.
+  /*
+   * REWRITTEN NEUTRAL ON 2026-10-14, and the register was chosen rather than
+   * stumbled into. The card plays at the end of every single video, so it is
+   * the single most repeated sentence on the account and the one place a wrong
+   * gender would be heard most often.
+   *
+   * The infinitive is the app's first preference and it is the only register
+   * that works for an instruction: "we" turns a request to the viewer into a
+   * joint activity ("נכתוב אני בתגובות" is nonsense), and the impersonal
+   * ("אפשר לכתוב") is too soft to be a call to action. So: לכתוב, לקבל.
+   *
+   * רוצה is deliberate and safe. Hebrew spells it the same for a man and a
+   * woman, which is exactly the category the house rules have always allowed
+   * alongside שלך, לך and סיימת. The old cards leaned on תגיבי, וקבלי and
+   * כנסי, each of which can only be read one way.
+   */
   instagram: [
     {
-      he: 'תגיבי "אני" אם את עדיין כאן,\nוקבלי 7 ימי ניסיון באפליקציה\nבחינם 👇',
-      en: 'Comment the word me if you are still here, and get seven free trial days inside the app.',
+      he: 'לכתוב "אני" בתגובות\nולקבל 7 ימי ניסיון באפליקציה\nבחינם 👇',
+      en: 'Write the word me in the comments and get seven free trial days inside the app.',
       card: true,
     },
   ],
@@ -449,15 +538,15 @@ const CTA = {
   // one line. Also specified break for break.
   tiktok: [
     {
-      he: 'את רוצה 7 ימי ניסיון\nבאפליקציה בחינם?\n\nכנסי לקישור בפרופיל שלנו.',
-      en: 'Do you want seven free trial days inside the app? Go to the link in our profile.',
+      he: 'רוצה 7 ימי ניסיון\nבאפליקציה בחינם?\n\nהקישור בפרופיל שלנו.',
+      en: 'Want seven free trial days inside the app? The link is in our profile.',
       card: true,
     },
   ],
   youtube: [
     {
-      he: 'את רוצה 7 ימי ניסיון\nבאפליקציה בחינם?\n\nכנסי לקישור בפרופיל שלנו.',
-      en: 'Do you want seven free trial days inside the app? Go to the link in our profile.',
+      he: 'רוצה 7 ימי ניסיון\nבאפליקציה בחינם?\n\nהקישור בפרופיל שלנו.',
+      en: 'Want seven free trial days inside the app? The link is in our profile.',
       card: true,
     },
   ],
@@ -475,7 +564,6 @@ const CTA_QUERIES = [
 module.exports = {
   MIN_WORDS,
   MAX_WORDS,
-  MIN_FEMININE_LINES,
   AVATAR,
   MOTIVATORS,
   CTA,
@@ -487,8 +575,7 @@ module.exports = {
   stripEmoji,
   countWords,
   lineIsLegal,
-  dodgesHer,
-  carriesFeminineMark,
-  countFeminine,
+  picksAGender,
+  dodgesHer,   // the old name, kept pointing at the same check
   tokens,
 };
