@@ -328,10 +328,34 @@ async function main() {
     saveLedger(ledger); // checkpoint after every slot so a crash never repeats work
   }
 
-  state.lastRunDate = dateStr;
-  fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n');
-
   const ok = summary.filter((s) => s.ok).length;
+
+  /*
+   * ONLY CLAIM THE DAY IF SOMETHING ACTUALLY WENT OUT.
+   *
+   * This used to be written unconditionally, one line earlier, before `ok` had
+   * even been counted. So a run that scheduled NOTHING still recorded the day
+   * as done, committed that to the repo, and every later run that day saw
+   * "Already scheduled. Nothing to do." and stopped. One bad night turned into
+   * a permanently skipped day, and the skip looked like a success: the job
+   * went green, the log was three lines long, and Buffer was empty.
+   *
+   * That is exactly what happened on 2026-10-14. The first run of the day died
+   * on a broken fallback voice with 0/12 scheduled, marked the day finished
+   * anyway, and the next run — on fully fixed code — did nothing at all and
+   * reported success.
+   *
+   * The guard itself is worth keeping: it is what stopped the eight days of
+   * duplicate posting in August. It just has to record what happened rather
+   * than that it ran.
+   */
+  if (ok > 0) {
+    state.lastRunDate = dateStr;
+    fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n');
+  } else {
+    console.log(`Nothing was scheduled, so ${dateStr} is NOT being marked as done. The next run will try again.`);
+  }
+
   console.log(`\n=== ${ok}/${summary.length} posts scheduled for ${dateStr} ===`);
   if (ok === 0) process.exitCode = 1;
 }
