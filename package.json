@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "dotenv": "^16.4.7",
-    "msedge-tts": "^2.0.6"
+    "msedge-tts": "^2.1.0"
   },
   "engines": {
     "node": ">=20"
