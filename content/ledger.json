@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 2,
+  "motivatorCursor": 8,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -1069,7 +1069,67 @@
       "factsUsed": [
         "bullying-girls"
       ]
+    },
+    {
+      "at": "2026-10-14T12:43:57.933Z",
+      "idea": "The tied trash bag that stands by the door for days, because the last thirty seconds of an almost finished job is where an ADHD day stops.",
+      "limitingBelief": "אם אפילו שק אשפה לא יוצא, משהו בי לא בסדר.",
+      "hookHe": "שק האשפה קשור כבר יומיים",
+      "motivator": "sensitivity",
+      "pillar": "daily",
+      "factsUsed": []
+    },
+    {
+      "at": "2026-10-14T12:47:12.639Z",
+      "idea": "Why a small boring task at work is harder to start than a big difficult one",
+      "limitingBelief": "אם קשה להתחיל משימה קטנה, זאת עצלנות.",
+      "hookHe": "מצגת שלמה נגמרה, מייל אחד לא",
+      "motivator": "relief",
+      "pillar": "work",
+      "factsUsed": [
+        "boring-not-hard"
+      ]
+    },
+    {
+      "at": "2026-10-14T12:50:18.271Z",
+      "idea": "Why the same tiny setback is nothing in the morning and ends the whole evening.",
+      "limitingBelief": "אם דבר קטן מפיל ערב שלם, זו דרמה.",
+      "hookHe": "המגירה לא נסגרה והיום נגמר",
+      "motivator": "mechanism",
+      "pillar": "mood",
+      "factsUsed": [
+        "exercise"
+      ]
+    },
+    {
+      "at": "2026-10-14T12:53:32.387Z",
+      "idea": "Noticing the body on purpose once a day, instead of at the evening crash.",
+      "limitingBelief": "פשוט לא אכפת לי מהגוף שלי.",
+      "hookHe": "קמנו מהכיסא והכל כאב בבת אחת",
+      "motivator": "reframe",
+      "pillar": "health",
+      "factsUsed": []
+    },
+    {
+      "at": "2026-10-14T12:56:45.777Z",
+      "idea": "A short reply moving a plan to next week flips the whole evening, and the twenty minute pause that shortens the spiral.",
+      "limitingBelief": "כל הודעה קצרה אומרת שמישהו כועס",
+      "hookHe": "מישהו קרוב דחה פגישה, והבטן התהפכה",
+      "motivator": "sensitivity",
+      "pillar": "relationships",
+      "factsUsed": [
+        "rsd"
+      ]
+    },
+    {
+      "at": "2026-10-14T13:00:00.863Z",
+      "idea": "The chain of steps before a meal is what cancels dinner, and food you assemble instead of cook still counts.",
+      "limitingBelief": "אם לא בישלתי, לא באמת אכלתי ארוחה.",
+      "hookHe": "מחבת אחת בכיור, ואין ארוחה",
+      "motivator": "agency",
+      "pillar": "food",
+      "factsUsed": []
     }
   ],
-  "pillarCursor": 4
+  "pillarCursor": 3
 }
