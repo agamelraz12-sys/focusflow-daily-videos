@@ -1,5 +1,5 @@
 {
-  "motivatorCursor": 8,
+  "motivatorCursor": 10,
   "used": [
     {
       "at": "2026-08-08T21:20:45.160Z",
@@ -1129,7 +1129,27 @@
       "motivator": "agency",
       "pillar": "food",
       "factsUsed": []
+    },
+    {
+      "at": "2026-10-15T05:29:44.173Z",
+      "idea": "Why the standard advice to work in total silence does not fit everyone with ADHD, and what is worth trying instead.",
+      "limitingBelief": "אם גם חדר שקט לא עוזר, אז הבעיה בי.",
+      "hookHe": "בחדר הכי שקט הראש הכי רועש",
+      "motivator": "ease",
+      "pillar": "daily",
+      "factsUsed": []
+    },
+    {
+      "at": "2026-10-15T05:33:36.349Z",
+      "idea": "A five minute phone call carried around for three weeks, and the first move that is only picking the phone up.",
+      "limitingBelief": "אם עוד לא עשיתי את זה, כנראה אין לי מספיק רצון.",
+      "hookHe": "שיחה של חמש דקות, שלושה שבועות",
+      "motivator": "pride",
+      "pillar": "daily",
+      "factsUsed": [
+        "boring-not-hard"
+      ]
     }
   ],
-  "pillarCursor": 3
+  "pillarCursor": 5
 }
